@@ -1,0 +1,2 @@
+pyglet==1.5.3
+git+git://github.com/jorgecarleitao/pyglet-gui@master
