@@ -9,6 +9,7 @@ class Player:
     """
     Classe utilisée pour représenter un joueur
     """
+
     def __init__(self, name: str, color: Tuple[int, int, int]):
         self.name: str = name
         self.color: Tuple[int, int, int] = color
@@ -27,6 +28,7 @@ class Board:
     """
     Classe utilisée pour représenter le plateau de jeu
     """
+
     def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
@@ -136,6 +138,47 @@ class Board:
                                            col - (i - j) * direction[1]) for j in range(self.win_condition)}) == 1:
                     return True
         return False
+
+    def remove_column(self, column_index: int) -> None:
+        """
+        Supprime les pions d'une colonne du plateau
+        :param column_index: L'index de la colonne
+        """
+        for row in range(self.height):
+            self.grid[column_index][row] = None
+
+    def remove_row(self, row_index: int) -> None:
+        """
+        Supprime les pions d'une rangée du plateau
+        :param row_index:  L'index de la rangée
+        """
+        for column in range(self.width):
+            self.grid[column][row_index] = None
+            self.apply_gravity(column)
+
+    def remove_bottom_chip(self, column_index: int) -> None:
+        """
+        Supprime le pion le plus bas d'une colonne
+        :param column_index: L'index de la colonne
+        """
+        self.grid[column_index][0] = None
+        self.apply_gravity(column_index)
+
+    def apply_gravity(self, column_index: int) -> None:
+        """
+        Applique de la gravité dans une colonne, càd fait descendre chaque pion de cette colonne jusqu'à
+        l'emplacement vide le plus bas sous le pion
+        :param column_index: L'index de la colonne sur laquelle appliquer la gravité
+        """
+        new_column = sorted([self.grid[column_index][row] for row in range(self.height)], key=lambda x: x is not None)
+        for row, player in enumerate(new_column):
+            self.grid[column_index][row] = player
+
+    def empty_board(self) -> None:
+        """
+        Vide entièrement le plateau de jeu
+        """
+        self.grid = [[None for _ in range(self.width)] for _ in range(self.height)]
 
     def __str__(self) -> str:
         max_length = max([len(player.name) for player in self.players])
