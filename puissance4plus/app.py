@@ -1,0 +1,30 @@
+# coding: utf-8
+
+import os
+
+import mimetypes
+from flask import Flask, request, send_from_directory
+
+mimetypes.init()
+app = Flask(__name__)
+
+
+@app.route("/resource/<path:path>")
+def get_resource(path):
+    directories = {
+        "application/javascript": "js",
+        "text/css": "css",
+        "image/png": "image",
+        "image/jpeg": "image",
+        "image/svg+xml": "image",
+        "audio/mpeg": "audio"
+    }
+    ext = os.path.splitext(path)[1]
+    mimetype = mimetypes.types_map.get(ext, "text/html")
+    directory = directories.get(mimetype, "")
+    directory_path = os.path.join("resources", directory)
+    return send_from_directory(os.path.join(app.static_folder, directory_path), path)
+
+
+if __name__ == "__main__":
+    app.run()
