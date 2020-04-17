@@ -12,6 +12,7 @@ ui = FlaskUI(app)
 
 @app.route("/resource/<path:path>")
 def get_resource(path):
+    path = path.replace("/", os.path.sep)
     directories = {
         ".js": "js",
         ".css": "css",
@@ -25,8 +26,7 @@ def get_resource(path):
     }
     ext = os.path.splitext(path)[1]
     directory = directories.get(ext, "")
-    directory_path = os.path.join("resources", directory)
-    return send_from_directory(os.path.join(app.static_folder, directory_path), path)
+    return send_from_directory(os.path.join(app.static_folder, directory), path)
 
 
 @app.route("/")

@@ -12,7 +12,7 @@
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
     <option name="TEMPLATE_FOLDERS">
       <list>
-        <option value="$MODULE_DIR$/../Puissance4Plus\templates" />
+        <option value="$MODULE_DIR$/puissance4plus/templates" />
       </list>
     </option>
   </component>
