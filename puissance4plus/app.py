@@ -2,12 +2,9 @@
 
 import os
 
-import mimetypes
 from flask import Flask, request, send_from_directory, render_template
-from flaskwebgui import FlaskUI
 
 app = Flask(__name__)
-ui = FlaskUI(app)
 
 
 @app.route("/resource/<path:path>")
@@ -35,4 +32,4 @@ def index():
 
 
 if __name__ == "__main__":
-    ui.run()
+    app.run()
