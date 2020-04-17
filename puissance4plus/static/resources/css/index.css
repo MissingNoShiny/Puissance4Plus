@@ -1,0 +1,138 @@
+@font-face {
+    font-family: "optimus";
+    src: url("/resource/optimus/Optimus.otf");
+}
+@font-face {
+    font-family: "nasa";
+    src: url("/resource/nasalization/nasalization-rg.ttf");
+}
+@font-face {
+    font-family: "hh";
+    src: url("/resource/hemi_head/hemi\ head\ bd\ it.ttf");
+}
+@font-face {
+    font-family: "arcade";
+    src: url("/resource/arcade_ya/ARCADE_I.TTF");
+}
+button {
+    cursor: pointer;
+}
+:root {
+    --primary: #c62e2b;
+    --white: #fff;
+    --grey: #ddd;
+}
+main {
+    position: relative;
+    width: 1280px;
+    height: 720px;
+    border: 1px solid black;
+    margin: 0 auto;
+    font-family: "nasa";
+    background: center / contain no-repeat url("/resource/bg.jpg");
+    overflow: hidden;
+}
+header {
+    text-align: center;
+    color: var(--primary);
+    text-shadow: 0 .25rem 0 var(--white);
+}
+h1 {
+    font-size: 60px;
+}
+header span {
+    font-size: 25px;
+}
+div.buttons {
+    position: absolute;
+    left: 0;
+    top: 250px;
+}
+div.buttons button {
+    display: block;
+    width: 250px;
+    padding: 20px;
+    margin: 20px;
+    margin-left: 150px;
+    color: var(--white);
+    background: var(--primary);
+    border: none;
+    text-align: left;
+    text-decoration: none;
+    font-size: 25px;
+    transition: all .25s ease-out;
+}
+div.buttons button:hover {
+    padding-left: 50px;
+}
+menu {
+    position: absolute;
+    right: 150px;
+    top: 225px;
+    width: 550px;
+    padding: 30px 50px;
+    height: 350px;
+    background: var(--primary);
+    color: var(--white);
+    display: none;
+}
+/* MENU JOUER */
+menu.jouer section {
+    display: block;
+    height: 175px;
+    text-align: center;
+}
+menu.jouer section h2 {
+    margin: 0;
+}
+menu.jouer section h2 img {
+    height: 50px;
+}
+menu.jouer button.mode {
+    width: 100px;
+    height: 100px;
+    background: var(--grey);
+    border: none;
+    margin: 0 20px;
+}
+/* MENU REGLES */
+menu.regles {
+    overflow: auto;
+    font-family: sans-serif;
+}
+menu.regles h2 {
+    font-family: "nasa";
+}
+/* MENU OPTIONS */
+menu.options section {
+    height: 33%;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+menu.options section img {
+    height: 2rem;
+    border: 1px solid var(--white);
+}
+menu.options section.volume span {
+    font-family: monospace;
+    font-size: 2rem;
+    cursor: pointer;
+}
+/* MENU QUITTER */
+menu.quitter section {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+menu.quitter button.quitter {
+    padding: 20px;
+    background: var(--white);
+    border: none;
+    font-size: 2rem;
+}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <main>
+        <header>
+            <h1>Puissance 4 Plus</h1>
+            <span>Version 2020</span>
+        </header>
+        <div class="buttons">
+            <button class="jouer">Jouer</button>
+            <button class="regles">Règles</button>
+            <button class="options">Options</button>
+            <button class="quitter">Quitter</button>
+        </div>
+        <menu class="jouer">
+            <section>
+                <h2><img src="/resource/solo.svg"></h2>
+                <button class="mode">
+                    Mode Solo
+                </button>
+            </section>
+            <section>
+                <h2><img src="/resource/multi.svg"></h2>
+                <button class="mode">
+                    Mode Classique
+                </button>
+                <button class="mode">
+                    Mode Contre la Montre
+                </button>
+                <button class="mode">
+                    Mode Roulette
+                </button>
+            </section>
+        </menu>
+        <menu class="regles">
+            <h2>Mode Solo</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc lacinia turpis vehicula sapien venenatis, et tincidunt odio facilisis. Aliquam pellentesque turpis risus, mollis pellentesque tortor faucibus ut. Sed nunc enim, accumsan eu turpis at, varius auctor nunc. Maecenas luctus nunc erat, eu viverra augue blandit vel. Vestibulum non commodo erat. Proin hendrerit nulla non ornare tempor. Sed quam ante, porttitor ornare turpis non, tincidunt bibendum nunc. Maecenas suscipit ante ut tincidunt fermentum.</p>
+            <h2>Mode Classique</h2>
+            <p>Nam velit tortor, vehicula vitae cursus ac, mattis sed eros. Vestibulum nec orci euismod, maximus eros et, aliquet eros. Integer lacinia gravida ex, a eleifend arcu feugiat nec. Morbi vestibulum justo velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam rutrum mauris eget vestibulum porta. Phasellus blandit at ligula eget dictum. Aliquam a dignissim felis. </p>
+        </menu>
+        <menu class="options">
+            <section>
+                <h2>Langue</h2>
+                <img src="/resource/fr.jpg">
+                <img src="/resource/an.jpg">
+            </section>
+            <section class="volume">
+                <h2>Volume</h2>
+                <audio controls>
+                  <source src="/resource/test.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+                </audio>
+            </section>
+            <section>
+                <h2>Plein écran</h2>
+                <input type="checkbox">
+            </section>
+        </menu>
+        <menu class="quitter">
+            <section>
+                <h2>Voulez-vous quitter ?</h2>
+                <button class="quitter">Quitter</button>
+            </section>
+        </menu>
+    </main>
+    <script>
+        $("div.buttons button").click(e => {
+            $("menu").hide();
+            $(`menu.${$(e.target).attr("class")}`).show();
+        })
+    </script>
+{% endblock %}

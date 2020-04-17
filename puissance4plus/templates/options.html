@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <main>
+        <header>
+            <h1>Options de la partie</h1>
+            <h2>Mode de jeu choisi : SOLO</h2>
+        </header>
+        <menu>
+            <div class="partie gauche">
+                <h2>Dimentions</h2>
+                <h3>Lignes</h3>
+                <input type="text">
+                <h3>Colonnes</h3>
+                <input type="text">
+            </div>
+            <div class="partie droite">
+                <h2>Joueurs</h2>
+                <div class="joueurs">
+                    <div class="joueur">
+                        <h3>1</h3>
+                        <div>
+                            <h3>Nom</h3>
+                            <input type="text">
+                        </div>
+                        <div>
+                            <h3>Couleur</h3>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="ajouterJoueur">
+                        <button>Ajouter un joueur</button>
+                    </div>
+                </div>
+            </div>
+        </menu>
+        <footer>
+            <button class="jouer">Jouer !</button>
+        </footer>
+    </main>
+{% endblock %}
