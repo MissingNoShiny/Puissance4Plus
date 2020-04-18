@@ -10,9 +10,13 @@ class Player:
     Classe utilisée pour représenter un joueur
     """
 
-    def __init__(self, name: str, color: Tuple[int, int, int]):
+    def __init__(self, name: str, color: Tuple[int, int, int], is_ai: bool = False):
         self.name: str = name
         self.color: Tuple[int, int, int] = color
+        self.is_ai = is_ai
+
+    def __str__(self):
+        return f"Joueur {self.name} ({'ordi' if self.is_ai else 'humain'})"
 
 
 class BoardState(Enum):
