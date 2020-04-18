@@ -3,8 +3,10 @@
 import os
 
 from flask import Flask, request, send_from_directory, render_template
+from webui import WebUI
 
 app = Flask(__name__)
+ui = WebUI(app, debug=True)
 
 
 @app.route("/resource/<path:path>")
