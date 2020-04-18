@@ -16,6 +16,8 @@ class Game:
     def __init__(self):
         self.app = Flask(__name__)
         self.ui = UI(self.app, debug=True)
+        # NO CACHE
+        self.app.config["CACHE_TYPE"] = "null"
 
         @self.app.route("/resource/<path:path>")
         def get_resource(path):
@@ -36,8 +38,12 @@ class Game:
             return send_from_directory(os.path.join(self.app.static_folder, directory), path)
 
         @self.app.route("/")
-        def index():
+        def mainMenu():
             return render_template('main_menu.html')
+
+        @self.app.route("/gameOptions")
+        def gameOptionsMenu():
+            return render_template('game_options_menu.html')
 
         @self.app.route("/close")
         def close():
