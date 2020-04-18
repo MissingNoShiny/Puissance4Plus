@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import os
+import sys
 
 from flask import Flask, request, send_from_directory, render_template
 from webui import WebUI
@@ -16,6 +17,11 @@ class Game:
     def __init__(self):
         self.app = Flask(__name__)
         self.ui = UI(self.app, debug=True)
+
+        try:
+            self.app.root_path = sys._MEIPASS
+        except AttributeError:
+            self.app.root_path = os.getcwd()
 
         @self.app.route("/resource/<path:path>")
         def get_resource(path):
