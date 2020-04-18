@@ -6,8 +6,6 @@
     <title>Puissance 4 Plus - Menu principal</title>
     <link rel="stylesheet" href="/resource/global.css">
     <link rel="stylesheet" href="/resource/main_menu.css">
-    <script src="/resource/jquery-3.5.0.min.js"></script>
-    <script src="/resource/main_menu.js"></script>
 </head>
 <body>
     <header>
@@ -21,19 +19,25 @@
             <button data-target="settings">Options</button>
             <button data-target="quit">Quitter</button>
         </nav>
-        <menu data-menu="play">
-            jouer
+        <menu data-menu="play" style="display: none;">
+            <a href="/gameOptions?mode=SOLO">Mode solo</a>
+            <a href="/gameOptions?mode=CLASSIC">Mode classique</a>
+            <a href="/gameOptions?mode=TIMEATTACK">Mode contre la montre</a>
+            <a href="/gameOptions?mode=RANDOM">Mode roulette</a>
         </menu>
-        <menu data-menu="rules">
+        <menu data-menu="rules" style="display: none;">
             regles
         </menu>
-        <menu data-menu="settings">
+        <menu data-menu="settings" style="display: none;">
             params
         </menu>
-        <menu data-menu="quit">
+        <menu data-menu="quit" style="display: none;">
             quitt
             <a href="/close">QUITTER LA TAMER</a>
         </menu>
     </main>
+    <script src="/resource/jquery-3.5.0.min.js"></script>
+    <script src="/resource/global.js"></script>
+    <script src="/resource/main_menu.js"></script>
 </body>
 </html>
