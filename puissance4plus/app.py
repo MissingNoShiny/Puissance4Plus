@@ -37,7 +37,7 @@ class Game:
 
         @self.app.route("/")
         def index():
-            return render_template('index.html')
+            return render_template('main_menu.html')
 
         @self.app.route("/close")
         def close():

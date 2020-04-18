@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puissance 4 Plus - Menu principal</title>
+    <link rel="stylesheet" href="/resource/global.css">
+    <link rel="stylesheet" href="/resource/main_menu.css">
+    <script src="/resource/jquery-3.5.0.min.js"></script>
+    <script src="/resource/main_menu.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Puissance 4 Plus</h1>
+        <p>Version 2020</p>
+    </header>
+    <main>
+        <nav>
+            <button data-target="play">Jouer</button>
+            <button data-target="rules">Règles</button>
+            <button data-target="settings">Options</button>
+            <button data-target="quit">Quitter</button>
+        </nav>
+        <menu data-menu="play">
+            jouer
+        </menu>
+        <menu data-menu="rules">
+            regles
+        </menu>
+        <menu data-menu="settings">
+            params
+        </menu>
+        <menu data-menu="quit">
+            quitt
+            <a href="/close">QUITTER LA TAMER</a>
+        </menu>
+    </main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+/* FONT */
+@font-face {
+    font-family: "nasa";
+    src: url("/resource/nasalization-rg.ttf");
+}
+/* COLORS */
+:root {
+    --primary: #c62e2b;
+    --white: #fff;
+    --grey: #ddd;
+}

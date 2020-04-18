@@ -1,0 +1,142 @@
+/* ANIMATIONS */
+@keyframes textglow {
+    from {
+        text-shadow: 
+            0 0 5px var(--primary),
+            0 0 10px var(--primary), 
+            0 0 15px var(--primary), 
+            0 0 20px var(--primary), 
+            0 0 25px var(--primary), 
+            0 0 30px var(--primary), 
+            0 0 35px var(--primary), 
+            0 0 45px var(--primary);
+    }
+    to {
+        text-shadow: 
+            0 0 10px var(--primary), 
+            0 0 15px var(--primary), 
+            0 0 20px var(--primary), 
+            0 0 25px var(--primary), 
+            0 0 30px var(--primary), 
+            0 0 35px var(--primary), 
+            0 0 40px var(--primary), 
+            0 1 45px var(--primary);
+        text-shadow: 0 .25rem 0 var(--primary);
+    }
+}
+@keyframes sunshadow {
+    0% {
+        box-shadow: 0px 5px 5px rgba(255, 255, 255, .15);
+    }
+    25% {
+        box-shadow: 2.5px 2.5px 5px rgba(255, 255, 255, .15);
+    }
+    50% {
+        box-shadow: 5px 0px 5px rgba(255, 255, 255, .15);
+    }
+    75% {
+        box-shadow: 2.5px -2.5px 5px rgba(255, 255, 255, .15);
+    }
+    100% {
+        box-shadow: 0px -5px 5px rgba(255, 255, 255, .15);
+    }
+}
+/* ---- */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background-color: "#1c1660";
+    background-image: url("/resource/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    font-family: "nasa";
+    font-size: 20px;
+}
+canvas {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+/* Header */
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    margin: 0;
+    width: 100%;
+    height: calc(100vh / 3);
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    animation: textglow 10s ease-in-out infinite alternate;
+}
+header h1 {
+    font-size: 3em;
+    margin: 5vmin 0;
+}
+header p {
+    font-size: 1.5em;
+    margin: 0;
+    margin: 2.5vmin 0;
+}
+/* MAIN */
+main {
+    position: absolute;
+    top: calc(100vh / 3);
+    left: 0;
+    z-index: 10;
+    margin: 0;
+    width: 100%;
+    height: calc(100vh / 3 * 2);
+}
+main nav {
+    position: absolute  ;
+    top: 0;
+    left: 10vmin;
+    height: calc(100% - 10vmin);
+    width: calc((100vw - 30vmin) / 3);
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    align-content: stretch;
+}
+main nav button {
+    flex: 1;
+    margin: 10px 0;
+    border: none;
+    background: var(--primary);
+    color: var(--white);
+    font-family: "nasa";
+    font-size: 1.2em;
+    cursor: pointer;
+    /* animation: sunshadow 15s ease-in-out infinite alternate; */
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, .25);
+    transition: all 75ms ease-in-out;
+}
+main nav button:hover {
+    transform: scale(1.05) translateX(10px);
+    filter: brightness(.9);
+}
+main menu {
+    position: absolute;
+    top: 0;
+    right: 10vmin;
+    height: calc(100% - 10vmin);
+    width: calc((100vw - 30vmin) / 3 * 2);
+    margin: 0;
+    padding: 0;
+    background: var(--primary);
+    color: var(--white);
+    /* animation: sunshadow 15s ease-in-out infinite alternate; */
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, .25);
+    transition: all 75ms ease-in-out;
+}
