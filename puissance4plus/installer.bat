@@ -1,0 +1,1 @@
+pyinstaller app.py --onefile --add-data "static/;static" --add-data "templates/;templates"
