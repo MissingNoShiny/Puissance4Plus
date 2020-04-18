@@ -14,6 +14,9 @@ class Player:
         self.name: str = name
         self.color: Tuple[int, int, int] = color
 
+    def __str__(self):
+        return f"Joueur {self.name}"
+
 
 class BoardState(Enum):
     """
@@ -144,7 +147,7 @@ class Board:
         Supprime les pions d'une colonne du plateau
         :param column_index: L'index de la colonne
         """
-        for row in range(self.height):
+        for row in range(self.width):
             self.grid[row][column_index] = None
 
     def remove_row(self, row_index: int) -> None:
@@ -152,7 +155,7 @@ class Board:
         Supprime les pions d'une rangée du plateau
         :param row_index:  L'index de la rangée
         """
-        for column in range(self.width):
+        for column in range(self.height):
             self.grid[row_index][column] = None
             self.apply_gravity(column)
 
