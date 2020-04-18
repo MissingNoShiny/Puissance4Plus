@@ -46,8 +46,8 @@
                 </section>
                 <section class="fullscreen">
                     <h2>Plein écran</h2>
-                    <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox">
-                    <label for="fullscreen" class="toggle"></label>
+                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ status }}>
+                        <label for="fullscreen" class="toggle" ></label>
                 </section>
                 <section class="submit">
                     <input type="submit" value="Appliquer">
@@ -56,7 +56,7 @@
         </menu>
         <menu data-menu="quit" style="display: none;">
             quitt
-            <a href="/close">QUITTER LA TAMER</a>
+            <a href="/close">QUITTER</a>
         </menu>
     </main>
 {% endblock %}
