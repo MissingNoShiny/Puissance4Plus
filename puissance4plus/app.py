@@ -19,7 +19,7 @@ class Game:
 
         @self.app.route("/resource/<path:path>")
         def get_resource(path):
-            path = path.replace("/", os.path.sep)
+            # path = path.replace("/", os.path.sep)
             directories = {
                 ".js": "js",
                 ".css": "css",
@@ -39,7 +39,14 @@ class Game:
         def index():
             return render_template('index.html')
 
+        @self.app.route("/close")
+        def close():
+            self.stop()
+
         self.ui.run()
+
+    def stop(self):
+        self.ui.view.close()
 
 
 if __name__ == "__main__":
