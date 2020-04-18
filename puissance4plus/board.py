@@ -145,7 +145,7 @@ class Board:
         :param column_index: L'index de la colonne
         """
         for row in range(self.height):
-            self.grid[column_index][row] = None
+            self.grid[row][column_index] = None
 
     def remove_row(self, row_index: int) -> None:
         """
@@ -153,7 +153,7 @@ class Board:
         :param row_index:  L'index de la rangée
         """
         for column in range(self.width):
-            self.grid[column][row_index] = None
+            self.grid[row_index][column] = None
             self.apply_gravity(column)
 
     def remove_bottom_chip(self, column_index: int) -> None:
@@ -161,7 +161,7 @@ class Board:
         Supprime le pion le plus bas d'une colonne
         :param column_index: L'index de la colonne
         """
-        self.grid[column_index][0] = None
+        self.grid[0][column_index] = None
         self.apply_gravity(column_index)
 
     def apply_gravity(self, column_index: int) -> None:
@@ -170,7 +170,7 @@ class Board:
         l'emplacement vide le plus bas sous le pion
         :param column_index: L'index de la colonne sur laquelle appliquer la gravité
         """
-        new_column = sorted([self.grid[column_index][row] for row in range(self.height)], key=lambda x: x is not None)
+        new_column = sorted([self.grid[row][column_index] for row in range(self.height)], key=lambda x: x is not None)
         for row, player in enumerate(new_column):
             self.grid[column_index][row] = player
 
