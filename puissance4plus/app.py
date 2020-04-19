@@ -16,7 +16,6 @@ class UI(WebUI):
         self.view.setMinimumSize(1280, 720)
 
     def set_fullscreen(self, fullscreen):
-        print(fullscreen)
         if fullscreen:
             self.view.showFullScreen()
         else:
@@ -68,7 +67,7 @@ class Game:
 
         @self.app.route("/")
         def main_menu():
-            is_full_screen = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
+            is_full_screen = "checked" if self.ui.view.isFullScreen() else "unchecked"
             return render_template('main_menu.html',
                                    is_full_screen=is_full_screen,
                                    lang=self.language_data["main_menu"],
@@ -90,13 +89,13 @@ class Game:
             self.config.set("puissance4", "Fullscreen", str(fullscreen))
             language = request.args.get("lang", "en")
             self.config.set("puissance4", "Language", language)
+            self.save_config()
             self.update_settings()
             return redirect("/")
 
         self.ui.run()
 
     def stop(self):
-        self.save_config()
         self.ui.view.close()
 
     def load_language(self, language):
