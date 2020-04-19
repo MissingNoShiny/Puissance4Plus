@@ -27,7 +27,18 @@
             <a href="/gameOptions?mode=RANDOM">{{ lang.randomMode }}</a>
         </menu>
         <menu data-menu="rules" style="display: none;">
-            regles
+            <h2>Titre 1</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus. Fusce dapibus risus nec nibh feugiat, mattis dictum nibh luctus. Ut porta condimentum risus in egestas. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Integer non velit quis sapien ornare fermentum quis in nisi. Maecenas non sapien lobortis, tincidunt turpis et, euismod felis. Phasellus in nisl in lacus sodales lacinia. Sed efficitur risus vehicula nisi dapibus lobortis. Donec vel quam tristique, mollis dolor eu, convallis nulla. Proin sed nunc egestas orci tempor egestas. Nam venenatis sapien in pharetra viverra. Fusce odio nulla, viverra id tincidunt at, commodo nec arcu. Suspendisse potenti.
+            </p>
+            <h2>Titre 2</h2>
+            <p>
+                In sit amet dolor ipsum. Pellentesque in pellentesque lorem, eget lobortis nulla. Suspendisse volutpat mauris lacus, rhoncus molestie ipsum faucibus ut. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed rhoncus in mauris a volutpat. Donec ac convallis tortor, nec sollicitudin justo. Nullam volutpat non nulla in condimentum. Donec tellus dui, fringilla vel nulla ut, consectetur placerat purus. Quisque blandit ante a laoreet mollis. Vivamus justo metus, pellentesque eu maximus quis, ornare fringilla risus.
+            </p>
+            <h2>Titre 3</h2>
+            <p>
+                Vestibulum sit amet blandit lectus. In quis congue justo. In vitae mauris elit. Aenean at nisl sit amet sapien aliquam placerat sit amet sed urna. Pellentesque vehicula ac libero vitae tincidunt. Nullam sit amet euismod nulla. Phasellus pretium hendrerit lacus at lobortis. Donec ullamcorper euismod quam. Maecenas porttitor massa eu fermentum condimentum. Sed vitae ex non enim tempor dictum a id ligula. Duis tempus arcu eget faucibus consequat. Morbi tempus auctor sem, eget mattis odio aliquet in. Mauris ultrices nibh vel mauris varius vestibulum. Vivamus posuere eros quis metus rutrum aliquam. Suspendisse gravida lacinia diam, non viverra lorem interdum sit amet. Etiam iaculis mi non elementum rutrum. 
+            </p>
         </menu>
         <menu data-menu="settings" style="display: none;">
             <form action="/settings" method="GET">
@@ -35,18 +46,18 @@
                     <h2>{{ lang.language }}</h2>
                     <div>
                         <label>
-                            <input type="radio" name="lang" value="fr">
+                            <input type="radio" name="lang" value="fr" {% if (selected_lang == "fr") %}checked{% endif %}>
                             <img src="/resource/fr.jpg" alt="Français">
                         </label>
                         <label>
-                            <input type="radio" name="lang" value="en">
+                            <input type="radio" name="lang" value="en" {% if (selected_lang == "en") %}checked{% endif %}>
                             <img src="/resource/en.jpg" alt="English">
                         </label>
                     </div>
                 </section>
                 <section class="fullscreen">
                     <h2>{{ lang.fullscreen }}</h2>
-                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ isFullScreen }}>
+                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ is_full_screen }}>
                         <label for="fullscreen" class="toggle" ></label>
                 </section>
                 <section class="submit">

@@ -30,12 +30,11 @@ main nav button {
     font-family: "nasa";
     font-size: 1.2em;
     cursor: pointer;
-    /* animation: sunshadow 15s ease-in-out infinite alternate; */
     box-shadow: var(--shadow);
     transition: all 75ms ease-in-out;
 }
 main nav button:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) skewX(-5deg);
     filter: brightness(.9);
 }
 main menu {
@@ -49,9 +48,41 @@ main menu {
     box-sizing: border-box;
     background: var(--primary);
     color: var(--white);
-    /* animation: sunshadow 15s ease-in-out infinite alternate; */
     box-shadow: var(--shadow);
     transition: all 75ms ease-in-out;
+}
+/* PLAY */
+menu[data-menu="play"] {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+menu[data-menu="play"] a {
+    display: block;
+    width: calc(50% - 2.5vmin);
+    height: calc(50% - 2.5vmin);
+    text-align: center;
+    background: var(--secondary);
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    transform: skewX(-5deg);
+    transition: all 75ms ease-in-out;
+}
+menu[data-menu="play"] a:hover {
+    transform: scale(1.05);
+    filter: brightness(1.5);
+}
+/* RULES */
+menu[data-menu="rules"] {
+    overflow: auto;
+}
+menu[data-menu="rules"] h2 {
+    margin: 0;
 }
 /* SETTINGS */
 menu[data-menu="settings"] form {
@@ -69,7 +100,7 @@ menu[data-menu="settings"] h2 {
 }
 menu[data-menu="settings"] section {
     padding: 0;
-    padding-bottom: 5vmin;
+    padding-bottom: 10vmin;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
@@ -107,7 +138,9 @@ menu[data-menu="settings"] input[type="submit"] {
     margin: 0 auto;
     cursor: pointer;
     border: 0;
-    background: var(--white);
+    background: var(--secondary);
+    color: var(--white);
+    font-family: "nasa";
     font-size: 1.25em;
     box-shadow: var(--shadow);
 }
