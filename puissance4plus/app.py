@@ -2,24 +2,36 @@
 
 import json
 import os
+from os import path
 import sys
 from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template, redirect
+from PyQt5 import QtCore, QtMultimedia
 from webui import WebUI
 
 
 class UI(WebUI):
-    def __init__(self, app, debug=False):
+    def __init__(self, app: Flask, debug=False):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
         self.view.setMinimumSize(1280, 720)
+        self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
+        media_folder = path.join(app.static_folder, "audio")
+        url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wma"))
+        media = QtMultimedia.QMediaContent(url)
+        self.player.setMedia(media)
+        self.set_volume(50)
+        self.player.play()
 
     def set_fullscreen(self, fullscreen):
         if fullscreen:
             self.view.showFullScreen()
         else:
             self.view.showNormal()
+
+    def set_volume(self, volume):
+        self.player.setVolume(volume)
 
 class Game:
 
@@ -37,19 +49,19 @@ class Game:
             pass
             # self.app.root_path = os.getcwd()
 
-        self.game_directory = os.path.join(os.path.expanduser("~"), self.FOLDER_NAME)
+        self.game_directory = path.join(path.expanduser("~"), self.FOLDER_NAME)
         self.config = ConfigParser()
-        if os.path.exists(os.path.join(self.game_directory, "config.ini")):
-            self.config.read(os.path.join(self.game_directory, "config.ini"))
+        if path.exists(path.join(self.game_directory, "config.ini")):
+            self.config.read(path.join(self.game_directory, "config.ini"))
         else:
-            self.config.read(os.path.join(self.app.static_folder, "config.ini"))
+            self.config.read(path.join(self.app.static_folder, "config.ini"))
 
         self.language_data = {}
         self.update_settings()
 
-        @self.app.route("/resource/<path:path>")
-        def get_resource(path):
-            # path = path.replace("/", os.path.sep)
+        @self.app.route("/resource/<resource_path>")
+        def get_resource(resource_path):
+            # path = path.replace("/", path.sep)
             directories = {
                 ".js": "js",
                 ".css": "css",
@@ -61,9 +73,9 @@ class Game:
                 ".ogg": "audio",
                 ".ttf": "font",
             }
-            ext = os.path.splitext(path)[1]
+            ext = path.splitext(resource_path)[1]
             directory = directories.get(ext, "")
-            return send_from_directory(os.path.join(self.app.static_folder, directory), path)
+            return send_from_directory(path.join(self.app.static_folder, directory), resource_path)
 
         @self.app.route("/")
         def main_menu():
@@ -99,16 +111,16 @@ class Game:
         self.ui.view.close()
 
     def load_language(self, language):
-        language_folder = os.path.join(self.app.static_folder, "lang")
-        if not os.path.isfile(os.path.join(language_folder, f"{language}.json")):
+        language_folder = path.join(self.app.static_folder, "lang")
+        if not path.isfile(path.join(language_folder, f"{language}.json")):
             language = "en"
-        with open(os.path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
+        with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
     def save_config(self):
-        if not os.path.isdir(self.game_directory):
+        if not path.isdir(self.game_directory):
             os.mkdir(self.game_directory)
-        with open(os.path.join(self.game_directory, "config.ini"), "w") as file:
+        with open(path.join(self.game_directory, "config.ini"), "w") as file:
             self.config.write(file)
 
     def update_settings(self):
