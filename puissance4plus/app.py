@@ -24,7 +24,7 @@ class UI(WebUI):
 
 class Game:
 
-    FOLDER_NAME = "puissance4"
+    FOLDER_NAME = ".puissance4"
 
     def __init__(self):
         self.app = Flask(__name__)
@@ -45,6 +45,7 @@ class Game:
         else:
             self.config.read(os.path.join(self.app.static_folder, "config.ini"))
 
+        self.language_data = {}
         self.update_settings()
 
         @self.app.route("/resource/<path:path>")
@@ -68,11 +69,15 @@ class Game:
         @self.app.route("/")
         def main_menu():
             status = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
-            return render_template('main_menu.html', status=status)
+            return render_template('main_menu.html',
+                                   status=status,
+                                   language_data=self.language_data)
 
         @self.app.route("/gameOptions", methods=['GET'])
         def game_options_menu():
-            return render_template('game_options_menu.html', mode=request.args.get('mode'))
+            return render_template('game_options_menu.html',
+                                   mode=request.args.get('mode'),
+                                   language_data=self.language_data)
 
         @self.app.route("/close")
         def close():
@@ -82,6 +87,8 @@ class Game:
         def settings():
             fullscreen = False if request.args.get("fullscreen") is None else True
             self.config.set("puissance4", "Fullscreen", str(fullscreen))
+            language = request.args.get("lang", "en")
+            self.config.set("puissance4", "Language", language)
             self.update_settings()
             return redirect("/")
 
@@ -93,8 +100,10 @@ class Game:
 
     def load_language(self, language):
         language_folder = os.path.join(self.app.static_folder, "lang")
-        with open(os.path.join(language_folder, f"{language}.txt"), "r") as file:
-            data = json.load(file)
+        if not os.path.isfile(os.path.join(language_folder, f"{language}.json")):
+            language = "en"
+        with open(os.path.join(language_folder, f"{language}.json"), "r") as file:
+            return json.load(file)
 
     def save_config(self):
         if not os.path.isdir(self.game_directory):
@@ -104,6 +113,7 @@ class Game:
 
     def update_settings(self):
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
+        self.language_data = self.load_language(self.config.get("puissance4", "Language"))
 
 
 if __name__ == "__main__":
