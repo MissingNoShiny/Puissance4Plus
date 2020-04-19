@@ -14,28 +14,18 @@ class UI(WebUI):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
         self.view.setMinimumSize(1280, 720)
-        self.view.showFullScreen()
 
-
-class GameSettings:
-
-    DIRECTORY_NAME = "puissance4"
-
-    def __init__(self, static_directory):
-        self.directory = os.path.join(os.path.expanduser("~"), self.DIRECTORY_NAME)
-        self.config = ConfigParser.ConfigParser()
-        if os.path.isdir(self.directory):
-            self.config.read(os.path.join(self.directory, "config.ini"))
+    def set_fullscreen(self, fullscreen):
+        print(fullscreen)
+        if fullscreen:
+            self.view.showFullScreen()
         else:
-            os.mkdir(self.directory)
-            self.config.read(os.path.join(static_directory), "config.ini")
-
-    def save_config(self):
-        with open(os.path.join(self.directory, "config.ini"), "w") as file:
-            self.config.write(file)
-
+            self.view.showNormal()
 
 class Game:
+
+    FOLDER_NAME = "puissance4"
+
     def __init__(self):
         self.app = Flask(__name__)
         self.ui = UI(self.app, debug=True)
@@ -48,7 +38,14 @@ class Game:
             pass
             # self.app.root_path = os.getcwd()
 
-        self.settings = GameSettings(self.app.root_path)
+        self.game_directory = os.path.join(os.path.expanduser("~"), self.FOLDER_NAME)
+        self.config = ConfigParser()
+        if os.path.exists(os.path.join(self.game_directory, "config.ini")):
+            self.config.read(os.path.join(self.game_directory, "config.ini"))
+        else:
+            self.config.read(os.path.join(self.app.static_folder, "config.ini"))
+
+        self.update_settings()
 
         @self.app.route("/resource/<path:path>")
         def get_resource(path):
@@ -69,40 +66,44 @@ class Game:
             return send_from_directory(os.path.join(self.app.static_folder, directory), path)
 
         @self.app.route("/")
-        def mainMenu():
+        def main_menu():
             status = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
             return render_template('main_menu.html', status=status)
 
         @self.app.route("/gameOptions", methods=['GET'])
-        def gameOptionsMenu():
+        def game_options_menu():
             return render_template('game_options_menu.html', mode=request.args.get('mode'))
 
         @self.app.route("/close")
         def close():
-
             self.stop()
 
         @self.app.route("/settings", methods=['GET'])
-        def graphicalOptions():
-            self.toggleFullscreen(request.args.get('fullscreen'))
+        def settings():
+            fullscreen = False if request.args.get("fullscreen") is None else True
+            self.config.set("puissance4", "Fullscreen", str(fullscreen))
+            self.update_settings()
             return redirect("/")
 
         self.ui.run()
 
     def stop(self):
-        self.settings.save_config()
+        self.save_config()
         self.ui.view.close()
 
     def load_language(self, language):
         language_folder = os.path.join(self.app.static_folder, "lang")
         with open(os.path.join(language_folder, f"{language}.txt"), "r") as file:
             data = json.load(file)
-            
-    def toggleFullscreen(self, fullscreen):
-        if fullscreen:
-            self.ui.view.showFullScreen()
-        else:
-            self.ui.view.showNormal()
+
+    def save_config(self):
+        if not os.path.isdir(self.game_directory):
+            os.mkdir(self.game_directory)
+        with open(os.path.join(self.game_directory, "config.ini"), "w") as file:
+            self.config.write(file)
+
+    def update_settings(self):
+        self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
 
 
 if __name__ == "__main__":

@@ -9,7 +9,7 @@ $(document).ready(() => {
         let a = $("main menu")
         .hide()
         .filter((i, el) => {
-            return $(ev.target).data("target") == $(el).data("menu")
+            return $(ev.target).data("target") === $(el).data("menu")
         })
         .show();
     })
