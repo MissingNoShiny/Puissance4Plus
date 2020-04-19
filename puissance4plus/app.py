@@ -1,7 +1,9 @@
 # coding: utf-8
 
+import json
 import os
 import sys
+from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template
 from webui import WebUI
@@ -13,6 +15,24 @@ class UI(WebUI):
         self.view.showFullScreen()
 
 
+class GameSettings:
+
+    DIRECTORY_NAME = "puissance4"
+
+    def __init__(self, static_directory):
+        self.directory = os.path.join(os.path.expanduser("~"), self.DIRECTORY_NAME)
+        self.config = ConfigParser.ConfigParser()
+        if os.path.isdir(self.directory):
+            self.config.read(os.path.join(self.directory, "config.ini"))
+        else:
+            os.mkdir(self.directory)
+            self.config.read(os.path.join(static_directory), "config.ini")
+
+    def save_config(self):
+        with open(os.path.join(self.directory, "config.ini"), "w") as file:
+            self.config.write(file)
+
+
 class Game:
     def __init__(self):
         self.app = Flask(__name__)
@@ -21,7 +41,10 @@ class Game:
         try:
             self.app.root_path = sys._MEIPASS
         except AttributeError:
-            self.app.root_path = os.getcwd()
+            pass
+            # self.app.root_path = os.getcwd()
+
+        self.settings = GameSettings(self.app.root_path)
 
         @self.app.route("/resource/<path:path>")
         def get_resource(path):
@@ -47,12 +70,19 @@ class Game:
 
         @self.app.route("/close")
         def close():
+
             self.stop()
 
         self.ui.run()
 
     def stop(self):
+        self.settings.save_config()
         self.ui.view.close()
+
+    def load_language(self, language):
+        language_folder = os.path.join(self.app.static_folder, "lang")
+        with open(os.path.join(language_folder, f"{language}.txt"), "r") as file:
+            data = json.load(file)
 
 
 if __name__ == "__main__":
