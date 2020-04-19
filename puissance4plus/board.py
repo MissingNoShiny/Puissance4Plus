@@ -18,9 +18,6 @@ class Player:
     def __str__(self):
         return f"Joueur {self.name} ({'ordi' if self.is_ai else 'humain'})"
 
-    def __str__(self):
-        return f"Joueur {self.name}"
-
 
 class BoardState(Enum):
     """
@@ -179,7 +176,7 @@ class Board:
         """
         new_column = sorted([self.grid[row][column_index] for row in range(self.height)], key=lambda x: x is not None)
         for row, player in enumerate(new_column):
-            self.grid[column_index][row] = player
+            self.grid[row][column_index] = player
 
     def empty_board(self) -> None:
         """
