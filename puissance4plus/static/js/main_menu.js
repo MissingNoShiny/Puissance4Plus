@@ -2,20 +2,9 @@
 Math.randInt = function(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
-// Start
-$(document).ready(() => {
-    $("main menu").hide();
-    $("main nav button").click((ev) => {
-        let a = $("main menu")
-        .hide()
-        .filter((i, el) => {
-            return $(ev.target).data("target") === $(el).data("menu")
-        })
-        .show();
-    })
-})
-// 
+// Open menu on click
 function openMenu(menu) {
+    // alert(menu);
     $("main menu")
     .hide()
     .filter((i, el) => {

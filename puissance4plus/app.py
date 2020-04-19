@@ -71,13 +71,13 @@ class Game:
             status = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
             return render_template('main_menu.html',
                                    status=status,
-                                   language_data=self.language_data)
+                                   lang=self.language_data["main_menu"])
 
         @self.app.route("/gameOptions", methods=['GET'])
         def game_options_menu():
             return render_template('game_options_menu.html',
                                    mode=request.args.get('mode'),
-                                   language_data=self.language_data)
+                                   lang=self.language_data)
 
         @self.app.route("/close")
         def close():

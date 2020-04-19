@@ -1,3 +1,22 @@
 {
-  "titre" : "Puissance 4 plus"
+  "main_menu": {
+    "title" : "Puissance 4 plus",
+    "subtitle": "Version 2020",
+
+    "play": "Jouer",
+    "rules": "Règles",
+    "settings": "Paramètres",
+    "close": "Quitter",
+
+    "soloMode": "Mode solo",
+    "classicMode": "Mode classique",
+    "timeAttackMode": "Mode contre la montre",
+    "randomMode": "Mode roulette",
+
+    "language": "Langue",
+    "fullscreen": "Plein écran",
+    "apply": "Appliquer",
+
+    "closeConfirm": "Quitter l'application"
+  }
 }

@@ -10,21 +10,21 @@
 
 {% block body %}
     <header>
-        <h1>Puissance 4 Plus</h1>
-        <p>Version 2020</p>
+        <h1>{{ lang.title }}</h1>
+        <p>{{ lang.subtitle }}</p>
     </header>
     <main>
         <nav>
-            <button onclick="openMenu('play')"><span class="glitch" data-text="Jouer">Jouer</span></button>
-            <button onclick="openMenu('rules')">Règles</button>
-            <button onclick="openMenu('settings')">Options</button>
-            <button onclick="openMenu('quit')">Quitter</button>
+            <button onclick="openMenu('play')"><span class="glitch" data-text="Jouer">{{ lang.play }}</span></button>
+            <button onclick="openMenu('rules')">{{ lang.rules }}</button>
+            <button onclick="openMenu('settings')">{{ lang.settings }}</button>
+            <button onclick="openMenu('close')">{{ lang.close }}</button>
         </nav>
         <menu data-menu="play" style="display: none;">
-            <a href="/gameOptions?mode=SOLO">Mode solo</a>
-            <a href="/gameOptions?mode=CLASSIC">Mode classique</a>
-            <a href="/gameOptions?mode=TIMEATTACK">Mode contre la montre</a>
-            <a href="/gameOptions?mode=RANDOM">Mode roulette</a>
+            <a href="/gameOptions?mode=SOLO">{{ lang.soloMode }}</a>
+            <a href="/gameOptions?mode=CLASSIC">{{ lang.classicMode }}</a>
+            <a href="/gameOptions?mode=TIMEATTACK">{{ lang.timeAttackMode }}</a>
+            <a href="/gameOptions?mode=RANDOM">{{ lang.randomMode }}</a>
         </menu>
         <menu data-menu="rules" style="display: none;">
             regles
@@ -32,7 +32,7 @@
         <menu data-menu="settings" style="display: none;">
             <form action="/settings" method="GET">
                 <section class="lang">
-                    <h2>Langue</h2>
+                    <h2>{{ lang.language }}</h2>
                     <div>
                         <label>
                             <input type="radio" name="lang" value="fr">
@@ -45,18 +45,17 @@
                     </div>
                 </section>
                 <section class="fullscreen">
-                    <h2>Plein écran</h2>
+                    <h2>{{ lang.fullscreen }}</h2>
                         <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ status }}>
                         <label for="fullscreen" class="toggle" ></label>
                 </section>
                 <section class="submit">
-                    <input type="submit" value="Appliquer">
+                    <input type="submit" value="{{ lang.apply }}">
                 </section>
             </form>
         </menu>
-        <menu data-menu="quit" style="display: none;">
-            quitt
-            <a href="/close">QUITTER</a>
+        <menu data-menu="close" style="display: none;">
+            <a href="/close">{{ lang.closeConfirm }}</a>
         </menu>
     </main>
 {% endblock %}
