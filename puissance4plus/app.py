@@ -102,7 +102,7 @@ class Game:
         language_folder = os.path.join(self.app.static_folder, "lang")
         if not os.path.isfile(os.path.join(language_folder, f"{language}.json")):
             language = "en"
-        with open(os.path.join(language_folder, f"{language}.json"), "r") as file:
+        with open(os.path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
     def save_config(self):
