@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puissance 4 Plus - Menu principal</title>
-    <link rel="stylesheet" href="/resource/global.css">
+{% extends 'base_menu.html' %}
+
+{% block metas %}
     <link rel="stylesheet" href="/resource/main_menu.css">
-</head>
-<body>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/resource/main_menu.js"></script>
+{% endblock %}
+
+{% block body %}
     <header>
         <h1>Puissance 4 Plus</h1>
         <p>Version 2020</p>
@@ -29,15 +30,33 @@
             regles
         </menu>
         <menu data-menu="settings" style="display: none;">
-            params
+            <form action="/settings" method="GET">
+                <section class="lang">
+                    <h2>Langue</h2>
+                    <div>
+                        <label>
+                            <input type="radio" name="lang" value="fr">
+                            <img src="/resource/fr.jpg" alt="Français">
+                        </label>
+                        <label>
+                            <input type="radio" name="lang" value="en">
+                            <img src="/resource/en.jpg" alt="English">
+                        </label>
+                    </div>
+                </section>
+                <section class="fullscreen">
+                    <h2>Plein écran</h2>
+                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ status }}>
+                        <label for="fullscreen" class="toggle" ></label>
+                </section>
+                <section class="submit">
+                    <input type="submit" value="Appliquer">
+                </section>
+            </form>
         </menu>
         <menu data-menu="quit" style="display: none;">
             quitt
-            <a href="/close">QUITTER LA TAMER</a>
+            <a href="/close">QUITTER</a>
         </menu>
     </main>
-    <script src="/resource/jquery-3.5.0.min.js"></script>
-    <script src="/resource/global.js"></script>
-    <script src="/resource/main_menu.js"></script>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base_menu.html' %}
+
+{% block metas %}
+    <link rel="stylesheet" href="/resource/game_options_menu.css">
+{% endblock %}
+
+{% block scripts %}
+    <script src="/resource/game_options_menu.js"></script>
+{% endblock %}
+
+{% block body %}
+    {{ mode }}
+    <p>
+        {% if mode == 'SOLO' %}
+        1
+        {% elif mode == 'CLASSIC' %}
+        2
+        {% elif mode == 'TIMEATTACK' %}
+        3
+        {% elif mode == 'RANDOM' %}
+        4
+        {% endif %}
+    </p>
+    <a href="/">Retour</a>
+{% endblock %}

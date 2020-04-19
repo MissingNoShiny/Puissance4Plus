@@ -25,11 +25,6 @@ $(document).ready(() => {
 
 
 
-
-
-
-
-
 // Array.randomItems = function(array, count) {
 //     let c = count || 1;
 //     if(c <= array.length) {
