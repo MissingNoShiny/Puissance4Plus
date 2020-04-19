@@ -1,9 +1,8 @@
 # coding: utf-8
 
-import json
-import os
+import json, os, sys
 from os import path
-import sys
+from board import Board
 from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template, redirect
@@ -17,11 +16,14 @@ class UI(WebUI):
         self.view.setWindowTitle('Puissance 4 SUPER')
         self.view.setMinimumSize(1280, 720)
         self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
+        self.playlist = QtMultimedia.QMediaPlaylist()
         media_folder = path.join(app.static_folder, "audio")
         url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wma"))
         media = QtMultimedia.QMediaContent(url)
-        self.player.setMedia(media)
-        self.set_volume(50)
+        self.playlist.addMedia(media)
+        self.playlist.setPlaybackMode(QtMultimedia.QMediaPlaylist.Loop)
+        self.player.setPlaylist(self.playlist)
+        self.set_volume(20)
         self.player.play()
 
     def set_fullscreen(self, fullscreen):
