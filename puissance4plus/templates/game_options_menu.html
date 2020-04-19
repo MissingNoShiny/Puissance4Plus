@@ -9,6 +9,58 @@
 {% endblock %}
 
 {% block body %}
-    {{ mode }}
-    <a href="/">Retour</a>
+    <!-- {{ mode }}
+    <a href="/">Retour</a> -->
+    <header>
+        <h2>Options de la partie</h2>
+        <p>Mode <span class="mode glitch" data-text="{{ mode }}">{{ mode }}</span></p>
+    </header>
+    <main>
+        <menu class="left">
+            <h3>Plateau</h3>
+            <div class="options">
+                <section>
+                    <h4>Pions à aligner</h4>
+                    <input type="range" min="2" max="10" value="4" class="slider" name="winLength">
+                    <div class="sliderValue winLength">4</div>
+                </section>
+                <section>
+                    <h4>Lignes</h4>
+                    <input type="range" min="2" max="10" value="6" class="slider" name="boardRows">
+                    <div class="sliderValue boardRows">6</div>
+                </section>
+                <section>
+                    <h4>Colonnes</h4>
+                    <input type="range" min="2" max="10" value="7" class="slider" name="boardColumns">
+                    <div class="sliderValue boardColumns">7</div>
+                </section>
+            </div>
+        </menu>
+        <menu class="right">
+            <h3>Joueurs</h3>
+            <div class="options players">
+                <template class="player">
+                    <div class="player">
+                        <section>
+                            <h4 class="id"></h4>
+                        </section>
+                        <section>
+                            <h4>Nom</h4>
+                            <input type="text" maxlength="10" name="name">
+                        </section>
+                        <section>
+                            <h4>Couleur</h4>
+                            <select class="selectCustom" name="color">
+                                <option value="#fcd53d">Jaune</option>
+                                <option value="#ff0000">Rouge</option>
+                                <option value="#4caf50">Vert</option>
+                                <option value="#c8376d">Rose</option>
+                            </select>
+                        </section>
+                    </div>
+                </template>
+                <button class="newPlayer" onclick="new Player()">+</button>
+            </div>
+        </menu>
+    </main>
 {% endblock %}

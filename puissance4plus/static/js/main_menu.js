@@ -6,15 +6,18 @@ Math.randInt = function(min, max) {
 $(document).ready(() => {
     $("main menu").hide();
     $("main nav button").click((ev) => {
-        let a = $("main menu")
-        .hide()
-        .filter((i, el) => {
-            return $(ev.target).data("target") == $(el).data("menu")
-        })
-        .show();
+        
     })
 })
-
+// 
+function openMenu(menu) {
+    $("main menu")
+    .hide()
+    .filter((i, el) => {
+        return $(el).data("menu") == menu
+    })
+    .show();
+}
 
 
 

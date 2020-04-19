@@ -1,0 +1,82 @@
+header .mode {
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: var(--shadow);
+    border-radius: 5px;
+}
+/* MAIN */
+main {
+    position: absolute;
+    top: calc(100vh / 3);
+    left: 0;
+    z-index: 10;
+    margin: 0;
+    width: 100%;
+    height: calc(100vh / 3 * 2);
+}
+main menu {
+    position: absolute;
+    top: 0;
+    width: calc(50vw - 15vmin);
+    height: calc(100% - 10vmin);
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    color: var(--white);
+    background: var(--primary);
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: stretch;
+    align-items: stretch;
+    align-content: stretch;
+}
+main menu.left {
+    left: 10vmin;
+}
+main menu.right {
+    right: 10vmin;
+}
+main menu h3 {
+    font-size: 1.5em;
+    width: 100%;
+    text-align: center;
+    color: var(--white);
+}
+main menu .options {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    align-items: stretch;
+    align-content: stretch;
+}
+main menu .options section {
+    box-sizing: border-box;
+    margin: 0 20px;
+}
+main menu .options section h4 {
+    margin: 10px 0;
+}
+main menu .players {
+    overflow: auto;
+}
+main menu button.newPlayer {
+    margin: 0 auto;
+    height: 40px;
+    width: 40px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary);
+    font-weight: bold;
+    font-size: 1.5rem;
+    background: var(--white);
+    box-shadow: var(--shadow);
+}
+main menu .player section {
+    display: inline-block;
+    width: 30%;
+    margin: 0;
+}

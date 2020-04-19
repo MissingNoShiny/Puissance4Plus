@@ -15,10 +15,10 @@
     </header>
     <main>
         <nav>
-            <button data-target="play">Jouer</button>
-            <button data-target="rules">Règles</button>
-            <button data-target="settings">Options</button>
-            <button data-target="quit">Quitter</button>
+            <button onclick="openMenu('play')"><span class="glitch" data-text="Jouer">Jouer</span></button>
+            <button onclick="openMenu('rules')">Règles</button>
+            <button onclick="openMenu('settings')">Options</button>
+            <button onclick="openMenu('quit')">Quitter</button>
         </nav>
         <menu data-menu="play" style="display: none;">
             <a href="/gameOptions?mode=SOLO">Mode solo</a>
