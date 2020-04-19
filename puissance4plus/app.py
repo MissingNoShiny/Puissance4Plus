@@ -68,9 +68,9 @@ class Game:
 
         @self.app.route("/")
         def main_menu():
-            status = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
+            isFullScreen = "checked" if(self.ui.view.isFullScreen()) else "unchecked"
             return render_template('main_menu.html',
-                                   status=status,
+                                   isFullScreen = isFullScreen,
                                    lang=self.language_data["main_menu"])
 
         @self.app.route("/gameOptions", methods=['GET'])

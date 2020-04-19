@@ -15,7 +15,7 @@
     </header>
     <main>
         <nav>
-            <button onclick="openMenu('play')"><span class="glitch" data-text="Jouer">{{ lang.play }}</span></button>
+            <button onclick="openMenu('play')"><span class="glitch" data-text="{{ lang.play }}">{{ lang.play }}</span></button>
             <button onclick="openMenu('rules')">{{ lang.rules }}</button>
             <button onclick="openMenu('settings')">{{ lang.settings }}</button>
             <button onclick="openMenu('close')">{{ lang.close }}</button>
@@ -46,7 +46,7 @@
                 </section>
                 <section class="fullscreen">
                     <h2>{{ lang.fullscreen }}</h2>
-                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ status }}>
+                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ isFullScreen }}>
                         <label for="fullscreen" class="toggle" ></label>
                 </section>
                 <section class="submit">

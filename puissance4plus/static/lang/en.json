@@ -1,3 +1,22 @@
 {
-  "titre" : "Connect Four Plus"
+  "main_menu": {
+    "title" : "Connect 4 plus",
+    "subtitle": "Version 2020",
+
+    "play": "Play",
+    "rules": "Rules",
+    "settings": "Settings",
+    "close": "Close",
+
+    "soloMode": "Solo mode",
+    "classicMode": "Classic mode",
+    "timeAttackMode": "Time attack mode",
+    "randomMode": "Random mode",
+
+    "language": "Language",
+    "fullscreen": "Fullscreen",
+    "apply": "Apply",
+
+    "closeConfirm": "Close application"
+  }
 }

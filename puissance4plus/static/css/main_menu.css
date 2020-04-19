@@ -45,7 +45,8 @@ main menu {
     height: calc(100% - 10vmin);
     width: calc((100vw - 30vmin) / 3 * 2);
     margin: 0;
-    padding: 0;
+    padding: 5vmin;
+    box-sizing: border-box;
     background: var(--primary);
     color: var(--white);
     /* animation: sunshadow 15s ease-in-out infinite alternate; */
@@ -64,9 +65,11 @@ menu[data-menu="settings"] form {
 }
 menu[data-menu="settings"] h2 {
     font-size: 1.5em;
+    margin: 0;
 }
 menu[data-menu="settings"] section {
-    padding: 0 5vw;
+    padding: 0;
+    padding-bottom: 5vmin;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
