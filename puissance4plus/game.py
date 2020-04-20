@@ -5,8 +5,7 @@ import os
 import sys
 from os import path
 from configparser import ConfigParser
-
-from flask import Flask, request, send_from_directory, render_template, redirect
+from flask import Flask, request, send_from_directory, render_template, redirect, Response
 from PyQt5 import QtCore, QtMultimedia
 from webui import WebUI
 
@@ -17,8 +16,9 @@ class UI(WebUI):
     def __init__(self, app: Flask, debug: bool = False):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
-        self.view.setMinimumSize(1280, 720)
+        self.set_resolution()
         self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
+        self.set_volume(0)
         self.playlist = QtMultimedia.QMediaPlaylist()
         media_folder = path.join(app.static_folder, "audio")
         url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wma"))
@@ -28,15 +28,17 @@ class UI(WebUI):
         self.player.setPlaylist(self.playlist)
         self.player.play()
 
-    def set_fullscreen(self, fullscreen: bool):
+    def set_fullscreen(self, fullscreen: bool) -> None:
         if fullscreen:
             self.view.showFullScreen()
         else:
             self.view.showNormal()
 
-    def set_volume(self, volume: int):
+    def set_volume(self, volume: int) -> None:
         self.player.setVolume(volume)
 
+    def set_resolution(self, height: int = 720, width: int = 1280) -> None:
+        self.view.setMinimumSize(width, height)
 
 class Game:
     FOLDER_NAME = ".puissance4"
@@ -90,17 +92,23 @@ class Game:
                                    selected_lang=self.config.get("puissance4", "Language"),
                                    volume=self.ui.player.volume())
 
-        @self.app.route("/gameOptions", methods=['GET'])
+        @self.app.route("/gameOptions", methods=['GET', 'POST'])
         def game_options_menu():
-            return render_template('game_options_menu.html',
-                                   mode=self.language_data[request.args.get('mode')],
-                                   lang=self.language_data["game_options_menu"])
+            if request.method == 'GET':
+                return render_template('game_options_menu.html',
+                                       mode=self.language_data[request.args.get('mode')],
+                                       lang=self.language_data["game_options_menu"])
+            else:
+                data = request.json
+                players = []
+                for key in data["players"]:
+                    players.append(Player(data["players"][key]['name'],
+                                          tuple(int(data["players"][key]['color'].lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))))
+                self.board = Board(players, int(data['width']), int(data['height']), int(data['win_condition']))
+                return Response(status='200')
 
-        @self.app.route("/game", methods=['POST'])
+        @self.app.route("/game")
         def start_game():
-            # TODO: methode incomplète
-            self.game = Board(request.args.post('players'), request.args.post('boardColumns'),
-                              request.args.post('boardRows'), request.args.post('winLenght'))
             return render_template('game.html')
 
         @self.app.route("/close")
@@ -121,23 +129,23 @@ class Game:
 
         self.ui.run()
 
-    def stop(self):
+    def stop(self) -> None:
         self.ui.view.close()
 
-    def load_language(self, language: str):
+    def load_language(self, language: str) -> dict:
         language_folder = path.join(self.app.static_folder, "lang")
         if not path.isfile(path.join(language_folder, f"{language}.json")):
             language = "en"
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
-    def save_config(self):
+    def save_config(self) -> None:
         if not path.isdir(self.game_directory):
             os.mkdir(self.game_directory)
         with open(path.join(self.game_directory, "config.ini"), "w") as file:
             self.config.write(file)
 
-    def update_settings(self):
+    def update_settings(self) -> None:
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
