@@ -57,11 +57,6 @@ $("footer .back").click(() => {
     window.location.href = "/";
 })
 $("footer .play").click(() => {
-    // Get board options
-    let win_condition = $(".slider[name=win_condition]").val();
-    let height = $(".slider[name=height]").val();
-    let width = $(".slider[name=width]").val();
-    let body = {};
     // Get players
     if(Players.length >= 2) {
         let invalids = 0;
@@ -69,7 +64,20 @@ $("footer .play").click(() => {
             if(!p.nameValid) invalids++;
         })
         if(invalids == 0) {
-            console.log("fetch");
+            // Get board options
+            let body = {
+                win_condition: $(".slider[name=win_condition]").val(),
+                height: $(".slider[name=height]").val(),
+                width: $(".slider[name=width]").val(),
+                players: {}
+            };
+            Players.forEach(p => {
+                body.players[p.id] = {
+                    name: p.name,
+                    color: p.color
+                }
+            });
+            // Fetch
             fetch("/gameOptions", {
                 method: 'POST',
                 headers: {
