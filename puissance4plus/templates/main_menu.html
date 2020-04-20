@@ -57,8 +57,13 @@
                 </section>
                 <section class="fullscreen">
                     <h2>{{ lang.fullscreen }}</h2>
-                        <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ is_full_screen }}>
-                        <label for="fullscreen" class="toggle" ></label>
+                    <input id="fullscreen" class="toggle" name="fullscreen" type="checkbox" {{ is_full_screen }}>
+                    <label for="fullscreen" class="toggle" ></label>
+                </section>
+                <section class="volume">
+                    <h2>{{ lang.volume }}</h2>
+                    <input id="volume" name="volume" type="range" min="0" max="100" step="1" value="{{ volume }}">
+                    <label for="volume"></label>
                 </section>
                 <section class="submit">
                     <input type="submit" value="{{ lang.apply }}">
