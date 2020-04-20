@@ -4,6 +4,7 @@ import json
 import os
 import sys
 from os import path
+from puissance4plus.board import Board
 from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template, redirect
@@ -14,7 +15,7 @@ from puissance4plus.board import *
 
 
 class UI(WebUI):
-    def __init__(self, app: Flask, debug=False):
+    def __init__(self, app: Flask, debug: bool=False):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
         self.view.setMinimumSize(1280, 720)
@@ -28,13 +29,13 @@ class UI(WebUI):
         self.player.setPlaylist(self.playlist)
         self.player.play()
 
-    def set_fullscreen(self, fullscreen):
+    def set_fullscreen(self, fullscreen: bool):
         if fullscreen:
             self.view.showFullScreen()
         else:
             self.view.showNormal()
 
-    def set_volume(self, volume):
+    def set_volume(self, volume: int):
         self.player.setVolume(volume)
 
 class Game:
@@ -64,7 +65,7 @@ class Game:
         self.update_settings()
 
         @self.app.route("/resource/<resource_path>")
-        def get_resource(resource_path):
+        def get_resource(resource_path: str):
             # path = path.replace("/", path.sep)
             directories = {
                 ".js": "js",
@@ -96,6 +97,12 @@ class Game:
                                    mode=request.args.get('mode'),
                                    lang=self.language_data)
 
+        @self.app.route("/game", methods=['POST'])
+        def start_game():
+            #TODO: methode incomplète
+            self.game = Board(request.args.post('players'), request.args.post('boardColumns'), request.args.post('boardRows'), request.args.post('winLenght'))
+            return render_template('game.html')
+
         @self.app.route("/close")
         def close():
             self.stop()
@@ -117,7 +124,7 @@ class Game:
     def stop(self):
         self.ui.view.close()
 
-    def load_language(self, language):
+    def load_language(self, language: str):
         language_folder = path.join(self.app.static_folder, "lang")
         if not path.isfile(path.join(language_folder, f"{language}.json")):
             language = "en"
