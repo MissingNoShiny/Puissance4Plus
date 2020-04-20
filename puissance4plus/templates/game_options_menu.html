@@ -12,37 +12,37 @@
     <!-- {{ mode }}
     <a href="/">Retour</a> -->
     <header>
-        <h2>Options de la partie</h2>
-        <p>Mode <span class="mode glitch" data-text="{{ mode }}">{{ mode }}</span></p>
+        <h2>{{ lang.title }}</h2>
+        <p>{{ lang.mode }} <span class="mode glitch" data-text="{{ mode }}">{{ mode }}</span></p>
     </header>
     <main>
         <menu class="left">
-            <h3>Plateau</h3>
+            <h3>{{ lang.board }}</h3>
             <div class="options">
                 <section>
-                    <h4>Pions à aligner</h4>
+                    <h4>{{ lang.winLength }}</h4>
                     <input type="range" min="2" max="10" value="4" class="slider" name="win_condition">
                     <div class="sliderValue win_condition">4</div>
                 </section>
                 <section>
-                    <h4>Lignes</h4>
-                    <input type="range" min="2" max="10" value="6" class="slider" name="height">
+                    <h4>{{ lang.rows }}</h4>
+                    <input type="range" min="2" max="10" value="6" class="slider toMinimalize" name="height">
                     <div class="sliderValue height">6</div>
                 </section>
                 <section>
-                    <h4>Colonnes</h4>
-                    <input type="range" min="2" max="10" value="7" class="slider" name="width">
+                    <h4>{{ lang.columns }}</h4>
+                    <input type="range" min="2" max="10" value="7" class="slider toMinimalize" name="width">
                     <div class="sliderValue width">7</div>
                 </section>
             </div>
         </menu>
         <menu class="right">
-            <h3>Joueurs</h3>
+            <h3>{{ lang.players }}</h3>
             <div class="options players">
                 <template class="player">
                     <div class="player">
                         <!-- <span class="id"></span> -->
-                        <input class="name" type="text" maxlength="10" placeholder="Nom">
+                        <input class="name" type="text" maxlength="10" placeholder="{{ lang.name }}">
                         <span class="color"></span>
                         <button class="delete">&times;</button>
                     </div>
@@ -52,8 +52,8 @@
         </menu>
     </main>
     <footer>
-        <button class="back">Retour</button>
-        <button class="play">Jouer</button>
+        <button class="back">{{ lang.back }}</button>
+        <button class="play">{{ lang.play }}</button>
 
     </footer>
 {% endblock %}

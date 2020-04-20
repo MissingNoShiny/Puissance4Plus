@@ -2,8 +2,8 @@
 $("input.slider").on("input change", e => {
     $(".sliderValue." + e.target.name).text(e.target.value);
 })
-$("input.slider[name=winLength]").on("input change", e => {
-    $("input.slider[name^=board").attr("min", e.target.value).change();
+$("input.slider[name=win_condition]").on("input change", e => {
+    $("input.slider.toMinimalize").attr("min", e.target.value).change();
 })
 // Class Player
 let maxPlayers = 5;
