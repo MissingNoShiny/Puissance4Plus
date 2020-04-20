@@ -47,7 +47,7 @@ class Game:
         self.app.config["CACHE_TYPE"] = "null"
 
         try:
-            self.app.root_path = sys._MEIPASS
+            self.app.root_path = os.path.join(sys._MEIPASS, "puissance4plus")
         except AttributeError:
             pass
             # self.app.root_path = os.getcwd()
