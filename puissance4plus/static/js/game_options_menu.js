@@ -78,7 +78,8 @@ $("footer .play").click(() => {
             })
             .then(res => {
                 if(res.status == 200) {
-                    window.location.href = "/game";
+                    // window.location.href = "/game";
+                    alert("LANCEMENT DU JEU");
                 } else {
                     ErrorAlert("Erreur inconnue")
                 }
