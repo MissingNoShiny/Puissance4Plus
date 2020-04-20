@@ -148,7 +148,7 @@ class Board:
         Supprime les pions d'une colonne du plateau
         :param column_index: L'index de la colonne
         """
-        for row in range(self.width):
+        for row in range(self.height):
             self.grid[row][column_index] = None
 
     def remove_row(self, row_index: int) -> None:
@@ -156,7 +156,7 @@ class Board:
         Supprime les pions d'une rangée du plateau
         :param row_index:  L'index de la rangée
         """
-        for column in range(self.height):
+        for column in range(self.width):
             self.grid[row_index][column] = None
             self.apply_gravity(column)
 
@@ -174,7 +174,7 @@ class Board:
         l'emplacement vide le plus bas sous le pion
         :param column_index: L'index de la colonne sur laquelle appliquer la gravité
         """
-        new_column = sorted([self.grid[row][column_index] for row in range(self.height)], key=lambda x: x is not None)
+        new_column = sorted([self.grid[row][column_index] for row in range(self.height)], key=lambda x: x is None)
         for row, player in enumerate(new_column):
             self.grid[row][column_index] = player
 

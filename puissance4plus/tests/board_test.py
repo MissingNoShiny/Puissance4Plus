@@ -158,7 +158,7 @@ def test_remove_row():          #experimentation
         z += 1
     plateau.remove_row(f)
     while j < y:
-        apres.append(plateau.grid[f+1][j])      #retirer +1 si gravity activate
+        apres.append(plateau.grid[f][j])      #retirer +1 si gravity activate
         j += 1
     assert avant == apres
 
@@ -180,7 +180,7 @@ def test_remove_chip():         #experimentation
         z += 1
     plateau.remove_bottom_chip(f)
     while j < x - 1:
-        apres.append(plateau.grid[j+1][f])
+        apres.append(plateau.grid[j][f])
         j += 1
     assert avant == apres
 
