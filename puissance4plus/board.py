@@ -28,6 +28,31 @@ class BoardState(Enum):
     DRAW = 2
 
 
+class Effect(Enum):
+    NONE = 0
+    PLAY_TWICE = 1
+    REMOVE_ROW = 2
+    REMOVE_COLUMN = 3
+    POP_BOTTOM = 4
+    EMPTY_BOARD = 5
+    NEUTRAL_CHIP = 6
+
+    _weights = [
+        80,
+        10,
+        12,
+        12,
+        12,
+        2,
+        12
+    ]
+
+    @staticmethod
+    def generate_effect():
+        choices = list(range(6))
+        return random.choices(choices, weights=Effect._weights)
+
+
 class Board:
     """
     Classe utilisée pour représenter le plateau de jeu
@@ -46,6 +71,8 @@ class Board:
         self.current_player_index: int = 0
         self.win_condition: int = win_condition
         self.state: BoardState = BoardState.RUNNING
+        self.turn_count = 0
+        self.current_effect = None
 
     @property
     def width(self) -> int:
@@ -69,6 +96,10 @@ class Board:
         """
         return self.players[self.current_player_index]
 
+    @property
+    def non_full_columns(self):
+        return
+
     def randomize_order(self) -> None:
         """
         Mélange la liste des joueurs pour rendre l'ordre de jeu aléatoire
@@ -80,7 +111,10 @@ class Board:
         Passe le tour de jeu au joueur suivant
         :return:
         """
-        self.current_player_index = (self.current_player_index + 1) % len(self.players)
+        if self.turn_count > 0:
+            self.turn_count -= 1
+        else:
+            self.current_player_index = (self.current_player_index + 1) % len(self.players)
 
     def get_height(self, column_index: int) -> int:
         """
@@ -109,11 +143,15 @@ class Board:
             return  # TODO: Erreur
         row = self.get_height(column_index)
         self.grid[row][column_index] = self.current_player
+
+        if self.current_effect is not None:
+            self.apply_effect(row, column_index)
         if self.check_win(row, column_index):
             self.state = BoardState.WON
             return
-        if all(self.is_full(index) for index in range(self.width)):
+        if self.check_draw():
             self.state = BoardState.DRAW
+            return
         self.next_player()
 
     def get_player_at(self, row: int, col: int) -> Optional[Player]:
@@ -142,6 +180,9 @@ class Board:
                                            col - (i - j) * direction[1]) for j in range(self.win_condition)}) == 1:
                     return True
         return False
+
+    def check_draw(self):
+        return all(self.is_full(index) for index in range(self.width))
 
     def remove_column(self, column_index: int) -> None:
         """
@@ -183,6 +224,27 @@ class Board:
         Vide entièrement le plateau de jeu
         """
         self.grid = [[None for _ in range(self.width)] for _ in range(self.height)]
+
+    def give_extra_turn(self):
+        """
+        Donne un tour supplémentaire au joueur dont c'est le tour
+        """
+        self.turn_count += 1
+
+    def add_neutral_chip(self):
+        pass
+
+    def apply_effect(self, row, column):
+        if self.current_effect == Effect.PLAY_TWICE:
+            self.give_extra_turn()
+        elif self.current_effect == Effect.REMOVE_ROW:
+            self.remove_row(row)
+        elif self.current_effect == Effect.REMOVE_COLUMN:
+            self.remove_column(column)
+        elif self.current_effect == Effect.POP_BOTTOM:
+            self.remove_bottom_chip(column)
+        elif self.current_effect == Effect.EMPTY_BOARD:
+            self.empty_board()
 
     def __str__(self) -> str:
         max_length = max([len(player.name) for player in self.players])
