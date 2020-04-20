@@ -109,7 +109,7 @@ class Game:
 
         @self.app.route("/game")
         def start_game():
-            return render_template('game.html')
+            return render_template('game_board.html')
 
         @self.app.route("/close")
         def close():
