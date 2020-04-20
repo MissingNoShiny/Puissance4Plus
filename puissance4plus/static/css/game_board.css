@@ -1,0 +1,24 @@
+header {
+    background: purple;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100vw - 20vmin);
+    height: 20vmin;
+}
+menu {
+    background: tomato;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 20vmin;
+}
+main {
+    background: darkturquoise;
+    position: absolute;
+    top: 20vmin;
+    left: 0;
+    height: calc(100vh - 20vmin);
+    width: calc(100vw - 20vmin);
+}

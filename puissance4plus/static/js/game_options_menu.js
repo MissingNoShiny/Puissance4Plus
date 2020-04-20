@@ -88,20 +88,31 @@ $("footer .play").click(() => {
             })
             .then(res => {
                 if(res.status == 200) {
-                    // window.location.href = "/game";
-                    alert("LANCEMENT DU JEU");
+                    window.location.href = "/game";
                 } else {
-                    ErrorAlert("Refusé")
+                    ErrorAlert(
+                        "Refusé<br><br>"
+                        + "Denied"
+                    )
                 }
             })
             .catch(err => {
-                ErrorAlert("Erreur de réseau\nTentez de redémarrer l'application")
+                ErrorAlert(
+                    "Erreur de réseau<br>Tentez de redémarrer l'application<br><br>"
+                    + "Network error<br>Try restart the application"
+                )
             })
         } else {
-            ErrorAlert("Noms de joueur invalides : " + invalids)
+            ErrorAlert(
+                "Noms de joueur invalides : " + invalids + "<br><br>"
+                + "Invalids player names: " + invalids
+            )
         }
     } else {
-        ErrorAlert("Pas assez de joueurs pour commencer !")
+        ErrorAlert(
+            "Pas assez de joueurs pour commencer !<br><br>"
+            + "Not enough players for start"
+        )
     }
 })
 // Class Error alert
