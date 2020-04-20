@@ -61,6 +61,7 @@ $("footer .play").click(() => {
     let win_condition = $(".slider[name=win_condition]").val();
     let height = $(".slider[name=height]").val();
     let width = $(".slider[name=width]").val();
+    let body = {};
     // Get players
     if(Players.length >= 2) {
         let invalids = 0;
@@ -68,6 +69,7 @@ $("footer .play").click(() => {
             if(!p.nameValid) invalids++;
         })
         if(invalids == 0) {
+            console.log("fetch");
             fetch("/gameOptions", {
                 method: 'POST',
                 headers: {
@@ -81,7 +83,7 @@ $("footer .play").click(() => {
                     // window.location.href = "/game";
                     alert("LANCEMENT DU JEU");
                 } else {
-                    ErrorAlert("Erreur inconnue")
+                    ErrorAlert("Refusé")
                 }
             })
             .catch(err => {
