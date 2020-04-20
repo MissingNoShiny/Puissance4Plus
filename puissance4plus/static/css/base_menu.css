@@ -17,7 +17,7 @@ header {
     z-index: 10;
     margin: 0;
     width: 100%;
-    height: calc(100vh / 3);
+    height: calc(100vh / 4);
     box-sizing: border-box;
     display: flex;
     flex-flow: column nowrap;
@@ -29,10 +29,12 @@ header {
 header h1 {
     font-size: 3em;
     margin: 5vmin 0;
+    margin-bottom: 0;
 }
 header h2 {
     font-size: 2em;
     margin: 5vmin 0;
+    margin-bottom: 0;
 }
 header p {
     font-size: 1.5em;

@@ -93,8 +93,8 @@ class Game:
         @self.app.route("/gameOptions", methods=['GET'])
         def game_options_menu():
             return render_template('game_options_menu.html',
-                                   mode=request.args.get('mode'),
-                                   lang=self.language_data)
+                                   mode=self.language_data[request.args.get('mode')],
+                                   lang=self.language_data["game_options_menu"])
 
         @self.app.route("/game", methods=['POST'])
         def start_game():

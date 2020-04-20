@@ -1,4 +1,9 @@
 {
+  "SOLO": "Solo",
+  "CLASSIC": "Classique",
+  "TIMEATTACK": "Contre la montre",
+  "RANDOM": "Roulette",
+
   "main_menu": {
     "title" : "Puissance 4 plus",
     "subtitle": "Version 2020",
@@ -19,5 +24,19 @@
     "apply": "Appliquer",
 
     "closeConfirm": "Quitter l'application"
+  },
+  "game_options_menu": {
+    "title": "Options de la partie",
+    "mode": "Mode",
+
+    "board": "Plateau",
+    "winLength": "Pions à aligner",
+    "rows": "Lignes",
+    "columns": "Colonnes",
+    "players": "Joueurs",
+    "name": "Nom",
+
+    "back": "Retour",
+    "play": "Jouer"
   }
 }

@@ -1,4 +1,9 @@
 {
+  "SOLO": "Solo",
+  "CLASSIC": "Classic",
+  "TIMEATTACK": "Time Attack",
+  "RANDOM": "Random",
+
   "main_menu": {
     "title" : "Connect 4 plus",
     "subtitle": "Version 2020",
@@ -19,5 +24,19 @@
     "apply": "Apply",
 
     "closeConfirm": "Close application"
+  },
+  "game_options_menu": {
+    "title": "Game options",
+    "mode": "Mode:",
+
+    "board": "Board",
+    "winLength": "Pawns to win",
+    "rows": "Rows",
+    "columns": "Columns",
+    "players": "Players",
+    "name": "Name",
+
+    "back": "Back",
+    "play": "Play"
   }
 }
