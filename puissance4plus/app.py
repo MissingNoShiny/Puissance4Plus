@@ -1,13 +1,16 @@
 # coding: utf-8
 
-import json, os, sys
+import json
+import os
+import sys
 from os import path
-from board import Board
 from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template, redirect
 from PyQt5 import QtCore, QtMultimedia
 from webui import WebUI
+
+from puissance4plus.board import *
 
 
 class UI(WebUI):
@@ -23,7 +26,6 @@ class UI(WebUI):
         self.playlist.addMedia(media)
         self.playlist.setPlaybackMode(QtMultimedia.QMediaPlaylist.Loop)
         self.player.setPlaylist(self.playlist)
-        self.set_volume(20)
         self.player.play()
 
     def set_fullscreen(self, fullscreen):
@@ -103,6 +105,8 @@ class Game:
             self.config.set("puissance4", "Fullscreen", str(fullscreen))
             language = request.args.get("lang", "en")
             self.config.set("puissance4", "Language", language)
+            volume = request.args.get("volume", 1)
+            self.config.set("puissance4", "Volume", volume)
             self.save_config()
             self.update_settings()
             return redirect("/")
@@ -128,6 +132,7 @@ class Game:
     def update_settings(self):
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
+        self.ui.set_volume(self.config.getint("puissance4", "Volume"))
 
 
 if __name__ == "__main__":
