@@ -43,7 +43,6 @@ class Game:
 
     def __init__(self):
         self.app = Flask(__name__)
-        self.ui = UI(self.app, debug=True)
         # NO CACHE
         self.app.config["CACHE_TYPE"] = "null"
 
@@ -52,6 +51,7 @@ class Game:
         except AttributeError:
             pass
             # self.app.root_path = os.getcwd()
+        self.ui = UI(self.app, debug=True)
 
         self.game_directory = path.join(path.expanduser("~"), self.FOLDER_NAME)
         self.config = ConfigParser()
