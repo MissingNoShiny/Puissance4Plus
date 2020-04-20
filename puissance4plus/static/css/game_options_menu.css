@@ -7,12 +7,12 @@ header .mode {
 /* MAIN */
 main {
     position: absolute;
-    top: calc(100vh / 3);
+    top: calc(100vh / 4);
     left: 0;
     z-index: 10;
     margin: 0;
     width: 100%;
-    height: calc(100vh / 3 * 2);
+    height: calc(100vh / 4 * 2);
 }
 main menu {
     position: absolute;
@@ -48,7 +48,7 @@ main menu .options {
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    /* justify-content: space-around; */
     align-items: stretch;
     align-content: stretch;
 }
@@ -64,6 +64,7 @@ main menu .players {
 }
 main menu button.newPlayer {
     margin: 0 auto;
+    margin-bottom: 10px;
     height: 40px;
     width: 40px;
     border-radius: 20px;
@@ -73,10 +74,65 @@ main menu button.newPlayer {
     font-weight: bold;
     font-size: 1.5rem;
     background: var(--white);
-    box-shadow: var(--shadow);
 }
-main menu .player section {
-    display: inline-block;
-    width: 30%;
+main menu .player {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-bottom: 10px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+main menu .player > * {
+    flex: 1;
+}
+main menu .player > *:not(:last-child) {
+    margin-right: 20px;
+}
+main menu .player .id,
+main menu .player .delete {
+    max-width: 30px;
+    padding: 0;
+}
+main menu .player .name {
+    border: none;
+    font-size: 1rem;
+    background: var(--white);
+    padding: 5px;
+    box-sizing: border-box;
+}
+main menu .player .delete {
+    background: none;
+    border: none;
+    color: var(--secondary);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+/* FOOTER */
+footer {
+    position: absolute;
+    top: calc(100vh / 4 * 3);
+    left: 0;
+    z-index: 10;
     margin: 0;
+    width: 100%;
+    height: calc(100vh / 4);
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+footer button {
+    display: block;
+    width: 200px;
+    height: 50px;
+    background: var(--primary);
+    color: var(--white);
+    box-shadow: var(--shadow);
+    margin: 20px;
+    border: none;
+    cursor: pointer;
+    font-family: "nasa";
+    font-size: 1.5em;
 }
