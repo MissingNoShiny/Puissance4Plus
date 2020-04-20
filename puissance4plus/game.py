@@ -4,7 +4,6 @@ import json
 import os
 import sys
 from os import path
-from puissance4plus.board import Board
 from configparser import ConfigParser
 
 from flask import Flask, request, send_from_directory, render_template, redirect
@@ -141,7 +140,3 @@ class Game:
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
-
-
-if __name__ == "__main__":
-    Game()
