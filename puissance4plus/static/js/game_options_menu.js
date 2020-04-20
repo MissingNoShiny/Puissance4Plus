@@ -39,7 +39,6 @@ class Player {
         this.name;
         this.elmt.find(".name").on("input", e => {
             this.name = e.target.value;
-            console.log(this.name);
             if(e.target.value.length >= 2 && e.target.value.length <= 10) {
                 this.nameValid = true
             } else this.nameValid = false
@@ -58,5 +57,53 @@ $("footer .back").click(() => {
     window.location.href = "/";
 })
 $("footer .play").click(() => {
-    // TODO PLAY
+    // Get board options
+    let win_condition = $(".slider[name=win_condition]").val();
+    let height = $(".slider[name=height]").val();
+    let width = $(".slider[name=width]").val();
+    // Get players
+    if(Players.length >= 2) {
+        let invalids = 0;
+        Players.forEach(p => {
+            if(!p.nameValid) invalids++;
+        })
+        if(invalids == 0) {
+            fetch("/gameOptions", {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+            .then(res => {
+                if(res.status == 200) {
+                    window.location.href = "/game";
+                } else {
+                    ErrorAlert("Erreur inconnue")
+                }
+            })
+            .catch(err => {
+                ErrorAlert("Erreur de réseau\nTentez de redémarrer l'application")
+            })
+        } else {
+            ErrorAlert("Noms de joueur invalides : " + invalids)
+        }
+    } else {
+        ErrorAlert("Pas assez de joueurs pour commencer !")
+    }
 })
+// Class Error alert
+function ErrorAlert(message) {
+    let box = $($("#ErrorAlert")[0].content)
+    .find(".ErrorAlert")
+    .clone()
+    .appendTo("body")
+
+    box.find(".content")
+    .append(message);
+
+    box.find(".close").click(() => {
+        box.remove();
+    })
+}

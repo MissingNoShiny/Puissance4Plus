@@ -41,3 +41,48 @@ header p {
     margin: 0;
     margin: 2.5vmin 0;
 }
+/* ErrorAlert */
+.ErrorAlert {
+    z-index: 900;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, .75);
+
+}
+.ErrorAlert .content {
+    z-index: 905;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: auto;
+    width: 30vw;
+    min-width: 300px;
+    padding: 5vmin;
+    margin: 10px;
+    background: var(--secondary);
+    color: var(--white);
+    text-align: center;
+}
+.ErrorAlert .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2rem;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 75ms ease-in-out;
+}
+.ErrorAlert .close:hover {
+    transform: scale(1.2);
+    filter: brightness(.9);
+}
+.ErrorAlert h1 {
+    color: var(--primary);
+    text-shadow: var(--shadow);
+    margin-top: 0;
+    text-align: center;
+}

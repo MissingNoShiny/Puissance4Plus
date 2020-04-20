@@ -81,7 +81,7 @@ label.toggle:active:after {
 	width: 52px;
 }
 /* GLITCH EFFECT */
-.glitch {
+/* .glitch {
     position: relative;
 }
 .glitch::before,
@@ -125,7 +125,7 @@ label.toggle:active:after {
     100% {
       clip-path: inset(58% 0 43% 0);
     }
-}
+} */
 /* SLIDER TAG */
 .slider {
     -webkit-appearance: none;
