@@ -14,7 +14,7 @@ from puissance4plus.board import *
 
 
 class UI(WebUI):
-    def __init__(self, app: Flask, debug: bool=False):
+    def __init__(self, app: Flask, debug: bool = False):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
         self.view.setMinimumSize(1280, 720)
@@ -37,8 +37,8 @@ class UI(WebUI):
     def set_volume(self, volume: int):
         self.player.setVolume(volume)
 
-class Game:
 
+class Game:
     FOLDER_NAME = ".puissance4"
 
     def __init__(self):
@@ -47,7 +47,7 @@ class Game:
         self.app.config["CACHE_TYPE"] = "null"
 
         try:
-            self.app.root_path = os.path.join(sys._MEIPASS, "puissance4plus")
+            self.app.root_path = path.join(sys._MEIPASS, "puissance4plus")
         except AttributeError:
             pass
             # self.app.root_path = os.getcwd()
@@ -98,8 +98,9 @@ class Game:
 
         @self.app.route("/game", methods=['POST'])
         def start_game():
-            #TODO: methode incomplète
-            self.game = Board(request.args.post('players'), request.args.post('boardColumns'), request.args.post('boardRows'), request.args.post('winLenght'))
+            # TODO: methode incomplète
+            self.game = Board(request.args.post('players'), request.args.post('boardColumns'),
+                              request.args.post('boardRows'), request.args.post('winLenght'))
             return render_template('game.html')
 
         @self.app.route("/close")
