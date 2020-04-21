@@ -44,14 +44,14 @@ function fetchInitial() {
 }
 // Looping fetch
 let body = {};
-function fetchLooping(body) {
+function fetchLooping(column) {
     fetch("/game", {
         method: 'PUT',
         headers: {
             'Accept': 'text/plain',
             'Content-Type': 'text/plain'
         },
-        body: "4"
+        body: column
     })
     .then(res => {
         if(res.status == 200) {
