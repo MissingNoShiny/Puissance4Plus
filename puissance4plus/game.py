@@ -113,12 +113,12 @@ class Game:
         @self.app.route("/game", methods=['PUT'])
         def update_game():
             # TODO: mettre à jour le tableau
+            board_state = json.loads(self.board.to_json())
             data = {
-                "messages": [
-                    {"type": "info", "content": "ceci est un test"}
-                ],
+                "messages": [],
                 "newBoard": []
             }
+            data["newBoard"].append(board_state)
             return Response(json.dumps(data), mimetype='application/json')
 
         @self.app.route("/game", methods=['POST'])
