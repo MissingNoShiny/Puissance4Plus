@@ -5,10 +5,10 @@ from ..board import *
 #Classe Player
 
 def test_Player() :
-    player1 = Player(name='xavier', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
     assert player1.name == 'xavier'
     assert type(player1.name) is str
-    assert type(player1.color) is tuple
+    assert type(player1.color) is str
 
 
 #Classe BoardState
@@ -18,11 +18,16 @@ def test_BoardState() :
     assert etat.name == 'WON'
 
 
+def test_Effect():
+    effet = Effect(1)
+    assert effet.name == 'PLAY_TWICE'
+
+
 #Classe Board
 
 def test_Board() :
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     assert type(plateau.players) is list
     assert type(plateau.width) is int
@@ -34,38 +39,38 @@ def test_Board() :
     assert plateau.state.value == 0
 
 def test_width():
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     assert plateau.width == 7
     assert type(plateau.width) is int
 
 def test_height():
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     assert type(plateau.height) is int
     assert plateau.height == 6
 
 
 def test_current_player():
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     assert type(plateau.players[plateau.current_player_index]) is Player
 
 def test_randomize_order():
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     plateau.randomize_order()
     assert [player.name for player in plateau.players] == ['xavier', 'maxence'] or [player.name for player in plateau.players] == ['maxence', 'xavier']
 
 
 def test_next_player():
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
-    player3 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
+    player3 = Player(name='mathias', color='(150, 150, 150)')
     plateau = Board([player1, player2, player3], 7, 6, 4)
     assert plateau.current_player_index == 0
     plateau.next_player()
@@ -76,8 +81,8 @@ def test_next_player():
 
 def test_get_height():
     x = 2
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     assert type(plateau.get_height(x)) is int
     assert plateau.get_height(x) == 0
@@ -93,8 +98,8 @@ def test_is_full():
 
 def test_place():
     x, y, q, s = 3, 7, 0, 0
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):          #remplir ligne (choisir colonne)
         for a in range(x):      #remplir colonne (choisir ligne)
@@ -104,8 +109,8 @@ def test_place():
 
 def test_get_player_at():
     x, y, q, s = 3, 7, 0, 1
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):          #remplir ligne (choisir colonne)
         for a in range(x):      #remplir colonne (choisir ligne)
@@ -115,8 +120,8 @@ def test_get_player_at():
 
 def test_check_win():
     x, y, q, s = 3, 7, 0, 3
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):  # remplir ligne (choisir colonne)
         for a in range(x):  # remplir colonne (choisir ligne)
@@ -130,8 +135,8 @@ def test_remove_column():         #experimentation
     x, y = 3, 7
     f = 3               #index colonne à delete
     z = 0
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):  # remplir ligne (choisir colonne)
         for a in range(x):  # remplir colonne (choisir ligne)
@@ -147,8 +152,8 @@ def test_remove_row():          #experimentation
     z, j = 0, 0                 #pour les boucles
     avant = []                  #liste avant remove
     apres = []                  #liste apres remove
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):          # remplir ligne (choisir colonne)
         for a in range(x):      # remplir colonne (choisir ligne)
@@ -168,8 +173,8 @@ def test_remove_chip():         #experimentation
     z, j = 0, 0         # pour les boucles
     avant = []          # liste avant remove
     apres = []          # liste apres remove
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):          # remplir ligne (choisir colonne)
         for a in range(x):      # remplir colonne (choisir ligne)
@@ -188,8 +193,8 @@ def test_empty_board():         #experimentation
     x, y = 3, 7             # hauteur, longueur
     j = 0                   # pour les boucles
     apres = []              # liste apres remove
-    player1 = Player(name='xavier', color=(150, 150, 150))
-    player2 = Player(name='maxence', color=(150, 150, 150))
+    player1 = Player(name='xavier', color='(150, 150, 150)')
+    player2 = Player(name='maxence', color='(150, 150, 150)')
     plateau = Board([player1, player2], 7, 6, 4)
     for i in range(y):                  # remplir ligne (choisir colonne)
         for a in range(x):              # remplir colonne (choisir ligne)

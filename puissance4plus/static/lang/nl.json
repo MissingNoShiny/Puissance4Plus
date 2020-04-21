@@ -38,5 +38,39 @@
 
     "back": "Terug",
     "play": "Spelen"
-  }
+  },
+  "rules": [
+    {
+      "title": "Solo modus",
+      "content": [
+        "In deze modus kunt u alleen tegen de computer spelen.  Wees gewoon de eerste die 4 chips van uw ",
+        "kleur horizontaal, verticaal of diagonaal op een rijtje zet.  Als tijdens een spel alle fiches ",
+        "zonder fichesrijen worden gespeeld, wordt het spel gelijkspel verklaard. "
+      ]
+    },
+    {
+      "title": "Klassieke modus",
+      "content": [
+        "In deze modus kunt u met 2 tot 5 personen spelen. Het doel is om horizontaal, ",
+        "verticaal of diagonaal zoveel mogelijk checkers uit te lijnen als er in het spel zijn geselecteerd. ",
+        "U kunt ook de afmetingen van het raster wijzigen."
+      ]
+    },
+    {
+      "title": "Tijdrit modus",
+      "content": [
+        "In deze modus kunt u met 2 tot 5 personen spelen. Het doel blijft hetzelfde als de klassieke ",
+        "modus met het enige verschil dat je binnen een bepaalde tijd moet spelen. ",
+        "De spelopties zijn altijd beschikbaar om uw spel aan te passen. "
+      ]
+    },
+    {
+      "title": "Roulette modus",
+      "content": [
+        "In deze spelwijze wordt u aan het begin van elke beurt geleid om een willekeurig gekozen pion met een ",
+        "speciale functie te ontvangen. Het spel wordt gespeeld door 2 tot 5 personen, spel creatie opties ",
+        "zijn beschikbaar om het raster van uw spel en het aantal checkers aan te passen om te winnen. "
+      ]
+    }
+  ]
 }
