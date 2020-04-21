@@ -14,7 +14,11 @@ function buildArray(data) {
         let tr = $(document.createElement("tr"));
         for(let y = 0; y < data[i].length; y++) {
             let td = $(document.createElement("td"));
-            td.text(data[i][y] || "?");
+            if(data[i][y]) {
+                td.text(data[i][y].name);
+            } else {
+                td.text("?");
+            }
             td.appendTo(tr);
         }
         tr.appendTo($("table.board"));
@@ -76,6 +80,7 @@ function fetchLooping(column) {
 let Board = {
     canvas: $("canvas.board"),
     parent: $("main"),
+    previousState: null,
     autoSize: function(){
         if(this.parent.width() > this.parent.height()) {
             this.canvas.attr("height", this.parent.height());
@@ -84,7 +89,6 @@ let Board = {
             this.canvas.attr("height", this.parent.width());
             this.canvas.attr("width", this.parent.width());
         }
-        this.canvas.show();
     },
     draw: function(rows, column) {
         this.autoSize();

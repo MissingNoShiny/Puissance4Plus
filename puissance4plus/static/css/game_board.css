@@ -2,8 +2,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    width: calc(100vw - 30vmin);
-    height: 20vmin;
+    width: calc(100vw - 30vw);
+    height: 20vh;
     padding: 5vmin;
     box-sizing: border-box;
     color: var(--white);
