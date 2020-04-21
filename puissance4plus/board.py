@@ -292,7 +292,7 @@ class Board:
             "win_condition": self.win_condition,
             "current_player_index": self.current_player_index,
             "grid": self.grid,
-            "current_effect": self.current_effect,
+            "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,
             "state": self.state
         }
