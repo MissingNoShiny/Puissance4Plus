@@ -285,13 +285,16 @@ class Board:
             self.add_neutral_chip()
 
     def to_dict(self) -> dict:
+        grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].__dict__ for x in range(self.width)]
+                     for y in range(self.height)]
+        print(grid_list)
         data = {
             "players": [player.__dict__ for player in self.players],
             "width": self.width,
             "height": self.height,
             "win_condition": self.win_condition,
             "current_player_index": self.current_player_index,
-            "grid": self.grid,
+            "grid": grid_list,
             "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,
             "state": self.state.value
