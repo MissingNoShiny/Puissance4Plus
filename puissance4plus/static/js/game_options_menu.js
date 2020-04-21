@@ -101,6 +101,7 @@ $("footer .play").click(() => {
                     "Erreur de réseau<br>Tentez de redémarrer l'application<br><br>"
                     + "Network error<br>Try restart the application"
                 )
+                console.error(err);
             })
         } else {
             ErrorAlert(
