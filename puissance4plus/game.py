@@ -115,7 +115,8 @@ class Game:
 
         @self.app.route("/game", methods=['PUT'])
         def update_game():
-            # TODO: mettre à jour le tableau
+            column = int(request.data)
+            self.board.place(column)
             data = {
                 "messages": [],
                 "newBoard": self.board.to_dict()
