@@ -47,17 +47,19 @@ function handleResponseData(data) {
         // Initiale fetch
         Board.initialize(data.height, data.width);
         Board.setData(data.grid);
+        Board.previousGrid = data.grid;
     } else {
         // Looping fetch
         Board.initialize(data.newBoard.height, data.newBoard.width);
         Board.setData(data.newBoard.grid);
+        Board.previousGrid = data.grid;
     }
 }
 // Board object
 let Board = {
     canvas: $("canvas.board"),
     parent: $("main"),
-    previousState: null,
+    previousGrid: null,
     rows: null,
     columns: null,
     _setRowsCols: function(rows, columns) {
@@ -88,13 +90,34 @@ let Board = {
             ctx.arc(cx, cy, holeRadius, 0, 2*Math.PI);
             ctx.fillStyle = color;
             ctx.fill();
+            ctx.closePath();
         } else Error("No rows & columns set");
     },
     _clicEvent: function(e) {
+        // Calculate on which column
         bcr = this.canvas.get(0).getBoundingClientRect();
         cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
         col = Math.floor(cx / this.canvas.width() * this.columns);
+        // Fetch clic on server
         fetchLooping(col);
+    },
+    _mouseIn: function(e) {
+        // Clear previous hover
+        this._mouseOut();
+        // Calculate on which column
+        bcr = this.canvas.get(0).getBoundingClientRect();
+        cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
+        col = Math.floor(cx / this.canvas.width() * this.columns);
+        // Check column state & render hover effect
+        columnWidth = this.canvas.width() / this.columns;
+        ctx = this.canvas.get(0).getContext('2d');
+        ctx.fillStyle = "rgba(0, 0, 0, .25)";
+        ctx.fillRect(col * columnWidth, 0, columnWidth, this.canvas.height());
+        
+    },
+    _mouseOut: function(e) {
+        this.initialize(this.rows, this.columns);
+        this.setData(this.previousGrid);
     },
     initialize: function(rows, columns) {
         // Default adjustments
@@ -103,12 +126,12 @@ let Board = {
         // Context
         ctx = this.canvas.get(0).getContext('2d');
         // Background
-        ctx.fillStyle = "#1e62f4";
+        ctx.fillStyle = "rgba(0, 0, 255, .75)";
         ctx.fillRect(0, 0, this.canvas.width(), this.canvas.height());
         // Empty holes
         for(let y = 0; y < this.rows; y++) {
             for(let x = 0; x < this.columns; x++) {
-                this._drawCircle(x, y, "#fff", false);
+                this._drawCircle(x, y, "rgba(255, 255, 255, .75)", false);
             }
         }
     },
@@ -126,7 +149,14 @@ let Board = {
 // START
 fetchInitial();
 
-// Click event on canva
-$("canvas.board").click(e => {
+// Mouse events on canvas
+$("canvas.board")
+.click(e => {
     Board._clicEvent(e);
-});
+})
+.mousemove(e => {
+    Board._mouseIn(e);
+})
+.mouseout(e => {
+    Board._mouseOut(e);
+})
