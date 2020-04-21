@@ -119,7 +119,7 @@ class Game:
                 ],
                 "newBoard": []
             }
-            return Response(json.loads(json.dumps(data)), mimetype='application/json')
+            return Response(json.dumps(data), mimetype='application/json')
 
         @self.app.route("/game", methods=['POST'])
         def start_game():
@@ -130,7 +130,7 @@ class Game:
             }
             for player in self.board.players:
                 data['players'].append({"name": player.name, "color": player.color})
-            return Response(json.loads(json.dumps(data)), mimetype='application/json')
+            return Response(json.dumps(data), mimetype='application/json')
 
 
         @self.app.route("/close")
