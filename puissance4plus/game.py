@@ -5,7 +5,7 @@ import os
 import sys
 from os import path
 from configparser import ConfigParser
-from flask import Flask, request, send_from_directory, render_template, redirect, Response
+from flask import Flask, request, send_from_directory, render_template, redirect, Response, jsonify
 from PyQt5 import QtCore, QtMultimedia
 from webui import WebUI
 
@@ -102,14 +102,36 @@ class Game:
                 data = request.json
                 players = []
                 for key in data["players"]:
-                    players.append(Player(data["players"][key]['name'],
-                                          tuple(int(data["players"][key]['color'].lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))))
+                    players.append(Player(data["players"][key]['name'], data["players"][key]['color']))
                 self.board = Board(players, int(data['width']), int(data['height']), int(data['win_condition']))
                 return Response(status='200')
 
-        @self.app.route("/game")
-        def start_game():
+        @self.app.route("/game", methods=['GET'])
+        def render_game():
             return render_template('game_board.html')
+
+        @self.app.route("/game", methods=['PUT'])
+        def update_game():
+            # TODO: mettre à jour le tableau
+            data = {
+                "messages": [
+                    {"type": "info", "content": "ceci est un test"}
+                ],
+                "newBoard": []
+            }
+            return Response(json.dumps(data), mimetype='application/json')
+
+        @self.app.route("/game", methods=['POST'])
+        def start_game():
+            data = {
+                "height": self.board.height,
+                "width": self.board.width,
+                "players": []
+            }
+            for player in self.board.players:
+                data['players'].append({"name": player.name, "color": player.color})
+            return Response(json.dumps(data), mimetype='application/json')
+
 
         @self.app.route("/close")
         def close():
