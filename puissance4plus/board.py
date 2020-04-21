@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import json
 import random
 from enum import Enum
 from typing import List, Optional, Tuple
@@ -88,7 +89,7 @@ class Board:
         self.win_condition: int = win_condition
         self.state: BoardState = BoardState.RUNNING
         self.turn_count = 0
-        self.current_effect = None
+        self.current_effect = Effect.NONE
         self.time_limit = time_limit
 
     @property
@@ -282,6 +283,20 @@ class Board:
             self.empty_board()
         elif self.current_effect == Effect.NEUTRAL_CHIP:
             self.add_neutral_chip()
+
+    def to_json(self) -> str:
+        data = {
+            "players": [player.__dict__ for player in self.players],
+            "width": self.width,
+            "height": self.height,
+            "win_condition": self.win_condition,
+            "current_player_index": self.current_player_index,
+            "grid": self.grid,
+            "current_effect": self.current_effect,
+            "time_limit": self.time_limit,
+            "state": self.state
+        }       
+        return json.dumps(data)
 
     def __str__(self) -> str:
         max_length = max([len(player.name) for player in self.players])
