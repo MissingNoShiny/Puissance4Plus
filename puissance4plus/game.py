@@ -16,7 +16,7 @@ class UI(WebUI):
     def __init__(self, app: Flask, debug: bool = False):
         super().__init__(app, debug=debug)
         self.view.setWindowTitle('Puissance 4 SUPER')
-        self.set_resolution()
+        self.set_minimum_resolution()
         self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
         self.set_volume(0)
         self.playlist = QtMultimedia.QMediaPlaylist()
@@ -29,16 +29,30 @@ class UI(WebUI):
         self.player.play()
 
     def set_fullscreen(self, fullscreen: bool) -> None:
+        """
+        Change l'état de plein écran de la fenêtre de jeu
+        :param fullscreen: True pour passer la fenêtre en plein écran, False pour la minimiser
+        """
         if fullscreen:
             self.view.showFullScreen()
         else:
             self.view.showNormal()
 
     def set_volume(self, volume: int) -> None:
+        """
+        Change le volume de la musique de fond
+        :param volume: Le nouveau volume
+        """
         self.player.setVolume(volume)
 
-    def set_resolution(self, height: int = 720, width: int = 1280) -> None:
+    def set_minimum_resolution(self, height: int = 720, width: int = 1280) -> None:
+        """
+        Change la résolution minimale de la fenêtre de jeu
+        :param height: La hauteur de la fenêtre, en pixels
+        :param width: La largeur de la fenêtre, en pixels
+        """
         self.view.setMinimumSize(width, height)
+
 
 class Game:
     FOLDER_NAME = ".puissance4"
@@ -146,9 +160,18 @@ class Game:
         self.ui.run()
 
     def stop(self) -> None:
+        """
+        Ferme le jeu
+        """
         self.ui.view.close()
 
     def load_language(self, language: str) -> dict:
+        """
+        Lit et charge en mémoire un fichier de langue. Si la langue spécifiée est introuvable, la langue par défaut
+        sera choisie à la place
+        :param language: La langue à charger
+        :return Un dictionnaire contenant les données de la langue à charger
+        """
         language_folder = path.join(self.app.static_folder, "lang")
         if not path.isfile(path.join(language_folder, f"{language}.json")):
             language = "en"
@@ -156,12 +179,18 @@ class Game:
             return json.load(file)
 
     def save_config(self) -> None:
+        """
+        Sauvegarde les paramètres dans le fichier de configuration
+        """
         if not path.isdir(self.game_directory):
             os.mkdir(self.game_directory)
         with open(path.join(self.game_directory, "config.ini"), "w") as file:
             self.config.write(file)
 
     def update_settings(self) -> None:
+        """
+        Met à jour le jeu en fonction des paramètres
+        """
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
