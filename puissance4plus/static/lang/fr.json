@@ -38,5 +38,41 @@
 
     "back": "Retour",
     "play": "Jouer"
-  }
+  },
+  "rules": [
+    {
+      "title": "Mode Solo",
+      "content": [
+        "Vous êtes seul(e) face à la fameuse et redoutable I.A. de destruction massive codée avec soin par nos",
+        " ingénieurs... Votre but: vaincre ce monstre de technologie. Utilisez vos meilleurs atouts pour en arriver",
+        "à bout !",
+        "(1 seul joueur)"
+      ]
+    },
+    {
+      "title": "Mode Classique",
+      "content": [
+        "Un puissance 4 tout ce qu'il y a de plus classique, tu t'attendais à quoi ?",
+        "(2 à 5 joueurs)"
+      ]
+    },
+    {
+      "title": "Mode Contre-la-montre",
+      "content": [
+        "C'est comme dans Mario Kart mais sans les karts et sans Mario. Pulvérisez votre meilleur temps à l'aide de",
+        "vos capacités intellectuelles. Car après tout, comme le fit Charles de Leusse: \"Le pire ennemi,",
+        "c'est soi-même\".",
+        "(1 seul joueur)"
+      ]
+    },
+    {
+      "title": "Mode Roulette",
+      "content": [
+        "Vous voulez jouer à la roulette Russe sans y mettre en jeu votre vie ? Ce mode de jeu est fait pour vous !",
+        "Jouez à puissance 4 comme jamais auparavant, utilisez des pionts spéciaux pour éclater vos adversaires !",
+        "Le fun à son paroxysme...",
+        "(1 seul joueur)"
+      ]
+    }
+  ]
 }
