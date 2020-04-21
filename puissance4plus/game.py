@@ -64,6 +64,7 @@ class Game:
 
         self.language_data = {}
         self.update_settings()
+        self.board = None
 
         @self.app.route("/resource/<resource_path>")
         def get_resource(resource_path: str):
@@ -108,30 +109,22 @@ class Game:
 
         @self.app.route("/game", methods=['GET'])
         def render_game():
+            if self.board is None:
+                return redirect("/")
             return render_template('game_board.html')
 
         @self.app.route("/game", methods=['PUT'])
         def update_game():
             # TODO: mettre à jour le tableau
             data = {
-                "messages": [
-                    {"type": "info", "content": "ceci est un test"}
-                ],
-                "newBoard": []
+                "messages": [],
+                "newBoard": self.board.to_dict()
             }
             return Response(json.dumps(data), mimetype='application/json')
 
         @self.app.route("/game", methods=['POST'])
         def start_game():
-            data = {
-                "height": self.board.height,
-                "width": self.board.width,
-                "players": []
-            }
-            for player in self.board.players:
-                data['players'].append({"name": player.name, "color": player.color})
-            return Response(json.dumps(data), mimetype='application/json')
-
+            return Response(json.dumps(self.board.to_dict()), mimetype='application/json')
 
         @self.app.route("/close")
         def close():
