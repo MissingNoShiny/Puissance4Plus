@@ -119,7 +119,7 @@ class Game:
                 ],
                 "newBoard": []
             }
-            return
+            return Response(json.loads(json.dumps(data)), mimetype='application/json')
 
         @self.app.route("/game", methods=['POST'])
         def start_game():
