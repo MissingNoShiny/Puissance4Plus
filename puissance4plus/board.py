@@ -10,14 +10,16 @@ class Player:
     Classe utilisée pour représenter un joueur
     """
 
-    def __init__(self, name: str, color: Tuple[int, int, int], is_ai: bool = False):
+    NEUTRAL_COLOR = "#fff"
+
+    def __init__(self, name: str, color: str, is_ai: bool = False):
         """
         :param name: Le nom du joueur
         :param color: La couleur du joueur sous forme d'un tuple RGB
         :param is_ai: Une valeur booléenne indiquant si le joueur est contrôlé par l'ordinateur
         """
         self.name: str = name
-        self.color: Tuple[int, int, int] = color
+        self.color: str = color
         self.is_ai = is_ai
 
     def __str__(self):
@@ -161,7 +163,7 @@ class Board:
             return  # TODO: Erreur
         row = self.get_height(column_index)
         if neutral:
-            self.grid[row][column_index] = Player("", (0, 0, 0))
+            self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR)
             return
         self.grid[row][column_index] = self.current_player
 
