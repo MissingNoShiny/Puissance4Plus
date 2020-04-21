@@ -22,7 +22,13 @@ function buildArray(data) {
 }
 // Initial fetch
 function fetchInitial() {
-    fetch("/game")
+    fetch("/game", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    })
     .then(res => {
         if(res.status == 200) {
             res.json().then(json => {
@@ -37,17 +43,24 @@ function fetchInitial() {
     })
 }
 // Looping fetch
-function fetchLooping(body) {
+let body = {};
+function fetchLooping(column) {
     fetch("/game", {
-        method: 'POST',
+        method: 'PUT',
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Accept': 'text/plain',
+            'Content-Type': 'text/plain'
         },
-        body: JSON.stringify(body)
+        body: column
     })
     .then(res => {
-        console.log(res)
+        if(res.status == 200) {
+            res.json().then(json => {
+                console.log(json)
+            })
+        } else {
+            console.error(res);
+        }
     })
     .catch(err => {
         console.log(err)
