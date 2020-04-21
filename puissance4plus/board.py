@@ -294,7 +294,7 @@ class Board:
             "grid": self.grid,
             "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,
-            "state": self.state
+            "state": self.state.value
         }
         return data
 
