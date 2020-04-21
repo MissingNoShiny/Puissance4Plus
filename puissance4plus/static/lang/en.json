@@ -30,7 +30,7 @@
     "mode": "Mode:",
 
     "board": "Board",
-    "winLength": "Pawns to win",
+    "winLength": "Chips to win",
     "rows": "Rows",
     "columns": "Columns",
     "players": "Players",
