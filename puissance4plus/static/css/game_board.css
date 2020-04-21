@@ -23,28 +23,44 @@ menu {
     color: var(--white);
     background: var(--primary);
     box-shadow: var(--shadow);
+    overflow: auto;
 }
 menu h2 {
-    /* color: var(--secondary);
-    text-shadow: var(--shadow);
-    border-bottom: 3px solid var(--secondary);
-    box-sizing: border-box; */
     margin: 25px;
     padding: 15px 0;
     background: var(--secondary);
     color: var(--white);
 }
-menu .currentPlayer {
+menu .player {
+    position: relative;
     display: inline-block;
+    width: calc(100% - 20px);
     padding: 5px;
+    margin: 10px;
+    box-sizing: border-box;
+}
+menu .player.current::before {
+    position: absolute;
+    left: 10px;
+    content: "▶";
+    color: var(--secondary);
+    animation: rightBouncing 2s ease-in-out infinite reverse;
+}
+menu hr {
+    height: 5px;
+    margin: 25px 0;
+    background: var(--secondary);
+    border: none;
+}
+menu .message {
+    position: relative;
+    padding: 10px;
+    margin: 20px;
+    font-size: 1rem;
+    font-family: sans-serif;
+    background: var(--white);
     box-shadow: var(--shadow);
-}
-menu .stat {
-    width: 100%;
-    text-align: left;
-}
-menu .stat .title {
-    margin: 0 20px;
+    color: var(--secondary);
 }
 /* MAIN */
 main {

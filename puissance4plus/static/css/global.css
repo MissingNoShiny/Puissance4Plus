@@ -56,6 +56,17 @@ body {
         text-shadow: 0 .25rem 0 var(--primary);
     }
 }
+@keyframes rightBouncing {
+    from {
+        transform: none;
+    }
+    50% {
+        transform: translateX(15px);
+    }
+    to {
+        transform: none;
+    }
+}
 /* CHECKBOX TOGGLE TAG */
 input[type=checkbox].toggle {
 	display: none;

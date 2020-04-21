@@ -1,3 +1,7 @@
+// Variable : last board state
+let lastState;
+let lang;
+let frozen = false;
 // Initial fetch
 function fetchInitial() {
     fetch("/game", {
@@ -21,7 +25,6 @@ function fetchInitial() {
 // Looping fetch
 function fetchLooping(column) {
     body = column.toString();
-    $("header").text(column);
     fetch("/game", {
         method: 'PUT',
         headers: {
@@ -43,23 +46,31 @@ function fetchLooping(column) {
 }
 // Function which handle the fetch's response object
 function handleResponseData(data) {
+    console.log(data);
     if(!data.newBoard) {
         // Initiale fetch
-        Board.initialize(data.height, data.width);
-        Board.setData(data.grid);
-        Board.previousGrid = data.grid;
+        handleNewState(data);
     } else {
         // Looping fetch
-        Board.initialize(data.newBoard.height, data.newBoard.width);
-        Board.setData(data.newBoard.grid);
-        Board.previousGrid = data.grid;
+        handleNewState(data.newBoard);
+    }
+}
+// Handle a new state (grid, players, ...)
+function handleNewState(state) {
+    Board.initialize(state.height, state.width);
+    Board.setData(state.grid);
+    lastState = state;
+    displayPlayers(state.players);
+    lang = state.lang;
+    if(state.state == 1) {
+        newMessage("YES ! Quelqu'un a gagné ! Mais qui ? Personne ne le sais, demandez à Vincent et Nicolas, c'est eux qui s'occupent du backend, moi je sais pas afficher une information que je n'ai pas !", true)
+        frozen = true;
     }
 }
 // Board object
 let Board = {
     canvas: $("canvas.board"),
     parent: $("main"),
-    previousGrid: null,
     rows: null,
     columns: null,
     _setRowsCols: function(rows, columns) {
@@ -94,12 +105,18 @@ let Board = {
         } else Error("No rows & columns set");
     },
     _clicEvent: function(e) {
-        // Calculate on which column
-        bcr = this.canvas.get(0).getBoundingClientRect();
-        cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
-        col = Math.floor(cx / this.canvas.width() * this.columns);
-        // Fetch clic on server
-        fetchLooping(col);
+        if(!frozen) {
+            // Calculate on which column
+            bcr = this.canvas.get(0).getBoundingClientRect();
+            cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
+            col = Math.floor(cx / this.canvas.width() * this.columns);
+            // Fetch clic on server
+            if(!lastState || lastState.non_full_columns.includes(col)) {
+                fetchLooping(col);
+            } else {
+                newMessage(`<b>${lastState.current_player.name}</b> : la colonne est remplie`)
+            }
+        }
     },
     _mouseIn: function(e) {
         // Clear previous hover
@@ -108,16 +125,22 @@ let Board = {
         bcr = this.canvas.get(0).getBoundingClientRect();
         cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
         col = Math.floor(cx / this.canvas.width() * this.columns);
-        // Check column state & render hover effect
+        // Check column state and set color
+        if(!lastState || lastState.non_full_columns.includes(col)) {
+            color = "rgba(0, 0, 0, .25)";
+        } else {
+            color = "rgba(255, 0, 0, .5)";
+        }
+        // Render hover effect
         columnWidth = this.canvas.width() / this.columns;
         ctx = this.canvas.get(0).getContext('2d');
-        ctx.fillStyle = "rgba(0, 0, 0, .25)";
+        ctx.fillStyle = color;
         ctx.fillRect(col * columnWidth, 0, columnWidth, this.canvas.height());
         
     },
     _mouseOut: function(e) {
         this.initialize(this.rows, this.columns);
-        this.setData(this.previousGrid);
+        this.setData(lastState.grid);
     },
     initialize: function(rows, columns) {
         // Default adjustments
@@ -145,8 +168,33 @@ let Board = {
         }
     }
 }
+// Display Players
+function displayPlayers(array) {
+    $(".players").empty();
+    array.forEach(p => {
+        $(document.createElement("div"))
+        .addClass(p.current ? "player current" : "player")
+        .text(p.name)
+        .css("background", p.color)
+        .appendTo(".players")
+    })
+}
+// New message
+function newMessage(message, persistent) {
+    let m  = $(document.createElement("div"))
+    .hide()
+    .addClass("message")
+    .html(message)
+    .appendTo(".messages")
+    .slideDown()
+    if(!persistent) {
+        m.delay(5000)
+        .fadeOut();
+    }
+}
 
 // START
+
 fetchInitial();
 
 // Mouse events on canvas
