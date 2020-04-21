@@ -21,7 +21,7 @@ class UI(WebUI):
         self.set_volume(0)
         self.playlist = QtMultimedia.QMediaPlaylist()
         media_folder = path.join(app.static_folder, "audio")
-        url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wma"))
+        url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wav"))
         media = QtMultimedia.QMediaContent(url)
         self.playlist.addMedia(media)
         self.playlist.setPlaybackMode(QtMultimedia.QMediaPlaylist.Loop)
