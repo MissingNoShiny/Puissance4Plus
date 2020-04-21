@@ -87,15 +87,14 @@ let Board = {
         ctx.fillStyle = "#1e62f4";
         ctx.fillRect(0, 0, this.canvas.width(), this.canvas.height());
         // Empty holes
-        let holeSize = this.canvas.width() / column;
-        let holeRadius = (holeSize / 2) * 0.8;
-
-        console.log(holeSize, holeRadius);
-
+        // let holeSize = column > rows ? this.canvas.width() / column : this.canvas.width() / rows;
+        let holeHeight = this.canvas.width() / rows;
+        let holeWidth = this.canvas.width() / column;
+        let holeRadius = holeHeight < holeWidth ? (holeHeight / 2) * 0.8 : (holeWidth / 2) * 0.8;
         for(let y = 1; y <= rows; y++) {
             for(let x = 1; x <= column; x++) {
-                cx = (x*holeSize) - (holeSize/2);
-                cy = (y*holeSize) - (holeSize/2);
+                cx = (x*holeWidth) - (holeWidth/2);
+                cy = (y*holeHeight) - (holeHeight/2);
                 console.log(cx, cy, holeRadius);
                 ctx.beginPath();
                 ctx.arc(cx, cy, holeRadius, 0, 2*Math.PI);
