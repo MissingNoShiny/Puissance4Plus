@@ -64,6 +64,7 @@ class Game:
 
         self.language_data = {}
         self.update_settings()
+        self.board = None
 
         @self.app.route("/resource/<resource_path>")
         def get_resource(resource_path: str):
@@ -108,6 +109,8 @@ class Game:
 
         @self.app.route("/game", methods=['GET'])
         def render_game():
+            if self.board is None:
+                return redirect("/")
             return render_template('game_board.html')
 
         @self.app.route("/game", methods=['PUT'])
@@ -131,7 +134,6 @@ class Game:
             for player in self.board.players:
                 data['players'].append({"name": player.name, "color": player.color})
             return Response(json.dumps(data), mimetype='application/json')
-
 
         @self.app.route("/close")
         def close():
