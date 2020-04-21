@@ -1,11 +1,11 @@
-let fakeData = [
-    [ "", "", "I", "O" ],
-    [ "", "", "I", "I" ],
-    [ "", "0", "0", "I" ],
-    [ "0", "I", "I", "O" ],
-    [ "0", "0", "0", "O" ]
-];
-buildArray(fakeData);
+// let fakeData = [
+//     [ "", "", "I", "O" ],
+//     [ "", "", "I", "I" ],
+//     [ "", "0", "0", "I" ],
+//     [ "0", "I", "I", "O" ],
+//     [ "0", "0", "0", "O" ]
+// ];
+// buildArray(fakeData);
 
 // Build array
 function buildArray(data) {
@@ -14,7 +14,7 @@ function buildArray(data) {
         let tr = $(document.createElement("tr"));
         for(let y = 0; y < data[i].length; y++) {
             let td = $(document.createElement("td"));
-            td.text(data[i][y]);
+            td.text(data[i][y] || "?");
             td.appendTo(tr);
         }
         tr.appendTo($("table.board"));
@@ -32,7 +32,10 @@ function fetchInitial() {
     .then(res => {
         if(res.status == 200) {
             res.json().then(json => {
-                console.log(json)
+                // Fetch initial complete
+                console.log(json);
+                Board.draw(json.height, json.width);
+                buildArray(json.grid);
             })
         } else {
             console.error(res);
@@ -56,7 +59,9 @@ function fetchLooping(column) {
     .then(res => {
         if(res.status == 200) {
             res.json().then(json => {
-                console.log(json)
+                // Fetch looping complete
+                console.log(json);
+                buildArray(json.newBoard.grid);
             })
         } else {
             console.error(res);
@@ -82,6 +87,7 @@ let Board = {
         this.canvas.show();
     },
     draw: function(rows, column) {
+        this.autoSize();
         let ctx = this.canvas.get(0).getContext('2d');
         // Background
         ctx.fillStyle = "#1e62f4";
@@ -95,7 +101,6 @@ let Board = {
             for(let x = 1; x <= column; x++) {
                 cx = (x*holeWidth) - (holeWidth/2);
                 cy = (y*holeHeight) - (holeHeight/2);
-                console.log(cx, cy, holeRadius);
                 ctx.beginPath();
                 ctx.arc(cx, cy, holeRadius, 0, 2*Math.PI);
                 ctx.fillStyle = "#fff";
@@ -107,7 +112,5 @@ let Board = {
     }
 }
 
-
-// INIT
-Board.autoSize();
-Board.draw(6, 7);
+// START
+fetchInitial();
