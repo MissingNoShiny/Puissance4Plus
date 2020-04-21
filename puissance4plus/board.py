@@ -286,7 +286,7 @@ class Board:
 
     def to_dict(self) -> dict:
         grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].__dict__ for x in range(self.width)]
-                     for y in range(self.height)]
+                     for y in range(self.height)][::-1]
         print(grid_list)
         data = {
             "players": [player.__dict__ for player in self.players],
