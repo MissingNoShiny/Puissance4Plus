@@ -38,5 +38,20 @@
 
     "back": "Back",
     "play": "Play"
-  }
+  },
+  "rules": [
+    {
+      "title": "Titre 1",
+      "content": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus.",
+        "suite du text"
+      ]
+    },
+    {
+      "title": "Titre 2",
+      "content": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus."
+      ]
+    }
+  ]
 }

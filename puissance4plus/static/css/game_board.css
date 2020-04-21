@@ -29,12 +29,10 @@ main {
     box-sizing: border-box;
     color: var(--white);
 }
-table.board {
-    
-}
 canvas.board {
     position: relative;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: var(--shadow);
 }
