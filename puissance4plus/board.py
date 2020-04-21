@@ -11,6 +11,11 @@ class Player:
     """
 
     def __init__(self, name: str, color: Tuple[int, int, int], is_ai: bool = False):
+        """
+        :param name: Le nom du joueur
+        :param color: La couleur du joueur sous forme d'un tuple RGB
+        :param is_ai: Une valeur booléenne indiquant si le joueur est contrôlé par l'ordinateur
+        """
         self.name: str = name
         self.color: Tuple[int, int, int] = color
         self.is_ai = is_ai
@@ -29,6 +34,9 @@ class BoardState(Enum):
 
 
 class Effect(Enum):
+    """
+    Énumération utilisée pour représenter les différents effets possibles lors
+    """
     NONE = 0
     PLAY_TWICE = 1
     REMOVE_ROW = 2
@@ -38,7 +46,7 @@ class Effect(Enum):
     NEUTRAL_CHIP = 6
 
     _weights = [
-        80,
+        40,
         10,
         12,
         12,
@@ -49,7 +57,11 @@ class Effect(Enum):
 
     @staticmethod
     def generate_effect():
-        choices = list(range(6))
+        """
+        Génère aléatoirement un effet, en fonction des poids assignés à chaque
+        :return:
+        """
+        choices = [effect.value for effect in Effect[:-1]]
         return random.choices(choices, weights=Effect._weights)
 
 
@@ -58,12 +70,14 @@ class Board:
     Classe utilisée pour représenter le plateau de jeu
     """
 
-    def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4):
+    def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4,
+                 time_limit: int = 0):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
         :param width: La largeur du plateau de jeu
         :param height: La hauteur du plateau de jeu
         :param win_condition: Le nombre de pions à aligner pour gagner la partie
+        :param time_limit: Le temps limite pour jouer chaque coup, en secondes
         """
         self.grid: List[List[Optional[Player]]] = [[None for _ in range(width)] for _ in range(height)]
 
@@ -73,6 +87,7 @@ class Board:
         self.state: BoardState = BoardState.RUNNING
         self.turn_count = 0
         self.current_effect = None
+        self.time_limit = time_limit
 
     @property
     def width(self) -> int:
@@ -97,8 +112,11 @@ class Board:
         return self.players[self.current_player_index]
 
     @property
-    def non_full_columns(self):
-        return
+    def non_full_columns(self) -> List[int]:
+        """
+        Retourne une liste des colonnes non pleines
+        """
+        return [column for column in range(self.width) if not self.is_full(column)]
 
     def randomize_order(self) -> None:
         """
@@ -109,7 +127,6 @@ class Board:
     def next_player(self) -> None:
         """
         Passe le tour de jeu au joueur suivant
-        :return:
         """
         if self.turn_count > 0:
             self.turn_count -= 1
@@ -132,9 +149,10 @@ class Board:
         """
         return self.get_height(column_index) == self.height
 
-    def place(self, column_index: int) -> None:
+    def place(self, column_index: int, neutral: bool = False) -> None:
         """
         Place un pion appartenant au joueur dont c'est le tour dans une colonne
+        :param neutral: Si True, place un pion n'appartenant à aucun joueur à la place
         :param column_index: L'index de la colonne dans laquelle placer le pion
         """
         if self.state != BoardState.RUNNING:
@@ -142,6 +160,9 @@ class Board:
         if self.is_full(column_index):
             return  # TODO: Erreur
         row = self.get_height(column_index)
+        if neutral:
+            self.grid[row][column_index] = Player("", (0, 0, 0))
+            return
         self.grid[row][column_index] = self.current_player
 
         if self.current_effect is not None:
@@ -182,7 +203,11 @@ class Board:
         return False
 
     def check_draw(self):
-        return all(self.is_full(index) for index in range(self.width))
+        """
+        Détermine si le plateau de jeu est rempli. Si c'est le cas, on suppose que c'est une égalité.
+        :return:
+        """
+        return len(self.non_full_columns) == 0
 
     def remove_column(self, column_index: int) -> None:
         """
@@ -225,16 +250,24 @@ class Board:
         """
         self.grid = [[None for _ in range(self.width)] for _ in range(self.height)]
 
-    def give_extra_turn(self):
+    def give_extra_turn(self) -> None:
         """
         Donne un tour supplémentaire au joueur dont c'est le tour
         """
         self.turn_count += 1
 
-    def add_neutral_chip(self):
-        pass
+    def add_neutral_chip(self) -> None:
+        """
+        Ajoute un pion neutre dans une colonne aléatoire
+        """
+        self.place(random.choice(self.non_full_columns), neutral=True)
 
-    def apply_effect(self, row, column):
+    def apply_effect(self, row: int, column: int) -> None:
+        """
+        Applique l'effet actuel sur la grille de jeu
+        :param row: La rangée sur laquelle appliquer l'effet
+        :param column: La colonne sur laquelle appliquer l'effet
+        """
         if self.current_effect == Effect.PLAY_TWICE:
             self.give_extra_turn()
         elif self.current_effect == Effect.REMOVE_ROW:
@@ -245,6 +278,8 @@ class Board:
             self.remove_bottom_chip(column)
         elif self.current_effect == Effect.EMPTY_BOARD:
             self.empty_board()
+        elif self.current_effect == Effect.NEUTRAL_CHIP:
+            self.add_neutral_chip()
 
     def __str__(self) -> str:
         max_length = max([len(player.name) for player in self.players])
