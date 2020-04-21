@@ -60,7 +60,7 @@ function handleNewState(state) {
     Board.initialize(state.height, state.width);
     Board.setData(state.grid);
     lastState = state;
-    displayPlayers(state.players);
+    displayPlayers(state.players, state.current_player);
     lang = state.lang;
     if(state.state == 1) {
         newMessage(`WOUAOUW, ${state.current_player.name} a GAGNÉ ??!!!!`, true)
@@ -170,11 +170,11 @@ let Board = {
     }
 }
 // Display Players
-function displayPlayers(array) {
+function displayPlayers(array, current) {
     $(".players").empty();
     array.forEach(p => {
         $(document.createElement("div"))
-        .addClass(p.current ? "player current" : "player")
+        .addClass(p.name === current.name ? "player current" : "player")
         .text(p.name)
         .css("background", p.color)
         .appendTo(".players")
