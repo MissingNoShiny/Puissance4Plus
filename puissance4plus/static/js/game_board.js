@@ -19,15 +19,16 @@ function fetchInitial() {
     })
 }
 // Looping fetch
-let body = {};
 function fetchLooping(column) {
+    body = column.toString();
+    $("header").text(column);
     fetch("/game", {
         method: 'PUT',
         headers: {
             'Accept': 'text/plain',
             'Content-Type': 'text/plain'
         },
-        body: column
+        body: body
     })
     .then(res => {
         if(res.status == 200) {
@@ -37,12 +38,11 @@ function fetchLooping(column) {
         }
     })
     .catch(err => {
-        console.log(err)
+        console.error(err)
     })
 }
 // Function which handle the fetch's response object
 function handleResponseData(data) {
-    console.log(data);
     if(!data.newBoard) {
         // Initiale fetch
         Board.initialize(data.height, data.width);
@@ -113,12 +113,9 @@ let Board = {
         }
     },
     setData: function(array) {
-        console.log("set data", array);
         for(let y = 0; y < array.length; y++) {
             for(let x = 0; x < array[y].length; x++) {
                 if(array[y][x]) {
-                    console.log(array[y][x]);
-                    console.log("draw", x, y);
                     this._drawCircle(x, y, array[y][x].color)
                 };
             }

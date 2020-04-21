@@ -104,6 +104,7 @@ class Game:
             return render_template('main_menu.html',
                                    is_full_screen=is_full_screen,
                                    lang=self.language_data["main_menu"],
+                                   rules=self.language_data["rules"],
                                    selected_lang=self.config.get("puissance4", "Language"),
                                    volume=self.ui.player.volume())
 
