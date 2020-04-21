@@ -130,7 +130,10 @@ class Game:
         @self.app.route("/game", methods=['PUT'])
         def update_game():
             column = int(request.data)
-            self.board.place(column)
+            if column == -1:
+                self.board.force_place()
+            else:
+                self.board.place(column)
             data = {
                 "messages": [],
                 "newBoard": self.board.to_dict()
