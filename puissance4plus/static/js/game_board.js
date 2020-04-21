@@ -62,8 +62,11 @@ function handleNewState(state) {
     lastState = state;
     displayPlayers(state.players, state.current_player);
     lang = state.lang;
-    if(state.state == 1) {
+    if(state.state === 1) {
         newMessage(`WOUAOUW, ${state.current_player.name} a GAGNÉ ??!!!!`, true)
+        frozen = true;
+    } else if (state.state === 2) {
+        newMessage("QUOI ??????? C'est une ÉGALITÉ ??????????")
         frozen = true;
     }
 }
