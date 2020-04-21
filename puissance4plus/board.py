@@ -306,7 +306,8 @@ class Board:
             "grid": grid_list,
             "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,
-            "state": self.state.value
+            "state": self.state.value,
+            "non_full_columns": self.non_full_columns
         }
         return data
 
