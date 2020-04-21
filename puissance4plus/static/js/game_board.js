@@ -19,12 +19,12 @@ function fetchInitial() {
         }
     })
     .catch(err => {
-        console.error(err)
-    })
+        console.error(err);
+    });
 }
 // Looping fetch
 function fetchLooping(column) {
-    body = column.toString();
+    let body = column.toString();
     fetch("/game", {
         method: 'PUT',
         headers: {
@@ -35,16 +35,16 @@ function fetchLooping(column) {
     })
     .then(res => {
         if(res.status == 200) {
-            res.json().then(handleResponseData)
+            res.json().then(handleResponseData);
         } else {
             console.error(res);
         }
     })
     .catch(err => {
-        console.error(err)
-    })
+        console.error(err);
+    });
 }
-// Function which handle the fetch's response object
+// Function which handles the fetch's response object
 function handleResponseData(data) {
     console.log(data);
     if(!data.newBoard) {
@@ -63,7 +63,7 @@ function handleNewState(state) {
     displayPlayers(state.players);
     lang = state.lang;
     if(state.state == 1) {
-        newMessage("YES ! Quelqu'un a gagné ! Mais qui ? Personne ne le sais, demandez à Vincent et Nicolas, c'est eux qui s'occupent du backend, moi je sais pas afficher une information que je n'ai pas !", true)
+        newMessage(`WOUAOUW, ${state.current_player.name} a GAGNÉ ??!!!!`, true)
         frozen = true;
     }
 }
@@ -88,15 +88,15 @@ let Board = {
     },
     _drawCircle: function(column, row, color, border) {
         if(this.rows && this.columns) {
-            ctx = this.canvas.get(0).getContext('2d');
+            let ctx = this.canvas.get(0).getContext('2d');
             // Values
-            holeHeight = this.canvas.height() / this.rows;
-            holeWidth = this.canvas.width() / this.columns;
-            ratio = border ? 0.85 : 0.8;
-            holeRadius = holeHeight < holeWidth ? (holeHeight / 2) * ratio : (holeWidth / 2) * ratio;
+            let holeHeight = this.canvas.height() / this.rows;
+            let holeWidth = this.canvas.width() / this.columns;
+            let ratio = border ? 0.85 : 0.8;
+            let holeRadius = holeHeight < holeWidth ? (holeHeight / 2) * ratio : (holeWidth / 2) * ratio;
             // Draw circle
-            cx = ((column+1) * holeWidth) - (holeWidth / 2);
-            cy = ((row+1) * holeHeight) - (holeHeight / 2);
+            let cx = ((column+1) * holeWidth) - (holeWidth / 2);
+            let cy = ((row+1) * holeHeight) - (holeHeight / 2);
             ctx.beginPath();
             ctx.arc(cx, cy, holeRadius, 0, 2*Math.PI);
             ctx.fillStyle = color;
@@ -107,14 +107,14 @@ let Board = {
     _clicEvent: function(e) {
         if(!frozen) {
             // Calculate on which column
-            bcr = this.canvas.get(0).getBoundingClientRect();
-            cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
-            col = Math.floor(cx / this.canvas.width() * this.columns);
+            let bcr = this.canvas.get(0).getBoundingClientRect();
+            let cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
+            let col = Math.floor(cx / this.canvas.width() * this.columns);
             // Fetch clic on server
             if(!lastState || lastState.non_full_columns.includes(col)) {
                 fetchLooping(col);
             } else {
-                newMessage(`<b>${lastState.current_player.name}</b> : la colonne est remplie`)
+                newMessage(`<b>${lastState.current_player.name}</b> : la colonne est remplie`);
             }
         }
     },
@@ -122,18 +122,19 @@ let Board = {
         // Clear previous hover
         this._mouseOut();
         // Calculate on which column
-        bcr = this.canvas.get(0).getBoundingClientRect();
-        cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
-        col = Math.floor(cx / this.canvas.width() * this.columns);
+        let bcr = this.canvas.get(0).getBoundingClientRect();
+        let cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
+        let col = Math.floor(cx / this.canvas.width() * this.columns);
         // Check column state and set color
+        let color;
         if(!lastState || lastState.non_full_columns.includes(col)) {
             color = "rgba(0, 0, 0, .25)";
         } else {
             color = "rgba(255, 0, 0, .5)";
         }
         // Render hover effect
-        columnWidth = this.canvas.width() / this.columns;
-        ctx = this.canvas.get(0).getContext('2d');
+        let columnWidth = this.canvas.width() / this.columns;
+        let ctx = this.canvas.get(0).getContext('2d');
         ctx.fillStyle = color;
         ctx.fillRect(col * columnWidth, 0, columnWidth, this.canvas.height());
         
@@ -147,7 +148,7 @@ let Board = {
         this._autoSize();
         this._setRowsCols(rows, columns);
         // Context
-        ctx = this.canvas.get(0).getContext('2d');
+        let ctx = this.canvas.get(0).getContext('2d');
         // Background
         ctx.fillStyle = "rgba(0, 0, 255, .75)";
         ctx.fillRect(0, 0, this.canvas.width(), this.canvas.height());
@@ -162,8 +163,8 @@ let Board = {
         for(let y = 0; y < array.length; y++) {
             for(let x = 0; x < array[y].length; x++) {
                 if(array[y][x]) {
-                    this._drawCircle(x, y, array[y][x].color)
-                };
+                    this._drawCircle(x, y, array[y][x].color);
+                }
             }
         }
     }
@@ -177,7 +178,7 @@ function displayPlayers(array) {
         .text(p.name)
         .css("background", p.color)
         .appendTo(".players")
-    })
+    });
 }
 // New message
 function newMessage(message, persistent) {
@@ -186,7 +187,7 @@ function newMessage(message, persistent) {
     .addClass("message")
     .html(message)
     .appendTo(".messages")
-    .slideDown()
+    .slideDown();
     if(!persistent) {
         m.delay(5000)
         .fadeOut();
