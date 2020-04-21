@@ -64,7 +64,7 @@ class Effect(Enum):
         Génère aléatoirement un effet, en fonction des poids assignés à chaque
         :return:
         """
-        choices = [effect.value for effect in Effect[:-1]]
+        choices = [effect.value for effect in Effect][::-1]
         return random.choices(choices, weights=Effect._weights)
 
 
