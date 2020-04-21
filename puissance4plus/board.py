@@ -284,7 +284,7 @@ class Board:
         elif self.current_effect == Effect.NEUTRAL_CHIP:
             self.add_neutral_chip()
 
-    def to_json(self) -> str:
+    def to_dict(self) -> dict:
         data = {
             "players": [player.__dict__ for player in self.players],
             "width": self.width,
@@ -295,8 +295,8 @@ class Board:
             "current_effect": self.current_effect,
             "time_limit": self.time_limit,
             "state": self.state
-        }       
-        return json.dumps(data)
+        }
+        return data
 
     def __str__(self) -> str:
         max_length = max([len(player.name) for player in self.players])
