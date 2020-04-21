@@ -178,6 +178,12 @@ class Board:
             return
         self.next_player()
 
+    def force_place(self):
+        if self.current_player.is_ai:
+            self.place(random.choice(self.non_full_columns))
+        else:
+            self.place(random.choice(self.non_full_columns))
+
     def get_player_at(self, row: int, col: int) -> Optional[Player]:
         """
         Récupère le joueur propriétaire du pion aux coordonnées spécifiées
@@ -285,15 +291,18 @@ class Board:
             self.add_neutral_chip()
 
     def to_dict(self) -> dict:
+        """
+        Retourne un dictionnaire contenant les informations utiles pour le client
+        :return: Un dictionnaire, je viens de l'écrire, il faut être plus attentif
+        """
         grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].__dict__ for x in range(self.width)]
                      for y in range(self.height)][::-1]
-        print(grid_list)
         data = {
             "players": [player.__dict__ for player in self.players],
             "width": self.width,
             "height": self.height,
             "win_condition": self.win_condition,
-            "current_player_index": self.current_player_index,
+            "current_player": self.current_player.__dict__,
             "grid": grid_list,
             "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,

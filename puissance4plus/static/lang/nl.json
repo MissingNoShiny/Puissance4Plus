@@ -1,0 +1,42 @@
+{
+  "SOLO": "Solo",
+  "CLASSIC": "Klassiek",
+  "TIMEATTACK": "Tijdrit",
+  "RANDOM": "Roulette",
+
+  "main_menu": {
+    "title" : "Vermogen 4 plus",
+    "subtitle": "Versie 2020",
+
+    "play": "Spelen",
+    "rules": "Regels",
+    "settings": "Instellingen",
+    "close": "Vertrekken",
+
+    "soloMode": "Solo-modus",
+    "classicMode": "Klassiek-modus",
+    "timeAttackMode": "Tijdrit-modus",
+    "randomMode": "Roulette-modus",
+
+    "language": "Taal",
+    "fullscreen": "Volledig scherm",
+    "volume": "Geluidsvolume",
+    "apply": "Toepassen",
+
+    "closeConfirm": "Sluit de applicatie af"
+  },
+  "game_options_menu": {
+    "title": "Spelopties",
+    "mode": "Modus",
+
+    "board": "Bord",
+    "winLength": "Pionnen om uit te lijnen",
+    "rows": "Liinen",
+    "columns": "Kolommen",
+    "players": "Spelers",
+    "name": "Bijnaam",
+
+    "back": "Terug",
+    "play": "Spelen"
+  }
+}
