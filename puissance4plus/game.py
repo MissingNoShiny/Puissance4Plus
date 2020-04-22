@@ -126,7 +126,7 @@ class Game:
                                            lang=self.language_data["game_options_menu"])
                 else:
                     self.board = Board([Player(self.language_data["human"], "#F00"),
-                                        Player(self.language_data["robot"], Player.NEUTRAL_COLOR, True)],
+                                        Player(self.language_data["robot"], "#333", True)],
                                        game_mode=GameMode.SOLO)
                     return redirect('/game')
             else:
