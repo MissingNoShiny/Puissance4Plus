@@ -44,6 +44,7 @@
   "game_board": {
     "players": "Joueurs",
     "giveUp": "Abandonner",
+    "end": "Terminer",
     "winningMessage": "<b>Bravo {} ! Tu as gagné !</b>",
     "drawMessage": "<b>Mauvaise nouvelle, c'est une égalité...</b>",
     "chipEffectMessage": "Ton pion a l'effet <b>{}</b>",

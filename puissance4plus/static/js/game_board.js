@@ -230,3 +230,8 @@ $("button.giveUp").click(e => {
 $("button.giveUp").dblclick(e => {
     window.location.href = "/";
 })
+
+// End button
+$("button.end").click(e => {
+    window.location.href = "/";
+})
