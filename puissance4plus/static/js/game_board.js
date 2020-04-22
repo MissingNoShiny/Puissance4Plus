@@ -81,6 +81,9 @@ function handleNewState(state) {
             else
                 newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
+        if (state.game_mode === 3) {
+            board.startTimer(state.time_limit)
+        }
         if (state.current_player.is_ai) {
             board.freeze();
             setTimeout(() => {
@@ -95,6 +98,7 @@ let board = {
     canvas: $("canvas.board"),
     parent: $("main"),
     frozen: false,
+    timeLeft: 0,
     rows: null,
     columns: null,
     _setRowsCols: function(rows, columns) {
@@ -202,7 +206,16 @@ let board = {
     unfreeze: function() {
         $("canvas").css("cursor", "pointer");
         this.frozen = false;
-    }
+    },
+    startTimer: function(seconds) {
+        this.timeLeft = seconds * 10;
+        let id = setInterval(() => {
+            if (--this.timeLeft <= 0) {
+                clearInterval(id);
+                fetchLooping(-1);
+            }
+        }, 100);
+    },
 }
 // Display Players
 function displayPlayers(array, current) {
