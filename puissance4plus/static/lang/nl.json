@@ -46,6 +46,7 @@
     "players": "Spelers",
     "giveUp": "Afbreken",
     "winningMessage": "<b>Gefeliciteerd {} voor uw overwinning!</b>",
+    "lostToAIMessage": "Je verloor...",
     "drawMessage": "<b>Jammer genoeg, dit is een gelijkspel!</b>",
     "chipNoEffectMessage": "Je pion heeft geen effect",
     "chipEffectMessage": "Je pion heeft <b>{}</b> effect.",

@@ -46,6 +46,7 @@
     "giveUp": "Abandonner",
     "end": "Terminer",
     "winningMessage": "<b>Bravo {} ! Tu as gagné !</b>",
+    "lostToAIMessage": "Tu as perdu...",
     "drawMessage": "<b>Mauvaise nouvelle, c'est une égalité...</b>",
     "chipNoEffectMessage": "Ton pion n'a pas d'effet",
     "chipEffectMessage": "Ton pion a l'effet <b>{}</b>",

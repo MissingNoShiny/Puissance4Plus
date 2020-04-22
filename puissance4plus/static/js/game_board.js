@@ -62,7 +62,10 @@ function handleNewState(state) {
     lastState = state;
     displayPlayers(state.players, state.current_player);
     if(state.state === 1) {
-        newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
+        if (state.game_mode === 0 && state.current_player.is_ai)
+            newMessage(lang.game_board.lostToAIMessage, true);
+        else
+            newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
         board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();

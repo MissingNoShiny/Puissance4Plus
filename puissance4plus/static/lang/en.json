@@ -46,6 +46,7 @@
     "giveUp": "Give Up",
     "end": "Back menu",
     "winningMessage": "<b>Congrats {}, you won!</b>",
+    "lostToAIMessage": "You lost...",
     "drawMessage": "<b>Bad news, it's a draw</b>",
     "chipNoEffectMessage": "Your chip has no effect",
     "chipEffectMessage": "Your chip has the <b>{}</b> effect",
