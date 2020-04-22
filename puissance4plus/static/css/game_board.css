@@ -75,6 +75,18 @@ menu button.bottom {
     color: var(--white);
     cursor: pointer;
 }
+menu .timer {
+    display: none;
+    font-family: monospace;
+    font-size: 2em;
+    background: var(--secondary);
+    color: var(--white);
+    padding: 10px;
+    box-sizing: border-box;
+}
+menu .timer.visible {
+    display: block;
+}
 /* MAIN */
 main {
     position: absolute;

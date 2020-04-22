@@ -207,21 +207,22 @@ let board = {
         }
     },
     setTimer(ms) {
-        console.log("set timer", ms);
         this.timer = ms;
-        $(".timer").show();
+        $(".timer").addClass("visible").show().text(formatTime(this.timer));
         setInterval(() => {
             if(!this.frozen) {
-                this.timer -= 100;
-                $(".timer").text(this.ms / 100);
-                console.log(this.timer);
+                this.timer -= 50;
+                $(".timer").text(formatTime(this.timer));
             }
             // Stop on 0
             if(this.timer <= 0) {
                 board.freeze();
                 fetchLooping(-1);
             }
-        }, 100);
+        }, 50);
+        function formatTime(ms) {
+            return Number(ms / 1000).toFixed(2).replace(".", ":")
+        }
     },
     freeze: function() {
         this._mouseOut();
