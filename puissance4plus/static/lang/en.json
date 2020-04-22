@@ -4,7 +4,7 @@
   "TIMEATTACK": "Time Attack",
   "RANDOM": "Random",
   "human": "You",
-  "robot": "A.I.",
+  "robot": "Computer",
 
   "main_menu": {
     "title" : "Connect 4 plus",
