@@ -110,10 +110,15 @@ class Game:
 
         @self.app.route("/gameOptions", methods=['GET', 'POST'])
         def game_options_menu():
-            if request.method == 'GET':
+            if request.method == 'GET' and request.args.get('mode') != 'SOLO':
                 return render_template('game_options_menu.html',
                                        mode=self.language_data[request.args.get('mode')],
                                        lang=self.language_data["game_options_menu"])
+            elif request.args.get('mode') == "SOLO":
+                self.board = Board([Player(self.language_data["human"], "#F00"),
+                                    Player(self.language_data["robot"],
+                                           Player.NEUTRAL_COLOR, True)])
+                return redirect('/game')
             else:
                 data = request.json
                 players = []

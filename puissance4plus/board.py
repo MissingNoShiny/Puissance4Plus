@@ -11,7 +11,7 @@ class Player:
     Classe utilisée pour représenter un joueur
     """
 
-    NEUTRAL_COLOR = "#fff"
+    NEUTRAL_COLOR = "#000"
 
     def __init__(self, name: str, color: str, is_ai: bool = False):
         """
