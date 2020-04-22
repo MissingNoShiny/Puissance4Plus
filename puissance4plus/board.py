@@ -99,7 +99,7 @@ class Board:
         :param width: La largeur du plateau de jeu
         :param height: La hauteur du plateau de jeu
         :param win_condition: Le nombre de pions à aligner pour gagner la partie
-        :param starting_turn_time: Le temps limite pour jouer chaque coup, en secondes
+        :param starting_turn_time: Le temps limite de départ pour jouer son coup, en secondes
         """
         self.grid: List[List[Optional[Player]]] = [[None for _ in range(width)] for _ in range(height)]
         self.players: List[Player] = players
