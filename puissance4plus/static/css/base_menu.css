@@ -14,6 +14,15 @@ header {
     justify-content: center;
     color: var(--white);
     /* animation: textglow 10s ease-in-out infinite alternate; */
+    text-shadow: 
+        0 0 5px var(--primary),
+        0 0 10px var(--primary), 
+        0 0 15px var(--primary), 
+        0 0 20px var(--primary), 
+        0 0 25px var(--primary), 
+        0 0 30px var(--primary), 
+        0 0 35px var(--primary), 
+        0 0 45px var(--primary);
 }
 header h1 {
     font-size: 3em;
