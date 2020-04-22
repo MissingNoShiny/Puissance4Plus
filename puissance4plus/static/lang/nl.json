@@ -42,14 +42,14 @@
     "play": "Spelen"
   },
   "game_board": {
-    "players": "Players",
-    "giveUp": "Give Up",
     "end": "Eindigen",
-    "winningMessage": "<b>Congrats {} for winning!</b>",
-    "drawMessage": "<b>Bad news, it's a draw</b>",
-    "chipEffectMessage": "Your chip has <b>{}</b> effect",
-    "filledColumn": "Sorry, <b>{}</b>, this column is full",
-    "dbClickForGiveUp": "Please double click for give up"
+    "players": "Spelers",
+    "giveUp": "Afbreken",
+    "winningMessage": "<b>Gefeliciteerd {} voor uw overwinning!</b>",
+    "drawMessage": "<b>Jammer genoeg, dit is een gelijkspel!</b>",
+    "chipEffectMessage": "Je pion heeft <b>{}</b> effect.",
+    "filledColumn": "Sorry, <b>{}</b>, de kolom is gevuld.",
+    "dbClickForGiveUp": "Dubbelklik om af te breken."
   },
   "effects": [
     "None",

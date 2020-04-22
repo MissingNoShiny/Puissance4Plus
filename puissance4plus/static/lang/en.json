@@ -49,7 +49,7 @@
     "drawMessage": "<b>Bad news, it's a draw</b>",
     "chipEffectMessage": "Your chip has <b>{}</b> effect",
     "filledColumn": "Sorry, <b>{}</b>, this column is full",
-    "dbClickForGiveUp": "Please double click for give up"
+    "dbClickForGiveUp": "Please double click to give up"
   },
   "effects": [
     "None",
