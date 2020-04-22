@@ -62,7 +62,7 @@ menu .message {
     box-shadow: var(--shadow);
     color: var(--secondary);
 }
-menu button.abort {
+menu button.giveUp {
     display: block;
     position: absolute;
     bottom: 0;

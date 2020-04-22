@@ -41,6 +41,10 @@
     "back": "Back",
     "play": "Play"
   },
+  "game_board": {
+    "players": "Players",
+    "abort": "Abort"
+  },
   "rules": [
     {
       "title": "Solo mode",

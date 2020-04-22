@@ -218,11 +218,11 @@ $("canvas.board")
 })
 
 // Abort button
-$("button.abort").click(e => {
+$("button.giveUp").click(e => {
     setTimeout(() => {
         newMessage("Double clic pour abandonner");
     }, 500)
 })
-$("button.abort").dblclick(e => {
+$("button.giveUp").dblclick(e => {
     window.location.href = "/";
 })

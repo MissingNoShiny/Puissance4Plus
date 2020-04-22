@@ -41,6 +41,10 @@
     "back": "Terug",
     "play": "Spelen"
   },
+  "game_board": {
+    "players": "Spelers",
+    "abort": "Afbreken"
+  },
   "rules": [
     {
       "title": "Solo modus",

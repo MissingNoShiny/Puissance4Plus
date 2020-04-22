@@ -131,7 +131,8 @@ class Game:
         def render_game():
             if self.board is None:
                 return redirect("/")
-            return render_template('game_board.html')
+            return render_template('game_board.html', 
+                                        lang=self.language_data["game_board"])
 
         @self.app.route("/game", methods=['PUT'])
         def update_game():

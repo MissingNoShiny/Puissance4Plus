@@ -41,6 +41,10 @@
     "back": "Retour",
     "play": "Jouer"
   },
+  "game_board": {
+    "players": "Joueurs",
+    "abort": "Abandonner"
+  },
   "rules": [
     {
       "title": "Mode solo",
