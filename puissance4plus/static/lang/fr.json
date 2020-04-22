@@ -74,5 +74,14 @@
         "(1 seul joueur)"
       ]
     }
+  ],
+  "effects": [
+    "None",
+    "Play twice",
+    "Remove row",
+    "Remove column",
+    "Pop bottom",
+    "Empty board",
+    "Neutral chip"
   ]
 }

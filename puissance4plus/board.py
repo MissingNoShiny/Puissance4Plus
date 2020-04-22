@@ -1,9 +1,10 @@
 # coding: utf-8
 
-import json
+from __future__ import annotations
+
 import random
 from enum import Enum
-from typing import List, Optional, Tuple
+from typing import List, Optional
 
 
 class Player:
@@ -11,7 +12,7 @@ class Player:
     Classe utilisée pour représenter un joueur
     """
 
-    NEUTRAL_COLOR = "#fff"
+    NEUTRAL_COLOR = "#000"
 
     def __init__(self, name: str, color: str, is_ai: bool = False):
         """
@@ -48,31 +49,40 @@ class Effect(Enum):
     EMPTY_BOARD = 5
     NEUTRAL_CHIP = 6
 
-    _weights = [
-        40,
-        10,
-        12,
-        12,
-        12,
-        2,
-        12
-    ]
-
-    @staticmethod
-    def generate_effect():
+    @classmethod
+    def generate_effect(cls) -> Effect:
         """
         Génère aléatoirement un effet, en fonction des poids assignés à chaque
         :return: Un effet aléatoire
         """
-        choices = [effect.value for effect in Effect][::-1]
-        return random.choices(choices, weights=Effect._weights)
+        choices = [effect.value for effect in Effect]
+        weights = [
+            40,
+            10,
+            12,
+            12,
+            12,
+            2,
+            12
+        ]
+        return Effect(random.choices(choices, weights=weights)[0])
 
 
 class GameMode(Enum):
     SOLO = 0
-    CUSTOM = 1
+    CLASSIC = 1
     RANDOM = 2
     TIME_ATTACK = 3
+
+    @classmethod
+    def parse_mode(cls, mode) -> GameMode:
+        modes = {
+            "SOLO": cls.SOLO,
+            "CLASSIC": cls.CLASSIC,
+            "RANDOM": cls.RANDOM,
+            "TIMEATTACK": cls.TIME_ATTACK
+        }
+        return modes.get(mode, cls.CLASSIC)
 
 
 class Board:
@@ -81,7 +91,7 @@ class Board:
     """
 
     def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4,
-                 time_limit: int = 0, game_mode: GameMode = GameMode.CUSTOM):
+                 time_limit: int = 0, game_mode: GameMode = GameMode.CLASSIC):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
         :param width: La largeur du plateau de jeu
@@ -142,9 +152,9 @@ class Board:
         if self.turn_count > 0:
             self.turn_count -= 1
         else:
-            if self.game_mode == GameMode.RANDOM:
-                self.current_effect = Effect.generate_effect()
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
+        if self.game_mode == GameMode.RANDOM:
+            self.current_effect = Effect.generate_effect()
 
     def get_height(self, column_index: int) -> int:
         """

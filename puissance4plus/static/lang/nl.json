@@ -38,5 +38,14 @@
 
     "back": "Terug",
     "play": "Spelen"
-  }
+  },
+  "effects": [
+    "None",
+    "Play twice",
+    "Remove row",
+    "Remove column",
+    "Pop bottom",
+    "Empty board",
+    "Neutral chip"
+  ]
 }

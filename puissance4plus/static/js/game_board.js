@@ -47,12 +47,13 @@ function fetchLooping(column) {
 // Function which handles the fetch's response object
 function handleResponseData(data) {
     console.log(data);
-    if(!data.newBoard) {
-        // Initiale fetch
-        handleNewState(data);
+    if(data.hasOwnProperty("board")) {
+        // Initial fetch
+        handleNewState(data.board);
+        lang = data.language_data;
     } else {
         // Looping fetch
-        handleNewState(data.newBoard);
+        handleNewState(data);
     }
 }
 // Handle a new state (grid, players, ...)
@@ -70,7 +71,7 @@ function handleNewState(state) {
         frozen = true;
     } else {
         if (state.game_mode === 2) {
-            newMessage("Votre pion a un effet, wouaaouww !")
+            newMessage(`Votre pion a l'effet : ${lang.effects[state.current_effect]}`)
         }
     }
 }

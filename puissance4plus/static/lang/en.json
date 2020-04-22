@@ -53,5 +53,14 @@
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus."
       ]
     }
+  ],
+  "effects": [
+    "None",
+    "Play twice",
+    "Remove row",
+    "Remove column",
+    "Pop bottom",
+    "Empty board",
+    "Neutral chip"
   ]
 }

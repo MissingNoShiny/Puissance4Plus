@@ -58,7 +58,7 @@ class Game:
     FOLDER_NAME = ".puissance4"
 
     def __init__(self):
-        self.app = Flask(__name__)
+        self.app: Flask = Flask(__name__)
         # NO CACHE
         self.app.config["CACHE_TYPE"] = "null"
 
@@ -67,18 +67,19 @@ class Game:
         except AttributeError:
             pass
             # self.app.root_path = os.getcwd()
-        self.ui = UI(self.app, debug=True)
+        self.ui: UI = UI(self.app, debug=True)
 
-        self.game_directory = path.join(path.expanduser("~"), self.FOLDER_NAME)
-        self.config = ConfigParser()
+        self.game_directory: str = path.join(path.expanduser("~"), self.FOLDER_NAME)
+        self.config: ConfigParser = ConfigParser()
         if path.exists(path.join(self.game_directory, "config.ini")):
             self.config.read(path.join(self.game_directory, "config.ini"))
         else:
             self.config.read(path.join(self.app.static_folder, "config.ini"))
 
-        self.language_data = {}
+        self.language_data: dict = {}
         self.update_settings()
-        self.board = None
+        self.board: Optional[Board] = None
+        self.selected_mode: GameMode = GameMode.SOLO
 
         @self.app.route("/resource/<resource_path>")
         def get_resource(resource_path: str):
@@ -111,6 +112,7 @@ class Game:
         @self.app.route("/gameOptions", methods=['GET', 'POST'])
         def game_options_menu():
             if request.method == 'GET':
+                self.selected_mode = GameMode.parse_mode(request.args.get("mode"))
                 return render_template('game_options_menu.html',
                                        mode=self.language_data[request.args.get('mode')],
                                        lang=self.language_data["game_options_menu"])
@@ -119,7 +121,8 @@ class Game:
                 players = []
                 for key in data["players"]:
                     players.append(Player(data["players"][key]['name'], data["players"][key]['color']))
-                self.board = Board(players, int(data['width']), int(data['height']), int(data['win_condition']))
+                self.board = Board(players, int(data['width']), int(data['height']), int(data['win_condition']),
+                                   game_mode=self.selected_mode)
                 return Response(status='200')
 
         @self.app.route("/game", methods=['GET'])
@@ -135,15 +138,15 @@ class Game:
                 self.board.force_place()
             else:
                 self.board.place(column)
-            data = {
-                "messages": [],
-                "newBoard": self.board.to_dict()
-            }
-            return Response(json.dumps(data), mimetype='application/json')
+            return Response(json.dumps(self.board.to_dict()), mimetype='application/json')
 
         @self.app.route("/game", methods=['POST'])
         def start_game():
-            return Response(json.dumps(self.board.to_dict()), mimetype='application/json')
+            data = {
+                "language_data": self.language_data,
+                "board": self.board.to_dict()
+            }
+            return Response(json.dumps(data), mimetype='application/json')
 
         @self.app.route("/close")
         def close():
