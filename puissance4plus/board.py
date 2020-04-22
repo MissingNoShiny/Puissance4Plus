@@ -90,14 +90,16 @@ class Board:
     Classe utilisée pour représenter le plateau de jeu
     """
 
+    MINIMUM_TURN_TIME = 2
+
     def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4,
-                 time_limit: int = 2, game_mode: GameMode = GameMode.CLASSIC):
+                 starting_turn_time: int = 10, game_mode: GameMode = GameMode.CLASSIC):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
         :param width: La largeur du plateau de jeu
         :param height: La hauteur du plateau de jeu
         :param win_condition: Le nombre de pions à aligner pour gagner la partie
-        :param time_limit: Le temps limite pour jouer chaque coup, en secondes
+        :param starting_turn_time: Le temps limite pour jouer chaque coup, en secondes
         """
         self.grid: List[List[Optional[Player]]] = [[None for _ in range(width)] for _ in range(height)]
         self.players: List[Player] = players
@@ -107,7 +109,9 @@ class Board:
         self.turn_count: int = 0
         self.game_mode: GameMode = game_mode
         self.current_effect: Effect = Effect.NONE if self.game_mode != GameMode.RANDOM else Effect.generate_effect()
-        self.time_limit: int = time_limit
+        self.turn_time: int = starting_turn_time
+        turn_count = (self.width * self.height) // len(self.players)
+        self.turn_time_factor: float = (Board.MINIMUM_TURN_TIME / starting_turn_time) ** (1 / turn_count)
         self.randomize_order()
 
     @property
@@ -155,6 +159,8 @@ class Board:
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
         if self.game_mode == GameMode.RANDOM:
             self.current_effect = Effect.generate_effect()
+        elif self.game_mode == GameMode.TIME_ATTACK and self.current_player_index == 0:
+            self.turn_time *= self.turn_time_factor
 
     def get_height(self, column_index: int) -> int:
         """
@@ -326,7 +332,7 @@ class Board:
             "current_player": self.current_player.__dict__,
             "grid": grid_list,
             "current_effect": self.current_effect.value,
-            "time_limit": self.time_limit,
+            "time_limit": self.turn_time,
             "state": self.state.value,
             "non_full_columns": self.non_full_columns,
             "game_mode": self.game_mode.value
