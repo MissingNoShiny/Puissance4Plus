@@ -260,8 +260,9 @@ class Board:
         Supprime le pion le plus bas d'une colonne
         :param column_index: L'index de la colonne
         """
-        self.grid[0][column_index] = None
-        self.apply_gravity(column_index)
+        if self.get_height(column_index) > 1:
+            self.grid[0][column_index] = None
+            self.apply_gravity(column_index)
 
     def apply_gravity(self, column_index: int) -> None:
         """

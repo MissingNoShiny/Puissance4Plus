@@ -47,6 +47,7 @@
     "end": "Eindigen",
     "winningMessage": "<b>Congrats {} for winning!</b>",
     "drawMessage": "<b>Bad news, it's a draw</b>",
+    "chipNoEffectMessage": "Your chip has no effect",
     "chipEffectMessage": "Your chip has <b>{}</b> effect",
     "filledColumn": "Sorry, <b>{}</b>, this column is full",
     "dbClickForGiveUp": "Please double click for give up"

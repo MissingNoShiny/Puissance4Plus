@@ -47,6 +47,7 @@
     "end": "Terminer",
     "winningMessage": "<b>Bravo {} ! Tu as gagné !</b>",
     "drawMessage": "<b>Mauvaise nouvelle, c'est une égalité...</b>",
+    "chipNoEffectMessage": "Ton pion n'a pas d'effet",
     "chipEffectMessage": "Ton pion a l'effet <b>{}</b>",
     "filledColumn": "Désolé, <b>{}</b>, cette colonne est remplie",
     "dbClickForGiveUp": "Double clic pour abandonner"

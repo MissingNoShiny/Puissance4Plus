@@ -68,13 +68,16 @@ function handleNewState(state) {
         $("button.giveUp").hide();
         $("button.end").show();
     } else if (state.state === 2) {
-        newMessage(lang.game_board.drawMessage, true)
+        newMessage(lang.game_board.drawMessage, true);
         frozen = true;
         $("button.giveUp").hide();
         $("button.end").show();
     } else {
         if (state.game_mode === 2) {
-            newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]))
+            if (state.current_effect == 0)
+                newMessage(lang.game_board.chipNoEffectMessage);
+            else
+                newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
     }
 }
