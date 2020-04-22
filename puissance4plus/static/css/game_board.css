@@ -1,3 +1,4 @@
+/* HEADER */
 header {
     position: absolute;
     top: 0;
@@ -8,23 +9,66 @@ header {
     box-sizing: border-box;
     color: var(--white);
 }
+/* MENU */
 menu {
     position: absolute;
     top: 0;
     right: 0;
     height: 100vh;
-    width: 30vmin;
+    width: 30vw;
     margin: 0;
-    padding: 5vmin;
+    padding: 0;
+    text-align: center;
     box-sizing: border-box;
     color: var(--white);
+    background: var(--primary);
+    box-shadow: var(--shadow);
+    overflow: auto;
 }
+menu h2 {
+    margin: 25px;
+    padding: 15px 0;
+    background: var(--secondary);
+    color: var(--white);
+}
+menu .player {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 20px);
+    padding: 5px;
+    margin: 10px;
+    box-sizing: border-box;
+}
+menu .player.current::before {
+    position: absolute;
+    left: 10px;
+    content: "▶";
+    color: var(--secondary);
+    animation: rightBouncing 2s ease-in-out infinite reverse;
+}
+menu hr {
+    height: 5px;
+    margin: 25px 0;
+    background: var(--secondary);
+    border: none;
+}
+menu .message {
+    position: relative;
+    padding: 10px;
+    margin: 20px;
+    font-size: 1rem;
+    font-family: sans-serif;
+    background: var(--white);
+    box-shadow: var(--shadow);
+    color: var(--secondary);
+}
+/* MAIN */
 main {
     position: absolute;
     top: 20vmin;
     left: 0;
-    height: calc(100vh - 20vmin);
-    width: calc(100vw - 30vmin);
+    height: calc(100vh - 20vh);
+    width: calc(100vw - 30vw);
     padding: 5vmin;
     box-sizing: border-box;
     color: var(--white);
@@ -35,4 +79,5 @@ canvas.board {
     left: 50%;
     transform: translate(-50%, -50%);
     box-shadow: var(--shadow);
+    cursor: pointer;
 }

@@ -62,10 +62,17 @@ class Effect(Enum):
     def generate_effect():
         """
         Génère aléatoirement un effet, en fonction des poids assignés à chaque
-        :return:
+        :return: Un effet aléatoire
         """
-        choices = [effect.value for effect in Effect[:-1]]
+        choices = [effect.value for effect in Effect][::-1]
         return random.choices(choices, weights=Effect._weights)
+
+
+class GameMode(Enum):
+    SOLO = 0
+    CUSTOM = 1
+    RANDOM = 2
+    TIME_ATTACK = 3
 
 
 class Board:
@@ -74,7 +81,7 @@ class Board:
     """
 
     def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4,
-                 time_limit: int = 0):
+                 time_limit: int = 0, game_mode: GameMode = GameMode.CUSTOM):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
         :param width: La largeur du plateau de jeu
@@ -88,9 +95,10 @@ class Board:
         self.current_player_index: int = 0
         self.win_condition: int = win_condition
         self.state: BoardState = BoardState.RUNNING
-        self.turn_count = 0
-        self.current_effect = Effect.NONE
-        self.time_limit = time_limit
+        self.turn_count: int = 0
+        self.game_mode: GameMode = game_mode
+        self.current_effect: Effect = Effect.NONE if self.game_mode != GameMode.RANDOM else Effect.generate_effect()
+        self.time_limit: int = time_limit
 
     @property
     def width(self) -> int:
@@ -134,6 +142,8 @@ class Board:
         if self.turn_count > 0:
             self.turn_count -= 1
         else:
+            if self.game_mode == GameMode.RANDOM:
+                self.current_effect = Effect.generate_effect()
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
 
     def get_height(self, column_index: int) -> int:
@@ -307,7 +317,8 @@ class Board:
             "current_effect": self.current_effect.value,
             "time_limit": self.time_limit,
             "state": self.state.value,
-            "non_full_columns": self.non_full_columns
+            "non_full_columns": self.non_full_columns,
+            "game_mode": self.game_mode.value
         }
         return data
 
