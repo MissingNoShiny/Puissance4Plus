@@ -13,7 +13,7 @@ header {
     align-items: center;
     justify-content: center;
     color: var(--white);
-    animation: textglow 10s ease-in-out infinite alternate;
+    /* animation: textglow 10s ease-in-out infinite alternate; */
 }
 header h1 {
     font-size: 3em;
