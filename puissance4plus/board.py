@@ -90,10 +90,10 @@ class Board:
     Classe utilisée pour représenter le plateau de jeu
     """
 
-    MINIMUM_TURN_TIME = 2
+    MINIMUM_TURN_TIME = 5
 
     def __init__(self, players: List[Player], width: int = 7, height: int = 6, win_condition: int = 4,
-                 starting_turn_time: int = 10, game_mode: GameMode = GameMode.CLASSIC):
+                 starting_turn_time: int = 15, game_mode: GameMode = GameMode.CLASSIC):
         """
         :param players: Une liste d'objets Player représentant la liste des joueurs
         :param width: La largeur du plateau de jeu
