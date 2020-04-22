@@ -1,7 +1,6 @@
 // Variable : last board state
 let lastState;
 let lang;
-let frozen = false;
 // Initial fetch
 function fetchInitial() {
     fetch("/game", {
@@ -58,18 +57,18 @@ function handleResponseData(data) {
 }
 // Handle a new state (grid, players, ...)
 function handleNewState(state) {
-    Board.initialize(state.height, state.width);
-    Board.setData(state.grid);
+    board.initialize(state.height, state.width);
+    board.setData(state.grid);
     lastState = state;
     displayPlayers(state.players, state.current_player);
     if(state.state === 1) {
         newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
-        frozen = true;
+        board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
     } else if (state.state === 2) {
         newMessage(lang.game_board.drawMessage, true);
-        frozen = true;
+        board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
     } else {
@@ -79,12 +78,20 @@ function handleNewState(state) {
             else
                 newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
+        if (state.current_player.is_ai) {
+            board.freeze();
+            setTimeout(() => {
+                board.unfreeze();
+                fetchLooping(-1);
+            }, 2000)
+        }
     }
 }
 // Board object
-let Board = {
+let board = {
     canvas: $("canvas.board"),
     parent: $("main"),
+    frozen: false,
     rows: null,
     columns: null,
     _setRowsCols: function(rows, columns) {
@@ -118,8 +125,8 @@ let Board = {
             ctx.closePath();
         } else Error("No rows & columns set");
     },
-    _clicEvent: function(e) {
-        if(!frozen) {
+    _clickEvent: function(e) {
+        if(!this.frozen) {
             // Calculate on which column
             let bcr = this.canvas.get(0).getBoundingClientRect();
             let cx = (e.clientX - bcr.left) * (this.canvas.width() / bcr.width);
@@ -133,6 +140,8 @@ let Board = {
         }
     },
     _mouseIn: function(e) {
+        if (this.frozen)
+            return;
         // Clear previous hover
         this._mouseOut();
         // Calculate on which column
@@ -181,6 +190,15 @@ let Board = {
                 }
             }
         }
+    },
+    freeze: function() {
+        this._mouseOut();
+        $("canvas").css("cursor", "default");
+        this.frozen = true;
+    },
+    unfreeze: function() {
+        $("canvas").css("cursor", "pointer");
+        this.frozen = false;
     }
 }
 // Display Players
@@ -215,13 +233,13 @@ fetchInitial();
 // Mouse events on canvas
 $("canvas.board")
 .click(e => {
-    Board._clicEvent(e);
+    board._clickEvent(e);
 })
 .mousemove(e => {
-    Board._mouseIn(e);
+    board._mouseIn(e);
 })
 .mouseout(e => {
-    Board._mouseOut(e);
+    board._mouseOut(e);
 })
 
 // giveUp button
