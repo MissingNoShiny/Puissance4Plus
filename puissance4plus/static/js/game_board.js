@@ -23,6 +23,9 @@ function fetchInitial() {
 }
 // Looping fetch
 function fetchLooping(column) {
+    // Clear Interval
+    clearInterval(board.intervalTimer);
+    // Fetch
     fetch("/game", {
         method: 'PUT',
         headers: {
@@ -209,17 +212,21 @@ let board = {
     setTimer(ms) {
         this.timer = ms;
         $(".timer").addClass("visible").show().text(formatTime(this.timer));
-        setInterval(() => {
-            if(!this.frozen) {
-                this.timer -= 50;
-                $(".timer").text(formatTime(this.timer));
+        this.intervalTimer = setInterval(atInterval, 50);
+        let self = this;
+        function atInterval() {
+            if(!self.frozen) {
+                self.timer -= 50;
+                $(".timer").text(formatTime(self.timer));
             }
             // Stop on 0
-            if(this.timer <= 0) {
+            if(self.timer <= 0) {
                 board.freeze();
+                clearInterval(self.intervalTimer);
                 fetchLooping(-1);
+                return;
             }
-        }, 50);
+        }
         function formatTime(ms) {
             return Number(ms / 1000).toFixed(2).replace(".", ":")
         }
