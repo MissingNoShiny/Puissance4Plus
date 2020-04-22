@@ -43,7 +43,7 @@
   },
   "game_board": {
     "players": "Players",
-    "abort": "Abort"
+    "giveUp": "Give Up"
   },
   "rules": [
     {

@@ -217,7 +217,7 @@ $("canvas.board")
     Board._mouseOut(e);
 })
 
-// Abort button
+// giveUp button
 $("button.giveUp").click(e => {
     setTimeout(() => {
         newMessage("Double clic pour abandonner");

@@ -43,7 +43,7 @@
   },
   "game_board": {
     "players": "Spelers",
-    "abort": "Afbreken"
+    "giveUp": "Afbreken"
   },
   "rules": [
     {
