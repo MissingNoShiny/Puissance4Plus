@@ -1,4 +1,4 @@
-// Variable : last board state
+// Variable
 let lastState;
 let lang;
 // Initial fetch
@@ -23,14 +23,13 @@ function fetchInitial() {
 }
 // Looping fetch
 function fetchLooping(column) {
-    let body = column.toString();
     fetch("/game", {
         method: 'PUT',
         headers: {
             'Accept': 'text/plain',
             'Content-Type': 'text/plain'
         },
-        body: body
+        body: column.toString()
     })
     .then(res => {
         if(res.status == 200) {
@@ -57,10 +56,13 @@ function handleResponseData(data) {
 }
 // Handle a new state (grid, players, ...)
 function handleNewState(state) {
+    // Update board
     board.initialize(state.height, state.width);
     board.setData(state.grid);
-    lastState = state;
     displayPlayers(state.players, state.current_player);
+    // Save last state
+    lastState = state;
+    // If game if won
     if(state.state === 1) {
         if (state.game_mode === 0) {
             if (state.current_player.is_ai) newMessage(lang.game_board.soloLosingMessage, true);
@@ -69,27 +71,33 @@ function handleNewState(state) {
         board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
+    // If game is draw
     } else if (state.state === 2) {
         newMessage(lang.game_board.drawMessage, true);
         board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
+    // If game is running
     } else {
-        if (state.game_mode === 2) {
+        // If game mode RANDOM
+        if (state.game_mode == 2) {
             if (state.current_effect == 0)
                 newMessage(lang.game_board.chipNoEffectMessage);
             else
                 newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
-        if (state.game_mode === 3) {
-            board.startTimer(state.time_limit)
-        }
+        // If current player is AI
         if (state.current_player.is_ai) {
             board.freeze();
             setTimeout(() => {
                 board.unfreeze();
                 fetchLooping(-1);
             }, 2000)
+        }
+        // If game mode TICKATTACK
+        if(state.game_mode == 3 && state.time_limit > 0) {
+            board.setTimer(state.time_limit * 1000);
+            board.blur();
         }
     }
 }
@@ -198,6 +206,18 @@ let board = {
             }
         }
     },
+    setTimer(ms) {
+        console.log("set timer", ms);
+        this.timer = ms;
+        $(".timer").show();
+        setInterval(() => {
+            if(!this.frozen) {
+                this.timer -= 100;
+                $(".timer").text(this.ms / 100);
+                console.log(this.timer);
+            }
+        }, 100);
+    },
     freeze: function() {
         this._mouseOut();
         $("canvas").css("cursor", "default");
@@ -207,15 +227,16 @@ let board = {
         $("canvas").css("cursor", "pointer");
         this.frozen = false;
     },
-    startTimer: function(seconds) {
-        this.timeLeft = seconds * 10;
-        let id = setInterval(() => {
-            if (--this.timeLeft <= 0) {
-                clearInterval(id);
-                fetchLooping(-1);
-            }
-        }, 100);
+    blur: function() {
+        this.canvas.addClass("blur");
+        $("button.startTimer").show();
+        this.freeze();
     },
+    unblur: function() {
+        this.canvas.removeClass("blur");
+        $("button.startTimer").hide();
+        this.unfreeze();
+    }
 }
 // Display Players
 function displayPlayers(array, current) {

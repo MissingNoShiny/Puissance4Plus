@@ -45,6 +45,7 @@
     "players": "Joueurs",
     "giveUp": "Abandonner",
     "end": "Terminer",
+    "startTimer": "Démarrer le minuteur",
     "winningMessage": "<b>Bravo {} ! Tu as gagné !</b>",
     "soloLosingMessage": "<b>Tu as perdu...</b>",
     "soloWinningMessage": "<b>Bravo, c'est bien, tu as gagné !</b>",

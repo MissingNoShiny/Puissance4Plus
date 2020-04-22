@@ -45,6 +45,7 @@
     "end": "Eindigen",
     "players": "Spelers",
     "giveUp": "Afbreken",
+    "startTimer": "Starttijd",
     "winningMessage": "<b>Gefeliciteerd {} voor uw overwinning!</b>",
     "soloLosingMessage": "<b>Je verloor...</b>",
     "soloWinningMessage": "<b>Gefeliciteerd, voor uw overwinning!</b>",

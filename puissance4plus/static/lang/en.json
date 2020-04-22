@@ -45,6 +45,7 @@
     "players": "Players",
     "giveUp": "Give Up",
     "end": "Back menu",
+    "startTimer": "Start timer",
     "winningMessage": "<b>Congrats {}, you won!</b>",
     "soloLosingMessage": "<b>You lost...</b>",
     "soloWinningMessage": "<b>Congrats, you won!</b>",

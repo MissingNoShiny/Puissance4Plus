@@ -14,6 +14,7 @@
     </header> -->
     <menu>
         <h2>{{ lang.players }}</h2>
+        <div class="timer" style="display: none;"></div>
         <div class="players"></div>
         <hr>
         <div class="messages"></div>
@@ -22,6 +23,7 @@
     </menu>
     <main>
         <canvas class="board"></canvas>
+        <button class="startTimer" style="display: none;" onclick="board.unblur()">{{ lang.startTimer }}</button>
     </main>
     <script src="/resource/jquery-3.5.0.min.js"></script>
     <script src="/resource/game_board.js"></script>

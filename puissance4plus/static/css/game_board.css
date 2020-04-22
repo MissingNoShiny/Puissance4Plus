@@ -96,3 +96,26 @@ canvas.board {
     box-shadow: var(--shadow);
     cursor: pointer;
 }
+canvas.board.blur {
+    filter: blur(7.5px) grayscale(100%);
+}
+button.startTimer {
+    position: absolute;
+    z-index: 99;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 50%;
+    width: 50%;
+    border: none;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 2em;
+    font-family: "nasa";
+    cursor: pointer;
+    transition: all 75ms ease-in-out;
+}
+button.startTimer:hover {
+    transform: translate(-50%, -50%) scale(1.05);
+    filter: brightness(.9);
+}
