@@ -265,7 +265,7 @@ function displayPlayers(array, current) {
     $(".players").empty();
     array.forEach(p => {
         $(document.createElement("div"))
-        .addClass(p.name === current.name ? "player current" : "player")
+        .addClass((p.name === current.name && p.color === current.color) ? "player current" : "player")
         .text(p.name)
         .css("background", p.color)
         .appendTo(".players")
