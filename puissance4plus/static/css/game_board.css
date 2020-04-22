@@ -23,7 +23,7 @@ menu {
     color: var(--white);
     background: var(--primary);
     box-shadow: var(--shadow);
-    overflow: auto;
+    overflow: hidden;
 }
 menu h2 {
     margin: 25px;
@@ -62,7 +62,7 @@ menu .message {
     box-shadow: var(--shadow);
     color: var(--secondary);
 }
-menu button.giveUp {
+menu button.bottom {
     display: block;
     position: absolute;
     bottom: 0;

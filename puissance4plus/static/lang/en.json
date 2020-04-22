@@ -44,6 +44,7 @@
   "game_board": {
     "players": "Players",
     "giveUp": "Give Up",
+    "end": "Terminer",
     "winningMessage": "<b>Congrats {} for winning!</b>",
     "drawMessage": "<b>Bad news, it's a draw</b>",
     "chipEffectMessage": "Your chip has <b>{}</b> effect",

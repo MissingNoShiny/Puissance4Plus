@@ -65,9 +65,13 @@ function handleNewState(state) {
     if(state.state === 1) {
         newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
         frozen = true;
+        $("button.giveUp").hide();
+        $("button.end").show();
     } else if (state.state === 2) {
         newMessage(lang.game_board.drawMessage, true)
         frozen = true;
+        $("button.giveUp").hide();
+        $("button.end").show();
     } else {
         if (state.game_mode === 2) {
             newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]))
