@@ -3,6 +3,8 @@
   "CLASSIC": "Classic",
   "TIMEATTACK": "Time Attack",
   "RANDOM": "Random",
+  "human": "You",
+  "robot": "A.I.",
 
   "main_menu": {
     "title" : "Connect 4 plus",

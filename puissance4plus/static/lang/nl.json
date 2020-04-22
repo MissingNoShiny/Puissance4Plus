@@ -3,6 +3,8 @@
   "CLASSIC": "Klassiek",
   "TIMEATTACK": "Tijdrit",
   "RANDOM": "Roulette",
+  "human": "Jouw",
+  "robot": "K.I.",
 
   "main_menu": {
     "title" : "Vermogen 4 plus",
