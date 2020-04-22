@@ -69,6 +69,7 @@ $("footer .play").click(() => {
                 win_condition: $(".slider[name=win_condition]").val(),
                 height: $(".slider[name=height]").val(),
                 width: $(".slider[name=width]").val(),
+                mode: new URLSearchParams(window.location.search).get("mode"),
                 players: {}
             };
             Players.forEach(p => {

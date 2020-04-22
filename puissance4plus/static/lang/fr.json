@@ -3,6 +3,8 @@
   "CLASSIC": "Classique",
   "TIMEATTACK": "Contre la montre",
   "RANDOM": "Roulette",
+  "human": "Vous",
+  "robot": "I.A.",
 
   "main_menu": {
     "title" : "Puissance 4 plus",
@@ -39,39 +41,42 @@
     "back": "Retour",
     "play": "Jouer"
   },
+  "game_board": {
+    "players": "Joueurs",
+    "abort": "Abandonner"
+  },
   "rules": [
     {
-      "title": "Mode Solo",
+      "title": "Mode solo",
       "content": [
-        "Vous êtes seul(e) face à la fameuse et redoutable I.A. de destruction massive codée avec soin par nos",
-        " ingénieurs... Votre but: vaincre ce monstre de technologie. Utilisez vos meilleurs atouts pour en arriver",
-        "à bout !",
-        "(1 seul joueur)"
+        "Ce mode vous permet de jouer seul contre l’ordinateur. ",
+        "Il suffit d’être le premier à aligner 4 jetons de sa couleur horizontalement, verticalement ou diagonalement. ",
+        "Si lors d’une partie, tous les jetons sont joués sans avoir d’alignement de jetons, ",
+        "la partie est déclarée nulle."
       ]
     },
     {
-      "title": "Mode Classique",
+      "title": "Mode classique",
       "content": [
-        "Un puissance 4 tout ce qu'il y a de plus classique, tu t'attendais à quoi ?",
-        "(2 à 5 joueurs)"
+        "Ce mode vous permet de jouer à 2 jusqu’à 5 personnes. Le but est d’aligner horizontalement, ",
+        "verticalement ou diagonalement autant de pions sélectionnés dans les options de création de la partie. ",
+        "Vous pouvez également modifier les dimensions de la grille."
       ]
     },
     {
-      "title": "Mode Contre-la-montre",
+      "title": "Mode Contre la montre",
       "content": [
-        "C'est comme dans Mario Kart mais sans les karts et sans Mario. Pulvérisez votre meilleur temps à l'aide de",
-        "vos capacités intellectuelles. Car après tout, comme le fit Charles de Leusse: \"Le pire ennemi,",
-        "c'est soi-même\".",
-        "(1 seul joueur)"
+        "Ce mode vous permet de jouer à 2 jusqu’à 5 personnes. ",
+        "Le but reste identique au mode classique à la seule différence que vous devez jouer dans un temps imparti. ",
+        "Les options de partie sont toujours disponibles pour personnaliser votre jeu."
       ]
     },
     {
-      "title": "Mode Roulette",
+      "title": "Mode roulette",
       "content": [
-        "Vous voulez jouer à la roulette Russe sans y mettre en jeu votre vie ? Ce mode de jeu est fait pour vous !",
-        "Jouez à puissance 4 comme jamais auparavant, utilisez des pionts spéciaux pour éclater vos adversaires !",
-        "Le fun à son paroxysme...",
-        "(1 seul joueur)"
+        "Dans ce mode de jeu vous serez menés au début de chaque tour à recevoir un pion choisi aléatoirement ",
+        "possédant une caractéristique spéciale. La partie se joue de 2 à 5 personnes, les options de création de ",
+        "partie sont disponibles pour personnaliser la grille de votre jeu et le nombre de pions à aligner pour gagner."
       ]
     }
   ],

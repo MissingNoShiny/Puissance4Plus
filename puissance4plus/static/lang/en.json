@@ -3,6 +3,8 @@
   "CLASSIC": "Classic",
   "TIMEATTACK": "Time Attack",
   "RANDOM": "Random",
+  "human": "You",
+  "robot": "A.I.",
 
   "main_menu": {
     "title" : "Connect 4 plus",
@@ -39,18 +41,41 @@
     "back": "Back",
     "play": "Play"
   },
+  "game_board": {
+    "players": "Players",
+    "abort": "Abort"
+  },
   "rules": [
     {
-      "title": "Titre 1",
+      "title": "Solo mode",
       "content": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus.",
-        "suite du text"
+        "This mode allows you to play alone against the computer. Just be the first to line up 4 chips ",
+        "of your color horizontally, vertically or diagonally. If during a game, all the chips are played ",
+        "without any chip rows, the game is declared a draw."
       ]
     },
     {
-      "title": "Titre 2",
+      "title": "Classic mode",
       "content": [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ut ultricies lectus."
+        "This mode allows you to play with 2 to 5 people. The goal is to align horizontally, vertically or ",
+        "diagonally as many checkers selected in the game creation options. ",
+        "You can also change the dimensions of the grid."
+      ]
+    },
+    {
+      "title": "Time attack",
+      "content": [
+        "This mode allows you to play with 2 to 5 people. The goal remains the same as the classic ",
+        "mode with the only difference that you must play within a set time. ",
+        "Game options are always available to customize your game."
+      ]
+    },
+    {
+      "title": "Roulette mode",
+      "content": [
+        "In this mode of play you will be led at the beginning of each turn to receive a randomly ",
+        "chosen pawn with a special feature. The game is played by 2 to 5 people, game creation options are ",
+        "available to customize the grid of your game and the number of checkers to line up to win."
       ]
     }
   ],
