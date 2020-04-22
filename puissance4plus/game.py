@@ -15,7 +15,7 @@ from puissance4plus.board import *
 class UI(WebUI):
     def __init__(self, app: Flask, debug: bool = False):
         super().__init__(app, debug=debug)
-        self.view.setWindowTitle('Puissance 4 SUPER')
+        self.set_window_title()
         self.set_minimum_resolution()
         self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
         self.set_volume(0)
@@ -52,6 +52,13 @@ class UI(WebUI):
         :param width: La largeur de la fenêtre, en pixels
         """
         self.view.setMinimumSize(width, height)
+
+    def set_window_title(self, name: str = 'Puissance 4 SUPER') -> None:
+        """
+        Change le nom de la fenêtre de jeu
+        :param name: Nom de la fenêtre
+        """
+        self.view.setWindowTitle(name)
 
 
 class Game:
@@ -207,4 +214,5 @@ class Game:
         """
         self.ui.set_fullscreen(self.config.getboolean("puissance4", "Fullscreen"))
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
+        self.ui.set_window_title(self.language_data["main_menu"]["title"])
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
