@@ -66,7 +66,7 @@ function handleNewState(state) {
         newMessage(`WOUAOUW, ${state.current_player.name} a GAGNÉ ??!!!!`, true)
         frozen = true;
     } else if (state.state === 2) {
-        newMessage("QUOI ??????? C'est une ÉGALITÉ ??????????")
+        newMessage("QUOI ??????? C'est une ÉGALITÉ ??????????", true)
         frozen = true;
     } else {
         if (state.game_mode === 2) {
@@ -215,4 +215,14 @@ $("canvas.board")
 })
 .mouseout(e => {
     Board._mouseOut(e);
+})
+
+// Abort button
+$("button.abort").click(e => {
+    setTimeout(() => {
+        newMessage("Double clic pour abandonner");
+    }, 500)
+})
+$("button.abort").dblclick(e => {
+    window.location.href = "/";
 })
