@@ -100,7 +100,6 @@ class Board:
         :param time_limit: Le temps limite pour jouer chaque coup, en secondes
         """
         self.grid: List[List[Optional[Player]]] = [[None for _ in range(width)] for _ in range(height)]
-
         self.players: List[Player] = players
         self.current_player_index: int = 0
         self.win_condition: int = win_condition
@@ -109,6 +108,7 @@ class Board:
         self.game_mode: GameMode = game_mode
         self.current_effect: Effect = Effect.NONE if self.game_mode != GameMode.RANDOM else Effect.generate_effect()
         self.time_limit: int = time_limit
+        self.randomize_order()
 
     @property
     def width(self) -> int:
