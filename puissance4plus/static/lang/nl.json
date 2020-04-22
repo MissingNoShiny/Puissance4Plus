@@ -53,7 +53,8 @@
     "chipNoEffectMessage": "Je pion heeft geen effect",
     "chipEffectMessage": "Je pion heeft <b>{}</b> effect.",
     "filledColumn": "Sorry, <b>{}</b>, de kolom is gevuld.",
-    "dbClickForGiveUp": "Dubbelklik om af te breken."
+    "dbClickForGiveUp": "Dubbelklik om af te breken.",
+    "tooLate": "Te traag! Chip willekeurig voor u geplaatst"
   },
   "effects": [
     "None",

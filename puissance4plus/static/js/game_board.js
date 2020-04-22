@@ -212,17 +212,18 @@ let board = {
     setTimer(ms) {
         this.timer = ms;
         $(".timer").addClass("visible").show().text(formatTime(this.timer));
-        this.intervalTimer = setInterval(atInterval, 50);
+        this.intervalTimer = setInterval(atInterval, 49);
         let self = this;
         function atInterval() {
             if(!self.frozen) {
-                self.timer -= 50;
+                self.timer -= 49;
                 $(".timer").text(formatTime(self.timer));
             }
             // Stop on 0
             if(self.timer <= 0) {
                 board.freeze();
                 clearInterval(self.intervalTimer);
+                newMessage(lang.game_board.tooLate);
                 fetchLooping(-1);
                 return;
             }
