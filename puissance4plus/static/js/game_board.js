@@ -120,9 +120,17 @@ let board = {
         if(this.parent.width() > this.parent.height()) {
             this.canvas.attr("height", this.parent.height());
             this.canvas.attr("width", this.parent.height());
+            // Set start timer button size
+            $("button.startTimer")
+                .css("height", this.parent.height())
+                .css("width", this.parent.height())
         } else {
             this.canvas.attr("height", this.parent.width());
             this.canvas.attr("width", this.parent.width());
+            // Set start timer button size
+            $("button.startTimer")
+                .css("height", this.parent.width())
+                .css("width", this.parent.width())
         }
     },
     _drawCircle: function(column, row, color, border) {

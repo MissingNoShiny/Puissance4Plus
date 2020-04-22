@@ -117,17 +117,17 @@ button.startTimer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 50%;
-    width: 50%;
+    /* height: 50%;
+    width: 50%; */
     border: none;
-    background: var(--primary);
-    color: var(--white);
+    background: var(--white);
+    color: var(--secondary);
     font-size: 2em;
     font-family: "nasa";
     cursor: pointer;
     transition: all 75ms ease-in-out;
 }
 button.startTimer:hover {
-    transform: translate(-50%, -50%) scale(1.05);
+    transform: translate(-50%, -50%) scale(.95);
     filter: brightness(.9);
 }
