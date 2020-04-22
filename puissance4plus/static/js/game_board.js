@@ -49,8 +49,8 @@ function handleResponseData(data) {
     console.log(data);
     if(data.hasOwnProperty("board")) {
         // Initial fetch
-        handleNewState(data.board);
         lang = data.language_data;
+        handleNewState(data.board);
     } else {
         // Looping fetch
         handleNewState(data);
@@ -62,16 +62,15 @@ function handleNewState(state) {
     Board.setData(state.grid);
     lastState = state;
     displayPlayers(state.players, state.current_player);
-    lang = state.lang;
     if(state.state === 1) {
-        newMessage(`WOUAOUW, ${state.current_player.name} a GAGNÉ ??!!!!`, true)
+        newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
         frozen = true;
     } else if (state.state === 2) {
-        newMessage("QUOI ??????? C'est une ÉGALITÉ ??????????", true)
+        newMessage(lang.game_board.drawMessage, true)
         frozen = true;
     } else {
         if (state.game_mode === 2) {
-            newMessage(`Votre pion a l'effet : ${lang.effects[state.current_effect]}`)
+            newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]))
         }
     }
 }
@@ -122,7 +121,7 @@ let Board = {
             if(!lastState || lastState.non_full_columns.includes(col)) {
                 fetchLooping(col);
             } else {
-                newMessage(`<b>${lastState.current_player.name}</b> : la colonne est remplie`);
+                newMessage(lang.game_board.filledColumn.replace("{}", lastState.current_player.name));
             }
         }
     },
@@ -194,10 +193,10 @@ function newMessage(message, persistent) {
     .hide()
     .addClass("message")
     .html(message)
-    .appendTo(".messages")
+    .prependTo(".messages")
     .slideDown();
     if(!persistent) {
-        m.delay(5000)
+        m.delay(10000)
         .fadeOut();
     }
 }
@@ -221,7 +220,7 @@ $("canvas.board")
 // giveUp button
 $("button.giveUp").click(e => {
     setTimeout(() => {
-        newMessage("Double clic pour abandonner");
+        newMessage(lang.game_board.dbClickForGiveUp);
     }, 500)
 })
 $("button.giveUp").dblclick(e => {

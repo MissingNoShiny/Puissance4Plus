@@ -42,9 +42,23 @@
     "play": "Spelen"
   },
   "game_board": {
-    "players": "Spelers",
-    "giveUp": "Afbreken"
+    "players": "Players",
+    "giveUp": "Give Up",
+    "winningMessage": "<b>Congrats {} for winning!</b>",
+    "drawMessage": "<b>Bad news, it's a draw</b>",
+    "chipEffectMessage": "Your chip has <b>{}</b> effect",
+    "filledColumn": "Sorry, <b>{}</b>, this column is full",
+    "dbClickForGiveUp": "Please double click for give up"
   },
+  "effects": [
+    "None",
+    "Play twice",
+    "Remove row",
+    "Remove column",
+    "Pop bottom",
+    "Empty board",
+    "Neutral chip"
+  ],
   "rules": [
     {
       "title": "Solo modus",
@@ -78,14 +92,5 @@
         "zijn beschikbaar om het raster van uw spel en het aantal checkers aan te passen om te winnen. "
       ]
     }
-  ],
-  "effects": [
-    "None",
-    "Play twice",
-    "Remove row",
-    "Remove column",
-    "Pop bottom",
-    "Empty board",
-    "Neutral chip"
   ]
 }

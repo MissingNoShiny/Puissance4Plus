@@ -43,8 +43,22 @@
   },
   "game_board": {
     "players": "Joueurs",
-    "giveUp": "Abandonner"
+    "giveUp": "Abandonner",
+    "winningMessage": "<b>Bravo {} ! Tu as gagné !</b>",
+    "drawMessage": "<b>Mauvaise nouvelle, c'est une égalité...</b>",
+    "chipEffectMessage": "Ton pion a l'effet <b>{}</b>",
+    "filledColumn": "Désolé, <b>{}</b>, cette colonne est remplie",
+    "dbClickForGiveUp": "Double clic pour abandonner"
   },
+  "effects": [
+    "Aucun",
+    "Jouer 2x",
+    "Supprimer la ligne",
+    "Supprimer la colonne",
+    "Ecrase le pion du bas",
+    "Vider le tableau",
+    "Pion neutre"
+  ],
   "rules": [
     {
       "title": "Mode solo",
@@ -79,14 +93,5 @@
         "partie sont disponibles pour personnaliser la grille de votre jeu et le nombre de pions à aligner pour gagner."
       ]
     }
-  ],
-  "effects": [
-    "None",
-    "Play twice",
-    "Remove row",
-    "Remove column",
-    "Pop bottom",
-    "Empty board",
-    "Neutral chip"
   ]
 }
