@@ -216,6 +216,11 @@ let board = {
                 $(".timer").text(this.ms / 100);
                 console.log(this.timer);
             }
+            // Stop on 0
+            if(this.timer <= 0) {
+                board.freeze();
+                fetchLooping(-1);
+            }
         }, 100);
     },
     freeze: function() {
