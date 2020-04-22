@@ -95,7 +95,7 @@ function handleNewState(state) {
             setTimeout(() => {
                 board.unfreeze();
                 fetchLooping(-1);
-            }, 2000)
+            }, 0)
         }
         // If game mode TICKATTACK
         if(state.game_mode == 3 && state.time_limit > 0) {

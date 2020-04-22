@@ -119,7 +119,17 @@ class Game:
         @self.app.route("/gameOptions", methods=['GET', 'POST'])
         def game_options_menu():
             if request.method == 'GET':
-                if request.args.get("mode") != "SOLO":
+                if request.args.get("mode") == "EASTEREGG":
+                    self.board = Board([Player("Mathias le scrum boss", "#fcd53d", True),
+                                        Player("Vincent QUOIENT ???", "#BADA55", True),
+                                        Player("Maxence la motocross", "#F0F", True),
+                                        Player("Xavier Overlord", "#F00", True),
+                                        Player("Nicolas kebab kebab", "#13B055", True)],
+                                       20,
+                                       20,
+                                       game_mode=GameMode.SOLO)
+                    return redirect('/game')
+                elif request.args.get("mode") != "SOLO":
                     self.selected_mode = GameMode.parse_mode(request.args.get("mode"))
                     return render_template('game_options_menu.html',
                                            mode=self.language_data[request.args.get('mode')],
