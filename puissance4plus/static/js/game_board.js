@@ -211,7 +211,7 @@ let board = {
     },
     setTimer(ms) {
         this.timer = ms;
-        $(".timer").addClass("visible").show().text(formatTime(this.timer));
+        $(".timer").addClass("visible").show().text(formatTime(Math.max(this.timer, 0)));
         this.intervalTimer = setInterval(atInterval, 50);
         let self = this;
         function atInterval() {
