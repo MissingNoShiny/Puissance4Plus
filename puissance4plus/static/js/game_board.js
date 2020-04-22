@@ -68,6 +68,10 @@ function handleNewState(state) {
     } else if (state.state === 2) {
         newMessage("QUOI ??????? C'est une ÉGALITÉ ??????????")
         frozen = true;
+    } else {
+        if (state.game_mode === 2) {
+            newMessage("Votre pion a un effet, wouaaouww !")
+        }
     }
 }
 // Board object
