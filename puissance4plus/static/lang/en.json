@@ -7,7 +7,7 @@
   "robot": "Computer",
 
   "main_menu": {
-    "title" : "Connect 4 plus",
+    "title" : "Connect 4 Plus",
     "subtitle": "Version 2020",
 
     "play": "Play",

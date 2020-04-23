@@ -231,7 +231,7 @@ let board = {
     },
     setTimer(ms) {
         this.timer = ms;
-        $(".timer").addClass("visible").show().text(formatTime(Math.max(this.timer, 0)));
+        $(".timer").addClass("visible").show().text(formatTime(this.timer));
         this.intervalTimer = setInterval(atInterval, 50);
         let self = this;
         function atInterval() {
@@ -249,7 +249,7 @@ let board = {
             }
         }
         function formatTime(ms) {
-            return Number(ms / 1000).toFixed(2).replace(".", ":")
+            return Number(Math.max(ms / 1000, 0)).toFixed(2).replace(".", ":")
         }
     },
     freeze: function() {

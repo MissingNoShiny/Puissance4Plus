@@ -5,7 +5,7 @@ import os
 import sys
 from os import path
 from configparser import ConfigParser
-from flask import Flask, request, send_from_directory, render_template, redirect, Response, jsonify
+from flask import Flask, request, send_from_directory, render_template, redirect, Response
 from PyQt5 import QtCore, QtMultimedia
 from webui import WebUI
 
