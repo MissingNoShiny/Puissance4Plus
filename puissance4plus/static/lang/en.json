@@ -70,32 +70,32 @@
       "title": "Solo mode",
       "content": [
         "This mode allows you to play alone against the computer. Just be the first to line up 4 chips ",
-        "of your color horizontally, vertically or diagonally. If during a game, all the chips are played ",
-        "without any chip rows, the game is declared a draw."
+        "of your color horizontally, vertically or diagonally. If the board fills up without a winner, ",
+        "the game is a draw."
       ]
     },
     {
       "title": "Classic mode",
       "content": [
-        "This mode allows you to play with 2 to 5 people. The goal is to align horizontally, vertically or ",
-        "diagonally as many checkers selected in the game creation options. ",
-        "You can also change the dimensions of the grid."
+        "The game as you know it, except better. The goal is to align horizontally, vertically or ",
+        "diagonally as many chips as selected in the game creation options. ",
+        "You can also change the dimensions of the board. This mode supports 2 to 5 players."
       ]
     },
     {
       "title": "Time attack",
       "content": [
-        "This mode allows you to play with 2 to 5 people. The goal remains the same as the classic ",
-        "mode with the only difference that you must play within a set time. ",
-        "Game options are always available to customize your game."
+        "In this mode, the goal remains the same as the classic mode, with the only difference ",
+        "that you must play within a set time. The board dimensions and the number of chips ",
+        "in a row you need to win are customizable. This mode supports 2 to 5 players."
       ]
     },
     {
       "title": "Roulette mode",
       "content": [
-        "In this mode of play you will be led at the beginning of each turn to receive a randomly ",
-        "chosen pawn with a special feature. The game is played by 2 to 5 people, game creation options are ",
-        "available to customize the grid of your game and the number of checkers to line up to win."
+        "In this mode, your chips have a chance to get a special effect that will dramatically change",
+        "the way you play. The board dimensions and the number of chips in a row you need",
+        " to win are customizable. his mode supports 2 to 5 players."
       ]
     }
   ]
