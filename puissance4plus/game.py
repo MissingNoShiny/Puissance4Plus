@@ -169,7 +169,7 @@ class Game:
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
-    def load_config(self):
+    def load_config(self) -> None:
         config = ConfigParser()
         if path.exists(path.join(self.game_directory, "config.ini")):
             config.read(path.join(self.game_directory, "config.ini"))
@@ -225,7 +225,7 @@ class Game:
                         self.update_stat(player, game_mode, "LOSS")
         self.save_stats()
 
-    def update_stat(self, player, game_mode, outcome):
+    def update_stat(self, player: Player, game_mode: str, outcome: str) -> None:
         if player.name not in self.stats_data[game_mode]:
             self.stats_data[game_mode][player.name] = {
                 "WIN": 0,
