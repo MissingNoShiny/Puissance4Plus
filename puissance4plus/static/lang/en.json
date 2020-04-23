@@ -25,7 +25,7 @@
     "volume": "Volume",
     "apply": "Apply",
 
-    "closeConfirm": "Close application"
+    "closeConfirm": "Close game"
   },
   "game_options_menu": {
     "title": "Game options",
@@ -54,7 +54,7 @@
     "chipEffectMessage": "Your chip has the <b>{}</b> effect",
     "filledColumn": "Sorry, <b>{}</b>, this column is full",
     "dbClickForGiveUp": "Please double click to give up",
-    "tooLate": "Too slow! Chip randomly placed for you"
+    "tooLate": "Too slow! Your chip was randomly placed for you"
   },
   "effects": [
     "None",
@@ -95,7 +95,7 @@
       "content": [
         "In this mode, your chips have a chance to get a special effect that will dramatically change",
         "the way you play. The board dimensions and the number of chips in a row you need",
-        " to win are customizable. his mode supports 2 to 5 players."
+        " to win are customizable. This mode supports 2 to 5 players."
       ]
     }
   ]
