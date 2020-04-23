@@ -169,11 +169,11 @@ class Game:
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
-    def load_config(self) -> ConfigParser:
         """
         Charge les paramètres du ficher de configuration et retourne un ConfigParser contenant ces paramètres
         :return: Un ConfigParser contenant les paramètres sauvegardés
         """
+    def load_config(self) -> ConfigParser:
         config = ConfigParser()
         if path.exists(path.join(self.game_directory, "config.ini")):
             config.read(path.join(self.game_directory, "config.ini"))

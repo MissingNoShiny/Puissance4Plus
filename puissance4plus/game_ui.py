@@ -18,7 +18,7 @@ class UI:
         self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
         self.initialize_player()
 
-    def run(self):
+    def run(self) -> None:
         self.view.load(QtCore.QUrl(self.url))
         self.view.page().settings().setAttribute(QtWebEngineWidgets.QWebEngineSettings.LocalStorageEnabled, True)
         self.view.show()
