@@ -245,7 +245,7 @@ class Game:
         if self.board.game_mode == GameMode.SOLO:
             if self.board.state == BoardState.DRAW:
                 self.stats_data[game_mode]["DRAW"] += 1
-            elif self.board.state == BoardState.WIN:
+            elif self.board.state == BoardState.WON:
                 if self.board.current_player.is_ai:
                     self.stats_data[game_mode]["LOSS"] += 1
                 else:
