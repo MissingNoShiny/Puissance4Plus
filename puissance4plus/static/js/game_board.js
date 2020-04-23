@@ -60,6 +60,7 @@ function handleResponseData(data) {
 // Handle a new state (grid, players, ...)
 function handleNewState(state) {
     // Update board
+    board.unfreeze();
     board.initialize(state.height, state.width);
     board.setData(state.grid);
     displayPlayers(state.players, state.current_player);
@@ -92,10 +93,7 @@ function handleNewState(state) {
         // If current player is AI
         if (state.current_player.is_ai) {
             board.freeze();
-            setTimeout(() => {
-                board.unfreeze();
-                fetchLooping(-1);
-            }, 2000)
+            fetchLooping(-1);
         }
         // If game mode TICKATTACK
         if(state.game_mode == 3 && state.time_limit > 0) {

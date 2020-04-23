@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import random
 from enum import Enum
 from typing import List, Optional
@@ -14,15 +15,17 @@ class Player:
 
     NEUTRAL_COLOR = "#000"
 
-    def __init__(self, name: str, color: str, is_ai: bool = False):
+    def __init__(self, name: str, color: str, is_ai: bool = False, is_neutral: bool = False):
         """
         :param name: Le nom du joueur
         :param color: La couleur du joueur sous forme d'un tuple RGB
-        :param is_ai: Une valeur booléenne indiquant si le joueur est contrôlé par l'ordinateur
+        :param is_ai: True le joueur est contrôlé par l'ordinateur, False sinon
+        :param is_neutral: True si le joueur est neutre, False sinon
         """
         self.name: str = name
         self.color: str = color
         self.is_ai = is_ai
+        self.is_neutral = is_neutral
 
     def __str__(self):
         return f"Joueur {self.name} ({'ordi' if self.is_ai else 'humain'})"
@@ -203,7 +206,7 @@ class Board:
 
         row = self.get_height(column_index)
         if neutral:
-            self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR)
+            self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR, is_neutral=True)
             return
         self.grid[row][column_index] = self.current_player
 
@@ -222,7 +225,7 @@ class Board:
         Force le joueur dont c'est le tour à jouer en plaçant un pion à sa place aléatoirement
         """
         if self.current_player.is_ai:
-            self.place(random.choice(self.non_full_columns))
+            self.place(BoardAI.get_move(self, 3))
         else:
             self.place(random.choice(self.non_full_columns))
 
@@ -244,7 +247,7 @@ class Board:
         :return: True si le pion fait partie d'une série gagnante, False sinon
         """
         player = self.get_player_at(row, col)
-        if player is None or player.is_ai:
+        if player is None or player.is_neutral:
             return False
         for direction in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
             for i in range(self.win_condition):
@@ -383,3 +386,54 @@ class Board:
         max_length = max([len(player.name) for player in self.players])
         rows = ["|".join(f"{'' if el is None else el.name:{max_length}}" for el in row) for row in self.grid]
         return f"\n{'|'.join(['-' * max_length for _ in range(self.width)])}\n".join(rows[::-1])
+
+
+class AIError(Exception):
+    pass
+
+
+class BoardAI:
+
+    @classmethod
+    def get_move(cls, board: Board, ai_level: int = 0):
+        if ai_level == 0:
+            return random.choice(board.non_full_columns)
+        else:
+            if board.game_mode != GameMode.CLASSIC and len(board.players) != 2 or not board.current_player.is_ai:
+                raise AIError
+            return cls.minmax(board, ai_level)
+
+    @classmethod
+    def minmax(cls, board: Board, depth: int) -> int:
+        scores = {}
+        for column in board.non_full_columns:
+            new_board = copy.deepcopy(board)
+            new_board.place(column)
+            scores[column] = cls.minmax_rec(new_board, depth, False)
+        print(scores)
+        max_score = max(scores.values())
+        return random.choice([column for column in scores.keys() if scores[column] == max_score])
+
+    @classmethod
+    def minmax_rec(cls, board: Board, depth: int, maximizing: bool) -> int:
+        if board.state != BoardState.RUNNING:
+            if board.state == BoardState.DRAW:
+                return 0
+            else:
+                return depth + 1 if board.current_player.is_ai else -depth - 1
+        if depth == 0:
+            return 0
+        if maximizing:
+            score = float("-inf")
+            for column in board.non_full_columns:
+                new_board = copy.deepcopy(board)
+                new_board.place(column)
+                score = max(score, cls.minmax_rec(new_board, depth, False))
+            return score
+        else:
+            score = float("inf")
+            for column in board.non_full_columns:
+                new_board = copy.deepcopy(board)
+                new_board.place(column)
+                score = min(score, cls.minmax_rec(new_board, depth - 1, True))
+            return score
