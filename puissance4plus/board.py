@@ -27,9 +27,6 @@ class Player:
         self.is_ai = is_ai
         self.is_neutral = is_neutral
 
-    def __str__(self):
-        return f"Joueur {self.name} ({'ordi' if self.is_ai else 'humain'})"
-
 
 class BoardState(Enum):
     """
@@ -398,7 +395,13 @@ class AIError(Exception):
 class BoardAI:
 
     @classmethod
-    def get_move(cls, board: Board, ai_level: int = 0):
+    def get_move(cls, board: Board, ai_level: int = 0) -> int:
+        """
+        Retourne la colonne dans laquelle un joueur ordi doit jouer
+        :param board: Le plateau de jeu
+        :param ai_level: Le niveau de difficulté de l'ordi, qui correspond au nombre de tours dans le futur analysés
+        :return: L'index de la colonne dans laquelle jouer
+        """
         if ai_level == 0:
             return random.choice(board.non_full_columns)
         else:
@@ -408,16 +411,26 @@ class BoardAI:
 
     @classmethod
     def minmax(cls, board: Board, depth: int) -> int:
+        """
+        Permet de calculer la valeur d'une situation donnée grâce à l'algorithme du minmax
+        :param board: Le plateau à analyser
+        :param depth: La profondeur de recherche, càd le nombre de tours dans le futur que l'algorithme analysera
+        :return: Le score de la position
+        """
         scores = {}
         for column in board.non_full_columns:
             new_board = copy.deepcopy(board)
             new_board.place(column)
-            scores[column] = cls.minmax_rec(new_board, depth, -1000, 1000, False)
+            scores[column] = cls._minmax_rec(new_board, depth, -1000, 1000, False)
         max_score = max(scores.values())
         return random.choice([column for column in scores.keys() if scores[column] == max_score])
 
     @classmethod
-    def minmax_rec(cls, board: Board, depth: int, alpha: int, beta: int, maximizing: bool) -> int:
+    def _minmax_rec(cls, board: Board, depth: int, alpha: int, beta: int, maximizing: bool) -> int:
+        """
+        Fonction récursive implémentant l'algorithme du minmax avec élagage alpha-bêta. Ne pas utiliser en dehors
+        de la fonction cls.minmax
+        """
         if board.state != BoardState.RUNNING:
             if board.state == BoardState.DRAW:
                 return 0
@@ -430,7 +443,7 @@ class BoardAI:
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = max(score, cls.minmax_rec(new_board, depth, alpha, beta, False))
+                score = max(score, cls._minmax_rec(new_board, depth, alpha, beta, False))
                 alpha = max(alpha, score)
                 if alpha >= beta:
                     break
@@ -440,7 +453,7 @@ class BoardAI:
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = min(score, cls.minmax_rec(new_board, depth - 1, alpha, beta, True))
+                score = min(score, cls._minmax_rec(new_board, depth - 1, alpha, beta, True))
                 beta = min(beta, score)
                 if alpha >= beta:
                     break
