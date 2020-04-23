@@ -122,7 +122,7 @@ class Game:
                                            lang=self.language_data["game_options_menu"])
                 else:
                     self.board = Board([Player(self.language_data["human"], "#F00"),
-                                        Player(self.language_data["robot"], "#333", True)],
+                                        Player(self.language_data["robot"], "#333", player_type=PlayerType.AI)],
                                        game_mode=GameMode.SOLO)
                     return redirect('/game')
             else:
@@ -246,7 +246,7 @@ class Game:
             if self.board.state == BoardState.DRAW:
                 self.stats_data[game_mode]["DRAW"] += 1
             elif self.board.state == BoardState.WON:
-                if self.board.current_player.is_ai:
+                if self.board.current_player.player_type == PlayerType.AI:
                     self.stats_data[game_mode]["LOSS"] += 1
                 else:
                     self.stats_data[game_mode]["WIN"] += 1

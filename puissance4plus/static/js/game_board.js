@@ -69,7 +69,7 @@ function handleNewState(state) {
     // If game if won
     if(state.state === 1) {
         if (state.game_mode === 0) {
-            if (state.current_player.is_ai) newMessage(lang.game_board.soloLosingMessage, true);
+            if (state.current_player.player_type === 1) newMessage(lang.game_board.soloLosingMessage, true);
             else newMessage(lang.game_board.soloWinningMessage, true);
         } else newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
         board.freeze();
@@ -91,7 +91,7 @@ function handleNewState(state) {
                 newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
         // If current player is AI
-        if (state.current_player.is_ai) {
+        if (state.current_player.player_type === 1) {
             board.freeze();
             fetchLooping(-1);
         }
