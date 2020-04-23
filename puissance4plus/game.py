@@ -271,9 +271,7 @@ class Game:
                 "LOSS": 0,
                 "DRAW": 0
             }
-            self.update_stat(player, game_mode, outcome)
-        else:
-            self.stats_data[game_mode][player.name][outcome] += 1
+        self.stats_data[game_mode][player.name][outcome] += 1
 
     def save_stats(self) -> None:
         if not path.isdir(self.game_directory):
