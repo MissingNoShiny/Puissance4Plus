@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import copy
-from math import inf
 import random
 from enum import Enum
 from typing import List, Optional
@@ -410,7 +409,7 @@ class BoardAI:
         for column in board.non_full_columns:
             new_board = copy.deepcopy(board)
             new_board.place(column)
-            scores[column] = cls.minmax_rec(new_board, depth, -inf, inf, False)
+            scores[column] = cls.minmax_rec(new_board, depth, -1000, 1000, False)
         print(scores)
         max_score = max(scores.values())
         return random.choice([column for column in scores.keys() if scores[column] == max_score])
@@ -425,7 +424,7 @@ class BoardAI:
         if depth == 0:
             return 0
         if maximizing:
-            score = -inf
+            score = -1000
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
@@ -435,7 +434,7 @@ class BoardAI:
                     break
             return score
         else:
-            score = inf
+            score = 1000
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
