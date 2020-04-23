@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+from math import inf
 import random
 from enum import Enum
 from typing import List, Optional
@@ -409,13 +410,13 @@ class BoardAI:
         for column in board.non_full_columns:
             new_board = copy.deepcopy(board)
             new_board.place(column)
-            scores[column] = cls.minmax_rec(new_board, depth, False)
+            scores[column] = cls.minmax_rec(new_board, depth, -inf, inf, False)
         print(scores)
         max_score = max(scores.values())
         return random.choice([column for column in scores.keys() if scores[column] == max_score])
 
     @classmethod
-    def minmax_rec(cls, board: Board, depth: int, maximizing: bool) -> int:
+    def minmax_rec(cls, board: Board, depth: int, alpha: int, beta: int, maximizing: bool) -> int:
         if board.state != BoardState.RUNNING:
             if board.state == BoardState.DRAW:
                 return 0
@@ -424,16 +425,22 @@ class BoardAI:
         if depth == 0:
             return 0
         if maximizing:
-            score = float("-inf")
+            score = -inf
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = max(score, cls.minmax_rec(new_board, depth, False))
+                score = max(score, cls.minmax_rec(new_board, depth, alpha, beta, False))
+                alpha = max(alpha, score)
+                if alpha >= beta:
+                    break
             return score
         else:
-            score = float("inf")
+            score = inf
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = min(score, cls.minmax_rec(new_board, depth - 1, True))
+                score = min(score, cls.minmax_rec(new_board, depth - 1, alpha, beta, True))
+                beta = min(beta, score)
+                if alpha >= beta:
+                    break
             return score
