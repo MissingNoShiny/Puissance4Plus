@@ -58,13 +58,18 @@ main menu {
 main .menustat table{
     text-align: center;
     margin-left:0;
+    width: 100%;
 }
 main menu td{
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0,0,0,0.3);
 }
 
 main menu th{
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0,0,0,0.5);
+}
+
+main menu th,td{
+    padding:10px;
 }
 
 main menu .menustat{
