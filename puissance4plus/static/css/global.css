@@ -12,14 +12,30 @@
 
     --shadow: 0 0 7.5px 4px rgba(0, 0, 0, .25);
 }
+/* SCROLLBAR */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: none; 
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+/* BODY */
 body {
     user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -webkit-user-select: none;
-}
-/* BODY */
-body {
+
     margin: 0;
     padding: 0;
     height: 100vh;

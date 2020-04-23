@@ -10,15 +10,14 @@
 
 {% block body %}
     <header>
-        <h1>{{ lang.title }}</h1>
-        <p>{{ lang.subtitle }}</p>
+        <img src="/resource/logo.png" id="mainlogo">
     </header>
     <main>
         <nav>
             <button onclick="openMenu('play')"><span class="glitch" data-text="{{ lang.play }}">{{ lang.play }}</span></button>
             <button onclick="openMenu('rules')">{{ lang.rules }}</button>
             <button onclick="openMenu('settings')">{{ lang.settings }}</button>
-            <button onclick="openMenu('score')">Score</button>
+            <button onclick="openMenu('stats')">{{ lang.stats }}</button>
             <button onclick="openMenu('close')">{{ lang.close }}</button>
         </nav>
         <menu data-menu="play" style="display: none;">
@@ -70,7 +69,33 @@
                 </section>
             </form>
         </menu>
-        <menu data-menu="score" style="display: none;">
+        <menu data-menu="stats" style="display: none;">
+            <a href="#" onclick="openMenu('stats-SOLO')">{{ lang.soloMode }}</a>
+            <a href="#" onclick="openMenu('stats-CLASSIC')">{{ lang.classicMode }}</a>
+            <a href="#" onclick="openMenu('stats-TIMEATTACK')">{{ lang.timeAttackMode }}</a>
+            <a href="#" onclick="openMenu('stats-RANDOM')">{{ lang.randomMode }}</a>
+        </menu>
+        <menu data-menu="stats-SOLO" style="display: none;">
+            <h2>{{ lang.stats }}</h2>
+            <h2>{{ lang.soloMode }}</h2>
+            suite ici
+        </menu>
+        <menu data-menu="stats-CLASSIC" style="display: none;">
+            <h2>{{ lang.stats }}</h2>
+            <h2>{{ lang.classicMode }}</h2>
+            suite ici
+        </menu>
+        <menu data-menu="stats-RANDOM" style="display: none;">
+            <h2>{{ lang.stats }}</h2>
+            <h2>{{ lang.randomMode }}</h2>
+            suite ici
+        </menu>
+        <menu data-menu="stats-TIMEATTACK" style="display: none;">
+            <h2>{{ lang.stats }}</h2>
+            <h2>{{ lang.timeAttackMode }}</h2>
+            suite ici
+        </menu>
+        <menu data-menu="" style="display: none;">
             {% for stat in stats %}
                 <div class="score">
                     <h4>
