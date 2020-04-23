@@ -126,10 +126,10 @@ def test_check_win():
     for i in range(y):  # remplir ligne (choisir colonne)
         for a in range(x):  # remplir colonne (choisir ligne)
             plateau.place(i)  # placer pion
-    assert type(plateau.check_win(q, s)) is bool
-    assert plateau.check_win(q, s) == False
+    assert type(plateau.is_winning(q, s)) is bool
+    assert plateau.is_winning(q, s) == False
     plateau.place(0)
-    assert plateau.check_win(q, s) == True
+    assert plateau.is_winning(q, s) == True
 
 def test_remove_column():         #experimentation
     x, y = 3, 7

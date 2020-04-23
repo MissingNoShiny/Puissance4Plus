@@ -157,10 +157,24 @@ class Board:
             self.turn_count -= 1
         else:
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
-        if self.game_mode == GameMode.RANDOM:
-            self.current_effect = Effect.generate_effect()
-        elif self.game_mode == GameMode.TIME_ATTACK and self.current_player_index == 0:
+            if self.game_mode == GameMode.RANDOM:
+                self.current_effect = Effect.generate_effect()
+        if self.game_mode == GameMode.TIME_ATTACK and self.current_player_index == 0:
             self.turn_time *= self.turn_time_factor
+
+    def set_winner(self, player: Optional[Player] = None) -> None:
+        """
+        Définis le gagnant de la partie
+        :param player: Le joueur qui a gagné. S'il n'est pas spécifié ou s'il est None, le gagnant sera le joueur
+        dont c'est le tour
+        """
+        self.state = BoardState.WON
+        if player is None:
+            return
+        if player.is_ai or player not in self.players:
+            return
+        if self.current_player != player:
+            self.current_player_index = self.players.index(player)
 
     def get_height(self, column_index: int) -> int:
         """
@@ -184,10 +198,9 @@ class Board:
         :param neutral: Si True, place un pion n'appartenant à aucun joueur à la place
         :param column_index: L'index de la colonne dans laquelle placer le pion
         """
-        if self.state != BoardState.RUNNING:
-            return  # TODO: Erreur?
-        if self.is_full(column_index):
-            return  # TODO: Erreur
+        if self.state != BoardState.RUNNING or self.is_full(column_index):
+            return
+
         row = self.get_height(column_index)
         if neutral:
             self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR)
@@ -204,7 +217,10 @@ class Board:
             return
         self.next_player()
 
-    def force_place(self):
+    def force_place(self) -> None:
+        """
+        Force le joueur dont c'est le tour à jouer en plaçant un pion à sa place aléatoirement
+        """
         if self.current_player.is_ai:
             self.place(random.choice(self.non_full_columns))
         else:
@@ -220,7 +236,7 @@ class Board:
         """
         return None if not (0 <= row < self.height and 0 <= col < self.width) else self.grid[row][col]
 
-    def check_win(self, row: int, col: int) -> bool:
+    def is_winning(self, row: int, col: int) -> bool:
         """
         Détermine si le pion aux coordonnées spécifiées fait partie d'une série gagnante
         :param row: La rangée du pion
@@ -228,7 +244,7 @@ class Board:
         :return: True si le pion fait partie d'une série gagnante, False sinon
         """
         player = self.get_player_at(row, col)
-        if player is None:
+        if player is None or player.is_ai:
             return False
         for direction in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
             for i in range(self.win_condition):
@@ -237,10 +253,34 @@ class Board:
                     return True
         return False
 
-    def check_draw(self):
+    def check_win(self, row: int, col: int) -> bool:
+        """
+        Vérifie si le pion placé aux coordonnées spécifiées a provoqué un état de victoire
+        :param row: La ligne où le pion a été placé
+        :param col: La colonne où le pion a été placé
+        :return: True si le pion a provoqué une victoire, False sinon
+        """
+        saved_effect = self.current_effect
+        self.current_effect = Effect.NONE
+        if saved_effect == Effect.POP_BOTTOM:
+            for r in range(self.get_height(col)):
+                if self.is_winning(r, col):
+                    self.set_winner(self.get_player_at(r, col))
+                    return True
+            return False
+        elif saved_effect == Effect.REMOVE_ROW:
+            for c in range(self.width):
+                if self.is_winning(row, c):
+                    self.set_winner(self.get_player_at(row, c))
+                    return True
+            return False
+        else:
+            return self.is_winning(row, col)
+
+    def check_draw(self) -> bool:
         """
         Détermine si le plateau de jeu est rempli. Si c'est le cas, on suppose que c'est une égalité.
-        :return:
+        :return: True en cas d'égalité, False sinon
         """
         return len(self.non_full_columns) == 0
 
