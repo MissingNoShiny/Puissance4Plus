@@ -26,6 +26,7 @@ main nav button {
     margin: 10px 0;
     border: none;
     background: var(--primary);
+    opacity: .9;
     color: var(--white);
     font-family: "nasa";
     font-size: 1.2em;
@@ -47,6 +48,7 @@ main menu {
     padding: 5vmin;
     box-sizing: border-box;
     background: var(--primary);
+    opacity: .9;
     color: var(--white);
     box-shadow: var(--shadow);
     transition: all 75ms ease-in-out;
@@ -93,6 +95,9 @@ menu[data-menu="play"] a {
     align-content: center;
     transform: skewX(-5deg);
     transition: all 75ms ease-in-out;
+    border: none;
+    font-size: 1em;
+    font-family: "nasa";
 }
 menu[data-menu="play"] a:hover {
     transform: scale(1.05);
@@ -104,6 +109,41 @@ menu[data-menu="rules"] {
 }
 menu[data-menu="rules"] h2 {
     margin: 0;
+}
+/* STATS */
+menu[data-menu="stats"] {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+menu[data-menu="stats"] a {
+    display: block;
+    width: calc(50% - 2.5vmin);
+    height: calc(50% - 2.5vmin);
+    text-align: center;
+    background: var(--secondary);
+    color: var(--white);
+    text-decoration: none;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-content: center;
+    transform: skewX(-5deg);
+    transition: all 75ms ease-in-out;
+    border: none;
+    font-size: 1em;
+    font-family: "nasa";
+    cursor: pointer;
+}
+menu[data-menu="stats"] a:hover {
+    transform: scale(1.05);
+    filter: brightness(1.5);
+}
+menu[data-menu^="stats-"] h2 {
+    margin: 0;
+    margin-bottom: 10px;
+    text-align: center;
 }
 /* SETTINGS */
 menu[data-menu="settings"] form {
