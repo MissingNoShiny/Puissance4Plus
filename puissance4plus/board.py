@@ -410,7 +410,6 @@ class BoardAI:
             new_board = copy.deepcopy(board)
             new_board.place(column)
             scores[column] = cls.minmax_rec(new_board, depth, -1000, 1000, False)
-        print(scores)
         max_score = max(scores.values())
         return random.choice([column for column in scores.keys() if scores[column] == max_score])
 
