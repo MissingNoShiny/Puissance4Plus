@@ -25,6 +25,12 @@
     "volume": "Geluidsvolume",
     "apply": "Toepassen",
 
+    "states": {
+      "win": "Overwinningen",
+      "loss": "Verslagen",
+      "draw": "Gelijkheid"
+    },
+
     "closeConfirm": "Sluit de applicatie af"
   },
   "game_options_menu": {

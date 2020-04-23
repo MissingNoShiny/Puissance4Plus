@@ -105,13 +105,15 @@ class Game:
 
         @self.app.route("/")
         def main_menu():
+            print(self.stats_data)
             is_full_screen = "checked" if self.ui.view.isFullScreen() else "unchecked"
             return render_template('main_menu.html',
                                    is_full_screen=is_full_screen,
                                    lang=self.language_data["main_menu"],
                                    rules=self.language_data["rules"],
                                    selected_lang=self.config.get("puissance4", "Language"),
-                                   volume=self.ui.player.volume())
+                                   volume=self.ui.player.volume(),
+                                   stats=self.stats_data)
 
         @self.app.route("/gameOptions", methods=['GET', 'POST'])
         def game_options_menu():

@@ -52,6 +52,26 @@ main menu {
     transition: all 75ms ease-in-out;
     overflow: auto;
 }
+
+main menu table{
+    text-align: center;
+}
+main menu td{
+    background-color: rgba(0,0,0,0.2);
+}
+
+main menu th{
+    background-color: rgba(0,0,0,0.3);
+}
+main menu .score{
+    background-color: rgba(0,0,0,0.4);
+    margin-bottom: 30px;
+}
+main menu .score h4{
+    text-align: center;
+    margin:0;
+}
+
 /* PLAY */
 menu[data-menu="play"] {
     display: flex;
@@ -162,4 +182,9 @@ menu[data-menu="close"] a {
 }
 menu[data-menu="close"] a:hover {
     transform: translate(-50%, -50%) scale(1.05);
+}
+
+menu[data-menu="score"] {
+    display: flex;
+    flex-flow: column nowrap;
 }
