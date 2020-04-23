@@ -5,36 +5,9 @@
     "DRAW": 0
   },
   "CLASSIC": {
-    "WIN": {
-
-    },
-    "LOSS": {
-
-    },
-    "DRAW": {
-
-    }
   },
   "RANDOM": {
-    "WIN": {
-
-    },
-    "LOSS": {
-
-    },
-    "DRAW": {
-
-    }
   },
   "TIME_ATTACK": {
-    "WIN": {
-
-    },
-    "LOSS": {
-
-    },
-    "DRAW": {
-
-    }
   }
 }

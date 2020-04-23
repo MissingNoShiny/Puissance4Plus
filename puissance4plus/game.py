@@ -105,7 +105,6 @@ class Game:
 
         @self.app.route("/")
         def main_menu():
-            print(self.stats_data)
             is_full_screen = "checked" if self.ui.view.isFullScreen() else "unchecked"
             return render_template('main_menu.html',
                                    is_full_screen=is_full_screen,
@@ -266,10 +265,15 @@ class Game:
         self.save_stats()
 
     def update_stat(self, player, game_mode, outcome):
-        if player.name not in self.stats_data[game_mode][outcome]:
-            self.stats_data[game_mode][outcome][player.name] = 1
+        if player.name not in self.stats_data[game_mode]:
+            self.stats_data[game_mode][player.name] = {
+                "WIN": 0,
+                "LOSS": 0,
+                "DRAW": 0
+            }
+            self.update_stat(player, game_mode, outcome)
         else:
-            self.stats_data[game_mode][outcome][player.name] += 1
+            self.stats_data[game_mode][player.name][outcome] += 1
 
     def save_stats(self) -> None:
         if not path.isdir(self.game_directory):
