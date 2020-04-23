@@ -7,10 +7,10 @@ $("input.slider[name=win_condition]").on("input change", e => {
 })
 // Class Player
 let maxPlayers = 5;
-let Players = [];
-let Ids = [];
-for(let i = 1; i <= maxPlayers; i++) Ids.push(i);
-let Colors = {
+let players = [];
+let ids = [];
+for(let i = 1; i <= maxPlayers; i++) ids.push(i);
+let colors = {
     1: "#fcd53d", 
     2: "#ff0000",
     3: "#24D12B",
@@ -18,10 +18,10 @@ let Colors = {
     5: "#00adad"
 };
 function newPlayer() {
-    if(Players.length < maxPlayers) {
-        let p = new Player(Ids.shift());
+    if(players.length < maxPlayers) {
+        let p = new Player(ids.shift());
         p.elmt.find(".delete").click(() => { p.delete() })
-        Players.push(p);
+        players.push(p);
     }
 }
 class Player {
@@ -33,7 +33,7 @@ class Player {
         this.id = id;
         this.elmt.find(".id").text(this.id);
         // Display color
-        this.color = Colors[this.id];
+        this.color = colors[this.id];
         this.elmt.find(".color").css("background", this.color);
         // Event listeners : name
         this.name;
@@ -46,9 +46,9 @@ class Player {
     }
     delete() {
         this.elmt.remove();
-        Ids.push(this.id);
-        for(let i = 0; i < Players.length; i++) {
-            if(Players[i].id == this.id) Players.splice(i, 1);
+        ids.push(this.id);
+        for(let i = 0; i < players.length; i++) {
+            if(players[i].id == this.id) players.splice(i, 1);
         }
     }
 }
@@ -58,9 +58,9 @@ $("footer .back").click(() => {
 })
 $("footer .play").click(() => {
     // Get players
-    if(Players.length >= 2) {
+    if(players.length >= 2) {
         let invalids = 0;
-        Players.forEach(p => {
+        players.forEach(p => {
             if(!p.nameValid) invalids++;
         })
         if(invalids == 0) {
@@ -72,7 +72,7 @@ $("footer .play").click(() => {
                 mode: new URLSearchParams(window.location.search).get("mode"),
                 players: {}
             };
-            Players.forEach(p => {
+            players.forEach(p => {
                 body.players[p.id] = {
                     name: p.name,
                     color: p.color

@@ -69,17 +69,17 @@ function handleNewState(state) {
     // Save last state
     lastState = state;
     // If game if won
-    if(state.state === 1) {
-        if (state.game_mode === 0) {
-            if (state.current_player.player_type === 1) newMessage(lang.game_board.soloLosingMessage, true);
-            else newMessage(lang.game_board.soloWinningMessage, true);
-        } else newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name), true);
+    if(state.state == 1) {
+        if (state.game_mode == 0) {
+            if (state.current_player.player_type === 1) newMessage(lang.game_board.soloLosingMessage);
+            else newMessage(lang.game_board.soloWinningMessage);
+        } else newMessage(lang.game_board.winningMessage.replace("{}", state.current_player.name));
         board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
     // If game is draw
     } else if (state.state === 2) {
-        newMessage(lang.game_board.drawMessage, true);
+        newMessage(lang.game_board.drawMessage);
         board.freeze();
         $("button.giveUp").hide();
         $("button.end").show();
@@ -93,7 +93,7 @@ function handleNewState(state) {
                 newMessage(lang.game_board.chipEffectMessage.replace("{}", lang.effects[state.current_effect]));
         }
         // If current player is AI
-        if (state.current_player.player_type === 1) {
+        if (state.current_player.player_type == 1) {
             board.freeze();
             $(".waiting").show();
             fetchLooping(-1);
@@ -284,18 +284,13 @@ function displayPlayers(array, current) {
     });
 }
 // New message
-function newMessage(message, persistent) {
+function newMessage(message) {
     let m  = $(document.createElement("div"))
     .hide()
     .addClass("message")
     .html(message)
     .prependTo(".messages")
     .slideDown();
-    // All messages are persistent
-    // if(!persistent) {
-    //     m.delay(10000)
-    //     .fadeOut();
-    // }
 }
 function clearMessages() {
     $(".messages").empty();

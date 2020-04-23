@@ -95,14 +95,14 @@
       "title": "Mode Contre la montre",
       "content": [
         "Ce mode vous permet de jouer à 2 jusqu’à 5 personnes. ",
-        "Le but reste identique au mode classique à la seule différence que vous devez jouer dans un temps imparti. ",
+        "Le but reste identique au mode classique à la seule différence que vous devez jouer chaque tour dans un temps imparti. ",
         "Les options de partie sont toujours disponibles pour personnaliser votre jeu."
       ]
     },
     {
       "title": "Mode roulette",
       "content": [
-        "Dans ce mode de jeu vous serez menés au début de chaque tour à recevoir un pion choisi aléatoirement ",
+        "Dans ce mode vous reçevrez au début de chaque tour, un pion choisi aléatoirement ",
         "possédant une caractéristique spéciale. La partie se joue de 2 à 5 personnes, les options de création de ",
         "partie sont disponibles pour personnaliser la grille de votre jeu et le nombre de pions à aligner pour gagner."
       ]
