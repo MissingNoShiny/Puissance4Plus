@@ -8,6 +8,12 @@ from enum import Enum
 from typing import List, Optional
 
 
+class PlayerType(Enum):
+    HUMAN = 0
+    AI = 1
+    NEUTRAL = 2
+
+
 class Player:
     """
     Classe utilisée pour représenter un joueur
@@ -15,20 +21,23 @@ class Player:
 
     NEUTRAL_COLOR = "#000"
 
-    def __init__(self, name: str, color: str, is_ai: bool = False, is_neutral: bool = False):
+    def __init__(self, name: str, color: str, player_type: PlayerType = PlayerType.HUMAN):
         """
         :param name: Le nom du joueur
         :param color: La couleur du joueur sous forme d'un tuple RGB
-        :param is_ai: True le joueur est contrôlé par l'ordinateur, False sinon
-        :param is_neutral: True si le joueur est neutre, False sinon
+        :param player_type: Le type du joueur
         """
         self.name: str = name
         self.color: str = color
-        self.is_ai = is_ai
-        self.is_neutral = is_neutral
+        self.player_type: PlayerType = player_type
 
-    def __str__(self):
-        return f"Joueur {self.name} ({'ordi' if self.is_ai else 'humain'})"
+    def to_dict(self) -> dict:
+        data = {
+            "name": self.name,
+            "color": self.color,
+            "player_type": self.player_type.value
+        }
+        return data
 
 
 class BoardState(Enum):
@@ -177,7 +186,7 @@ class Board:
         self.state = BoardState.WON
         if player is None:
             return
-        if player.is_ai or player not in self.players:
+        if player.player_type == PlayerType.NEUTRAL or player not in self.players:
             return
         if self.current_player != player:
             self.current_player_index = self.players.index(player)
@@ -209,7 +218,7 @@ class Board:
 
         row = self.get_height(column_index)
         if neutral:
-            self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR, is_neutral=True)
+            self.grid[row][column_index] = Player("", Player.NEUTRAL_COLOR, player_type=PlayerType.NEUTRAL)
             return
         self.grid[row][column_index] = self.current_player
 
@@ -227,7 +236,7 @@ class Board:
         """
         Force le joueur dont c'est le tour à jouer en plaçant un pion à sa place aléatoirement
         """
-        if self.current_player.is_ai:
+        if self.current_player.player_type == PlayerType.AI:
             self.place(BoardAI.get_move(self, 3))
         else:
             self.place(random.choice(self.non_full_columns))
@@ -250,7 +259,7 @@ class Board:
         :return: True si le pion fait partie d'une série gagnante, False sinon
         """
         player = self.get_player_at(row, col)
-        if player is None or player.is_neutral:
+        if player is None or player.player_type == PlayerType.NEUTRAL:
             return False
         for direction in [(1, 0), (1, 1), (0, 1), (-1, 1)]:
             for i in range(self.win_condition):
@@ -368,14 +377,14 @@ class Board:
         Retourne un dictionnaire contenant les informations utiles pour le client
         :return: Un dictionnaire, je viens de l'écrire, il faut être plus attentif
         """
-        grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].__dict__ for x in range(self.width)]
+        grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].to_dict() for x in range(self.width)]
                      for y in range(self.height)][::-1]
         data = {
-            "players": [player.__dict__ for player in self.players],
+            "players": [player.to_dict() for player in self.players],
             "width": self.width,
             "height": self.height,
             "win_condition": self.win_condition,
-            "current_player": self.current_player.__dict__,
+            "current_player": self.current_player.to_dict(),
             "grid": grid_list,
             "current_effect": self.current_effect.value,
             "time_limit": self.turn_time,
@@ -398,31 +407,47 @@ class AIError(Exception):
 class BoardAI:
 
     @classmethod
-    def get_move(cls, board: Board, ai_level: int = 0):
+    def get_move(cls, board: Board, ai_level: int = 0) -> int:
+        """
+        Retourne la colonne dans laquelle un joueur ordi doit jouer
+        :param board: Le plateau de jeu
+        :param ai_level: Le niveau de difficulté de l'ordi, qui correspond au nombre de tours dans le futur analysés
+        :return: L'index de la colonne dans laquelle jouer
+        """
         if ai_level == 0:
             return random.choice(board.non_full_columns)
         else:
-            if board.game_mode != GameMode.CLASSIC and len(board.players) != 2 or not board.current_player.is_ai:
+            if board.game_mode != GameMode.SOLO and len(board.players) != 2:
                 raise AIError
             return cls.minmax(board, ai_level)
 
     @classmethod
     def minmax(cls, board: Board, depth: int) -> int:
+        """
+        Permet de calculer la valeur d'une situation donnée grâce à l'algorithme du minmax
+        :param board: Le plateau à analyser
+        :param depth: La profondeur de recherche, càd le nombre de tours dans le futur que l'algorithme analysera
+        :return: Le score de la position
+        """
         scores = {}
         for column in board.non_full_columns:
             new_board = copy.deepcopy(board)
             new_board.place(column)
-            scores[column] = cls.minmax_rec(new_board, depth, -1000, 1000, False)
+            scores[column] = cls._minmax_rec(new_board, depth, -1000, 1000, False)
         max_score = max(scores.values())
         return random.choice([column for column in scores.keys() if scores[column] == max_score])
 
     @classmethod
-    def minmax_rec(cls, board: Board, depth: int, alpha: int, beta: int, maximizing: bool) -> int:
+    def _minmax_rec(cls, board: Board, depth: int, alpha: int, beta: int, maximizing: bool) -> int:
+        """
+        Fonction récursive implémentant l'algorithme du minmax avec élagage alpha-bêta. Ne pas utiliser en dehors
+        de la fonction cls.minmax
+        """
         if board.state != BoardState.RUNNING:
             if board.state == BoardState.DRAW:
                 return 0
             else:
-                return depth + 1 if board.current_player.is_ai else -depth - 1
+                return depth + 1 if board.current_player.player_type == PlayerType.AI else -depth - 1
         if depth == 0:
             return 0
         if maximizing:
@@ -430,7 +455,7 @@ class BoardAI:
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = max(score, cls.minmax_rec(new_board, depth, alpha, beta, False))
+                score = max(score, cls._minmax_rec(new_board, depth, alpha, beta, False))
                 alpha = max(alpha, score)
                 if alpha >= beta:
                     break
@@ -440,7 +465,7 @@ class BoardAI:
             for column in board.non_full_columns:
                 new_board = copy.deepcopy(board)
                 new_board.place(column)
-                score = min(score, cls.minmax_rec(new_board, depth - 1, alpha, beta, True))
+                score = min(score, cls._minmax_rec(new_board, depth - 1, alpha, beta, True))
                 beta = min(beta, score)
                 if alpha >= beta:
                     break
