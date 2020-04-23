@@ -61,6 +61,8 @@ function handleResponseData(data) {
 function handleNewState(state) {
     // Update board
     board.unfreeze();
+    clearMessages();
+    $(".waiting").hide();
     board.initialize(state.height, state.width);
     board.setData(state.grid);
     displayPlayers(state.players, state.current_player);
@@ -93,6 +95,7 @@ function handleNewState(state) {
         // If current player is AI
         if (state.current_player.is_ai) {
             board.freeze();
+            $(".waiting").show();
             fetchLooping(-1);
         }
         // If game mode TICKATTACK
@@ -134,17 +137,25 @@ let board = {
     _drawCircle: function(column, row, color, border) {
         if(this.rows && this.columns) {
             let ctx = this.canvas.get(0).getContext('2d');
+            // Calculate colors
+            let colors = [color, shadeHexColor(color, -.5)];
             // Values
             let holeHeight = this.canvas.height() / this.rows;
             let holeWidth = this.canvas.width() / this.columns;
-            let ratio = border ? 0.85 : 0.8;
+            let ratio = 0.8;
             let holeRadius = holeHeight < holeWidth ? (holeHeight / 2) * ratio : (holeWidth / 2) * ratio;
             // Draw circle
             let cx = ((column+1) * holeWidth) - (holeWidth / 2);
             let cy = ((row+1) * holeHeight) - (holeHeight / 2);
             ctx.beginPath();
             ctx.arc(cx, cy, holeRadius, 0, 2*Math.PI);
-            ctx.fillStyle = color;
+            // Stroke if color is array
+            if(border) {
+                ctx.lineWidth = 5;
+                ctx.strokeStyle = colors[1];
+                ctx.stroke();
+            }
+            ctx.fillStyle = colors[0];
             ctx.fill();
             ctx.closePath();
         } else Error("No rows & columns set");
@@ -197,7 +208,10 @@ let board = {
         // Context
         let ctx = this.canvas.get(0).getContext('2d');
         // Background
-        ctx.fillStyle = "rgba(0, 0, 255, .75)";
+        let gradient = ctx.createLinearGradient(0, 0, this.canvas.width(), this.canvas.height());
+        gradient.addColorStop(0, "rgba(0, 0, 255, .75)");
+        gradient.addColorStop(1, "rgba(27, 20, 98, .75)");
+        ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, this.canvas.width(), this.canvas.height());
         // Empty holes
         for(let y = 0; y < this.rows; y++) {
@@ -210,7 +224,7 @@ let board = {
         for(let y = 0; y < array.length; y++) {
             for(let x = 0; x < array[y].length; x++) {
                 if(array[y][x]) {
-                    this._drawCircle(x, y, array[y][x].color);
+                    this._drawCircle(x, y, array[y][x].color, true);
                 }
             }
         }
@@ -277,11 +291,21 @@ function newMessage(message, persistent) {
     .html(message)
     .prependTo(".messages")
     .slideDown();
-    if(!persistent) {
-        m.delay(10000)
-        .fadeOut();
-    }
+    // All messages are persistent
+    // if(!persistent) {
+    //     m.delay(10000)
+    //     .fadeOut();
+    // }
 }
+function clearMessages() {
+    $(".messages").empty();
+}
+// Darken an hex color
+function shadeHexColor(color, percent) {
+    var f=parseInt(color.slice(1),16),t=percent<0?0:255,p=percent<0?percent*-1:percent,R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    return "#"+(0x1000000+(Math.round((t-R)*p)+R)*0x10000+(Math.round((t-G)*p)+G)*0x100+(Math.round((t-B)*p)+B)).toString(16).slice(1);
+}
+
 
 // START
 

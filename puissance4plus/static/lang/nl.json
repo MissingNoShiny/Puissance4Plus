@@ -54,7 +54,8 @@
     "chipEffectMessage": "Je pion heeft <b>{}</b> effect.",
     "filledColumn": "Sorry, <b>{}</b>, de kolom is gevuld.",
     "dbClickForGiveUp": "Dubbelklik om af te breken.",
-    "tooLate": "Te traag! Chip willekeurig voor u geplaatst"
+    "tooLate": "Te traag! Chip willekeurig voor u geplaatst",
+    "waitComputer": "Wachtende computer ..."
   },
   "effects": [
     "None",

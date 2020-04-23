@@ -92,6 +92,7 @@ class Game:
                 ".css": "css",
                 ".png": "image",
                 ".jpg": "image",
+                ".gif": "image",
                 ".svg": "image",
                 ".ico": "image",
                 ".mp3": "audio",
@@ -121,8 +122,8 @@ class Game:
                                            mode=self.language_data[request.args.get('mode')],
                                            lang=self.language_data["game_options_menu"])
                 else:
-                    self.board = Board([Player(self.language_data["human"], "#F00"),
-                                        Player(self.language_data["robot"], "#333", True)],
+                    self.board = Board([Player(self.language_data["human"], "#FF0000"),
+                                        Player(self.language_data["robot"], "#333333", True)],
                                        game_mode=GameMode.SOLO)
                     return redirect('/game')
             else:

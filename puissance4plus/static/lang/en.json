@@ -54,7 +54,8 @@
     "chipEffectMessage": "Your chip has the <b>{}</b> effect",
     "filledColumn": "Sorry, <b>{}</b>, this column is full",
     "dbClickForGiveUp": "Please double click to give up",
-    "tooLate": "Too slow! Chip randomly placed for you"
+    "tooLate": "Too slow! Chip randomly placed for you",
+    "waitComputer": "Waiting computer..."
   },
   "effects": [
     "None",

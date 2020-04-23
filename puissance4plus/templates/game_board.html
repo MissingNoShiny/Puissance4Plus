@@ -8,10 +8,6 @@
     <link rel="stylesheet" href="/resource/game_board.css">
 </head>
 <body>
-    <!-- <header>
-        TODO:<br>
-        envoyer la langue
-    </header> -->
     <menu>
         <h2>{{ lang.players }}</h2>
         <div class="timer"></div>
@@ -23,7 +19,11 @@
     </menu>
     <main>
         <canvas class="board"></canvas>
-        <button class="startTimer" style="display: none;" onclick="board.unblur()">{{ lang.startTimer }}</button>
+        <button class="startTimer" onclick="board.unblur()" style="display: none;" >{{ lang.startTimer }}</button>
+        <div class="waiting" style="display: none;">
+            <img src="/resource/waiting.gif">
+            <p>{{ lang.waitComputer }}</p>
+        </div>
     </main>
     <script src="/resource/jquery-3.5.0.min.js"></script>
     <script src="/resource/game_board.js"></script>

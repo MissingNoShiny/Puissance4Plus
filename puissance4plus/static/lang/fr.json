@@ -54,7 +54,8 @@
     "chipEffectMessage": "Ton pion a l'effet <b>{}</b>",
     "filledColumn": "Désolé, <b>{}</b>, cette colonne est remplie",
     "dbClickForGiveUp": "Double clic pour abandonner",
-    "tooLate": "Trop tard ! Votre pion a été placé aléatoirement"
+    "tooLate": "Trop tard ! Votre pion a été placé aléatoirement",
+    "waitComputer": "Attente de l'ordinateur..."
   },
   "effects": [
     "Aucun",
