@@ -27,9 +27,9 @@
     "apply": "Appliquer",
 
     "states": {
-      "win": "Victoire",
-      "loss": "Défaite",
-      "draw": "Egalité"
+      "win": "Victoires",
+      "loss": "Défaites",
+      "draw": "Egalités"
     },
 
     "closeConfirm": "Quitter l'application"
