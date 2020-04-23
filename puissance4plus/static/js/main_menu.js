@@ -1,7 +1,3 @@
-// Technical
-Math.randInt = function(min, max) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-}
 // Open menu on click
 function openMenu(menu) {
     // alert(menu);
