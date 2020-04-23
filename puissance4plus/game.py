@@ -169,7 +169,11 @@ class Game:
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
-    def load_config(self):
+    def load_config(self) -> ConfigParser:
+        """
+        Charge les paramètres du ficher de configuration et retourne un ConfigParser contenant ces paramètres
+        :return: Un ConfigParser contenant les paramètres sauvegardés
+        """
         config = ConfigParser()
         if path.exists(path.join(self.game_directory, "config.ini")):
             config.read(path.join(self.game_directory, "config.ini"))
@@ -196,6 +200,10 @@ class Game:
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
 
     def load_stats(self) -> dict:
+        """
+        Charge les statistiques de jeu depuis le fichier de sauvegarde et les retourne sous forme de dictionnaire
+        :return: Un dictionnaire contenant les stats de jeu
+        """
         data = {}
         if path.exists(path.join(self.game_directory, "stats.json")):
             data = json.load(open(path.join(self.game_directory, "stats.json"), "r", encoding="utf-8"))
@@ -204,6 +212,9 @@ class Game:
         return data
 
     def update_stats(self) -> None:
+        """
+        Met à jour les statistiques de jeu à la suite d'une partie
+        """
         game_mode = str(self.board.game_mode)
         if self.board.game_mode == GameMode.SOLO:
             if self.board.state == BoardState.DRAW:
@@ -225,7 +236,13 @@ class Game:
                         self.update_stat(player, game_mode, "LOSS")
         self.save_stats()
 
-    def update_stat(self, player, game_mode, outcome):
+    def update_stat(self, player, game_mode, outcome) -> None:
+        """
+        Incrémente la statistique donnée d'un joueur donné
+        :param player: Le joueur
+        :param game_mode: Le mode de jeu
+        :param outcome: La statistique à incrémenter
+        """
         if player.name not in self.stats_data[game_mode]:
             self.stats_data[game_mode][player.name] = {
                 "WIN": 0,
@@ -235,12 +252,18 @@ class Game:
         self.stats_data[game_mode][player.name][outcome] += 1
 
     def save_stats(self) -> None:
+        """
+        Sauvegarde les statistiques de jeu dans le fichier de sauvegarde
+        """
         if not path.isdir(self.game_directory):
             os.mkdir(self.game_directory)
         with open(path.join(self.game_directory, "stats.json"), "w", encoding="utf-8") as file:
             json.dump(self.stats_data, file)
 
     def reset_stats(self) -> None:
+        """
+        Supprime toutes les statistiques sauvegardées
+        """
         try:
             os.remove(path.join(self.game_directory, "stats.json"))
         except OSError:
