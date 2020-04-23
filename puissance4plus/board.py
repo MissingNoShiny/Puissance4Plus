@@ -87,6 +87,9 @@ class GameMode(Enum):
         }
         return modes.get(mode, cls.CLASSIC)
 
+    def __str__(self):
+        return self.name
+
 
 class Board:
     """

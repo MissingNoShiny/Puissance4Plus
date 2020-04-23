@@ -77,13 +77,9 @@ class Game:
         self.ui: UI = UI(self.app, debug=True)
 
         self.game_directory: str = path.join(path.expanduser("~"), self.FOLDER_NAME)
-        self.config: ConfigParser = ConfigParser()
-        if path.exists(path.join(self.game_directory, "config.ini")):
-            self.config.read(path.join(self.game_directory, "config.ini"))
-        else:
-            self.config.read(path.join(self.app.static_folder, "config.ini"))
-
+        self.config: ConfigParser = self.load_config()
         self.language_data: dict = {}
+        self.stats_data: dict = self.load_stats()
         self.update_settings()
         self.board: Optional[Board] = None
         self.selected_mode: GameMode = GameMode.SOLO
@@ -142,8 +138,8 @@ class Game:
         def render_game():
             if self.board is None:
                 return redirect("/")
-            return render_template('game_board.html', 
-                                        lang=self.language_data["game_board"])
+            return render_template('game_board.html',
+                                   lang=self.language_data["game_board"])
 
         @self.app.route("/game", methods=['PUT'])
         def update_game():
@@ -178,6 +174,17 @@ class Game:
             self.update_settings()
             return redirect("/")
 
+        @self.app.route("/giveUp")
+        def give_up():
+            self.board = None
+            return redirect("/")
+
+        @self.app.route("/endGame")
+        def end_game():
+            self.update_stats()
+            self.board = None
+            return redirect("/")
+
         self.ui.run()
 
     def stop(self) -> None:
@@ -199,6 +206,14 @@ class Game:
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
+    def load_config(self):
+        config = ConfigParser()
+        if path.exists(path.join(self.game_directory, "config.ini")):
+            config.read(path.join(self.game_directory, "config.ini"))
+        else:
+            config.read(path.join(self.app.static_folder, "config.ini"))
+        return config
+
     def save_config(self) -> None:
         """
         Sauvegarde les paramètres dans le fichier de configuration
@@ -216,3 +231,52 @@ class Game:
         self.language_data = self.load_language(self.config.get("puissance4", "Language"))
         self.ui.set_window_title(self.language_data["main_menu"]["title"])
         self.ui.set_volume(self.config.getint("puissance4", "Volume"))
+
+    def load_stats(self) -> dict:
+        data = {}
+        if path.exists(path.join(self.game_directory, "stats.json")):
+            data = json.load(open(path.join(self.game_directory, "stats.json"), "r", encoding="utf-8"))
+        else:
+            data = json.load(open(path.join(self.app.static_folder, "stats.json"), "r", encoding="utf-8"))
+        return data
+
+    def update_stats(self) -> None:
+        game_mode = str(self.board.game_mode)
+        if self.board.game_mode == GameMode.SOLO:
+            if self.board.state == BoardState.DRAW:
+                self.stats_data[game_mode]["DRAW"] += 1
+            elif self.board.state == BoardState.WIN:
+                if self.board.current_player.is_ai:
+                    self.stats_data[game_mode]["LOSS"] += 1
+                else:
+                    self.stats_data[game_mode]["WIN"] += 1
+        else:
+            if self.board.state == BoardState.DRAW:
+                for player in self.board.players:
+                    self.update_stat(player, game_mode, "DRAW")
+            elif self.board.state == BoardState.WON:
+                for player in self.board.players:
+                    if player == self.board.current_player:
+                        self.update_stat(player, game_mode, "WIN")
+                    else:
+                        self.update_stat(player, game_mode, "LOSS")
+        self.save_stats()
+
+    def update_stat(self, player, game_mode, outcome):
+        if player.name not in self.stats_data[game_mode][outcome]:
+            self.stats_data[game_mode][outcome][player.name] = 1
+        else:
+            self.stats_data[game_mode][outcome][player.name] += 1
+
+    def save_stats(self) -> None:
+        if not path.isdir(self.game_directory):
+            os.mkdir(self.game_directory)
+        with open(path.join(self.game_directory, "stats.json"), "w", encoding="utf-8") as file:
+            json.dump(self.stats_data, file)
+
+    def reset_stats(self) -> None:
+        try:
+            os.remove(path.join(self.game_directory, "stats.json"))
+        except OSError:
+            pass
+        self.stats_data = self.load_stats()

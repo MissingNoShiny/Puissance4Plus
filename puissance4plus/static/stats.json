@@ -1,0 +1,40 @@
+{
+  "SOLO": {
+    "WIN": 0,
+    "LOSS": 0,
+    "DRAW": 0
+  },
+  "CLASSIC": {
+    "WIN": {
+
+    },
+    "LOSS": {
+
+    },
+    "DRAW": {
+
+    }
+  },
+  "RANDOM": {
+    "WIN": {
+
+    },
+    "LOSS": {
+
+    },
+    "DRAW": {
+
+    }
+  },
+  "TIME_ATTACK": {
+    "WIN": {
+
+    },
+    "LOSS": {
+
+    },
+    "DRAW": {
+
+    }
+  }
+}

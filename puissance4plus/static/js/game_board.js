@@ -306,10 +306,10 @@ $("button.giveUp").click(e => {
     }, 500)
 })
 $("button.giveUp").dblclick(e => {
-    window.location.href = "/";
+    window.location.href = "/giveUp";
 })
 
 // End button
 $("button.end").click(e => {
-    window.location.href = "/";
+    window.location.href = "/endGame";
 })
