@@ -10,6 +10,9 @@ import puissance4plus.board_ai
 
 
 class PlayerType(Enum):
+    """
+    Énumération utilisée pour représenter un type de joueur : humain, contrôlé par l'ordi, ou neutre
+    """
     HUMAN = 0
     AI = 1
     NEUTRAL = 2
@@ -33,6 +36,10 @@ class Player:
         self.player_type: PlayerType = player_type
 
     def to_dict(self) -> dict:
+        """
+        Retourne un dictionnaire contenant les informations utiles de l'instance
+        :return: Un dictionnaire, t'es bête ou quoi ???
+        """
         data = {
             "name": self.name,
             "color": self.color,
@@ -82,13 +89,21 @@ class Effect(Enum):
 
 
 class GameMode(Enum):
+    """
+    Énumération utilisée pour lister les différents modes de jeu jouables
+    """
     SOLO = 0
     CLASSIC = 1
     RANDOM = 2
     TIME_ATTACK = 3
 
     @classmethod
-    def parse_mode(cls, mode) -> GameMode:
+    def parse_mode(cls, mode: str) -> GameMode:
+        """
+        Associe une chaîne de caractères désignant un mode de jeu au mode de jeu correspondant
+        :param mode:
+        :return:
+        """
         modes = {
             "SOLO": cls.SOLO,
             "CLASSIC": cls.CLASSIC,
@@ -375,7 +390,7 @@ class Board:
 
     def to_dict(self) -> dict:
         """
-        Retourne un dictionnaire contenant les informations utiles pour le client
+        Retourne un dictionnaire contenant les informations utiles de l'instance
         :return: Un dictionnaire, je viens de l'écrire, il faut être plus attentif
         """
         grid_list = [[None if self.grid[y][x] is None else self.grid[y][x].to_dict() for x in range(self.width)]

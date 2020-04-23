@@ -7,15 +7,15 @@ from PyQt5 import QtCore, QtMultimedia, QtWebEngineWidgets, QtWidgets
 
 class UI:
     def __init__(self, static_folder: str, port: int):
-        self.static_folder = static_folder
-        self.url = f"http://127.0.0.1:{port}"
+        self.static_folder: str = static_folder
+        self.url: str = f"http://127.0.0.1:{port}"
 
-        self.app = QtWidgets.QApplication([])
-        self.view = QtWebEngineWidgets.QWebEngineView(self.app.activeModalWidget())
+        self.app: QtWidgets.QApplication = QtWidgets.QApplication([])
+        self.view: QtWebEngineWidgets.QWebEngineView = QtWebEngineWidgets.QWebEngineView(self.app.activeModalWidget())
         self.set_minimum_resolution()
 
-        self.playlist = QtMultimedia.QMediaPlaylist()
-        self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
+        self.playlist: QtMultimedia.QMediaPlaylist = QtMultimedia.QMediaPlaylist()
+        self.player: QtMultimedia.QMediaPlayer = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
         self.initialize_player()
 
     def run(self) -> None:

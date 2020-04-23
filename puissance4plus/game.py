@@ -14,11 +14,14 @@ from puissance4plus.game_ui import UI
 
 
 class Game:
+    """
+    Classe qui gère la partie serveur de l'application
+    """
     FOLDER_NAME = ".puissance4"
 
     def __init__(self, debug: bool = False, port: int = 5000):
         self.app: Flask = Flask(__name__)
-        self.server_thread = Thread(target=self.run_flask, args=(debug, port))
+        self.server_thread: Thread = Thread(target=self.run_flask, args=(debug, port))
         self.server_thread.setDaemon(True)
         # NO CACHE
         self.app.config["CACHE_TYPE"] = "null"
@@ -143,11 +146,19 @@ class Game:
 
         self.run()
 
-    def run(self):
+    def run(self) -> None:
+        """
+        Lance l'application
+        """
         self.server_thread.start()
         self.ui.run()
 
-    def run_flask(self, debug, port):
+    def run_flask(self, debug, port) -> None:
+        """
+        Lance le serveur Flask
+        :param debug: True pour activer le mode debug, False sinon
+        :param port: Le port sur lequel le serveur écoute
+        """
         self.app.run(debug=debug, host="127.0.0.1", port=port, use_reloader=False)
 
     def stop(self) -> None:
@@ -169,11 +180,11 @@ class Game:
         with open(path.join(language_folder, f"{language}.json"), "r", encoding="utf-8") as file:
             return json.load(file)
 
+    def load_config(self) -> ConfigParser:
         """
         Charge les paramètres du ficher de configuration et retourne un ConfigParser contenant ces paramètres
         :return: Un ConfigParser contenant les paramètres sauvegardés
         """
-    def load_config(self) -> ConfigParser:
         config = ConfigParser()
         if path.exists(path.join(self.game_directory, "config.ini")):
             config.read(path.join(self.game_directory, "config.ini"))
