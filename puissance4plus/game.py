@@ -62,6 +62,7 @@ class Game:
 
         @self.app.route("/")
         def main_menu():
+            print(self.stats_data)
             is_full_screen = "checked" if self.ui.view.isFullScreen() else "unchecked"
             return render_template('main_menu.html',
                                    is_full_screen=is_full_screen,

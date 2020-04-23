@@ -72,78 +72,62 @@
         <menu data-menu="stats" style="display: none;">
             <a href="#" onclick="openMenu('stats-SOLO')">{{ lang.soloMode }}</a>
             <a href="#" onclick="openMenu('stats-CLASSIC')">{{ lang.classicMode }}</a>
-            <a href="#" onclick="openMenu('stats-TIMEATTACK')">{{ lang.timeAttackMode }}</a>
+            <a href="#" onclick="openMenu('stats-TIME_ATTACK')">{{ lang.timeAttackMode }}</a>
             <a href="#" onclick="openMenu('stats-RANDOM')">{{ lang.randomMode }}</a>
         </menu>
-        <menu data-menu="stats-SOLO" style="display: none;">
+        {% for mode in stats%}
+        <menu data-menu="stats-{{ mode }}" style="display: none;" class="menustat">
             <h2>{{ lang.stats }}</h2>
-            <h2>{{ lang.soloMode }}</h2>
-            suite ici
-        </menu>
-        <menu data-menu="stats-CLASSIC" style="display: none;">
-            <h2>{{ lang.stats }}</h2>
-            <h2>{{ lang.classicMode }}</h2>
-            suite ici
-        </menu>
-        <menu data-menu="stats-RANDOM" style="display: none;">
-            <h2>{{ lang.stats }}</h2>
-            <h2>{{ lang.randomMode }}</h2>
-            suite ici
-        </menu>
-        <menu data-menu="stats-TIMEATTACK" style="display: none;">
-            <h2>{{ lang.stats }}</h2>
-            <h2>{{ lang.timeAttackMode }}</h2>
-            suite ici
-        </menu>
-        <menu data-menu="" style="display: none;">
-            {% for stat in stats %}
-                <div class="score">
-                    <h4>
-                        {% if stat == 'SOLO' %}
-                            {{ lang.soloMode }}
-                        {% elif stat == 'CLASSIC' %}
-                            {{ lang.classicMode }}
-                        {% elif stat == 'RANDOM' %}
-                            {{ lang.randomMode }}
-                        {% elif stat == 'TIME_ATTACK' %}
-                            {{ lang.timeAttackMode }}
-                        {% endif %}
-                    </h4>
-                    <table style="width: 100%;">
-                        <tbody>
-                            {% if stat == 'SOLO' %}
-                                <tr>
-                                    <th>{{ lang.states.win }}</th>
-                                    <td>{{ stats[stat].WIN }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ lang.states.loss }}</th>
-                                    <td>{{ stats[stat].LOSS }}</td>
-                                </tr>
-                                <tr>
-                                    <th>{{ lang.states.draw }}</th>
-                                    <td>{{ stats[stat].DRAW }}</td>
-                                </tr>
-                            {% else %}
-                                {% for state in lang.states %}
-                                    <tr>
-                                        <th>{{ lang.states[state] }}</th>
-                                        {% if stats[stat][state.upper()]|length %}
-                                            {% for score in stats[stat][state.upper()]%}
-                                                <td>{{ score }}: {{ stats[stat][state.upper()][score] }}</td>
-                                            {% endfor %}
-                                        {% else %}
-                                            <td>/</td>
-                                        {% endif %}
-                                    </tr>
-                                {% endfor %}
-
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="4">
+                            {% if mode == 'SOLO' %}
+                                {{ lang.soloMode }}
+                            {% elif mode == 'CLASSIC' %}
+                                {{ lang.classicMode }}
+                            {% elif mode == 'RANDOM' %}
+                                {{ lang.randomMode }}
+                            {% elif mode == 'TIME_ATTACK' %}
+                                {{ lang.timeAttackMode }}
                             {% endif %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+                        </th>
+                    </tr>
+                    <tr>
+                        {% if mode != 'SOLO' %}
+                            <th>Pseudo</th>
+                        {% endif %}
+                        <th>{{ lang.states['win']}}</th>
+                        <th>{{ lang.states['loss']}}</th>
+                        <th>{{ lang.states['draw']}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% if stats[mode]|length %}
+                    {% for stat in stats[mode] %}
+                        {% if mode != 'SOLO' %}
+                            <tr>
+                                <td>{{ stat }}</td>
+                                <td>{{ stats[mode][stat]['WIN'] }}</td>
+                                <td>{{ stats[mode][stat]['LOSS'] }}</td>
+                                <td>{{ stats[mode][stat]['DRAW'] }}</td>
+                            </tr>
+                        {% else %}
+                                <td>{{ stats[mode][stat] }}</td>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
         </menu>
+        {% endfor %}
         <menu data-menu="close" style="display: none;">
             <a href="/close">{{ lang.closeConfirm }}</a>
         </menu>

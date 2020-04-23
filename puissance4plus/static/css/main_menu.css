@@ -55,8 +55,9 @@ main menu {
     overflow: auto;
 }
 
-main menu table{
+main .menustat table{
     text-align: center;
+    margin-left:0;
 }
 main menu td{
     background-color: rgba(0,0,0,0.2);
@@ -65,13 +66,10 @@ main menu td{
 main menu th{
     background-color: rgba(0,0,0,0.3);
 }
-main menu .score{
-    background-color: rgba(0,0,0,0.4);
-    margin-bottom: 30px;
-}
-main menu .score h4{
-    text-align: center;
-    margin:0;
+
+main menu .menustat{
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 /* PLAY */
