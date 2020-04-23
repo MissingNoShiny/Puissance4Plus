@@ -5,67 +5,21 @@ import os
 import sys
 from os import path
 from configparser import ConfigParser
+from threading import Thread
+
 from flask import Flask, request, send_from_directory, render_template, redirect, Response
-from PyQt5 import QtCore, QtMultimedia
-from webui import WebUI
 
 from puissance4plus.board import *
-
-
-class UI(WebUI):
-    def __init__(self, app: Flask, debug: bool = False):
-        super().__init__(app, debug=debug)
-        self.set_window_title()
-        self.set_minimum_resolution()
-        self.player = QtMultimedia.QMediaPlayer(flags=QtMultimedia.QMediaPlayer.LowLatency)
-        self.set_volume(0)
-        self.playlist = QtMultimedia.QMediaPlaylist()
-        media_folder = path.join(app.static_folder, "audio")
-        url = QtCore.QUrl.fromLocalFile(path.join(media_folder, "background.wav"))
-        media = QtMultimedia.QMediaContent(url)
-        self.playlist.addMedia(media)
-        self.playlist.setPlaybackMode(QtMultimedia.QMediaPlaylist.Loop)
-        self.player.setPlaylist(self.playlist)
-        self.player.play()
-
-    def set_fullscreen(self, fullscreen: bool) -> None:
-        """
-        Change l'état de plein écran de la fenêtre de jeu
-        :param fullscreen: True pour passer la fenêtre en plein écran, False pour la minimiser
-        """
-        if fullscreen:
-            self.view.showFullScreen()
-        else:
-            self.view.showNormal()
-
-    def set_volume(self, volume: int) -> None:
-        """
-        Change le volume de la musique de fond
-        :param volume: Le nouveau volume
-        """
-        self.player.setVolume(volume)
-
-    def set_minimum_resolution(self, height: int = 720, width: int = 1280) -> None:
-        """
-        Change la résolution minimale de la fenêtre de jeu
-        :param height: La hauteur de la fenêtre, en pixels
-        :param width: La largeur de la fenêtre, en pixels
-        """
-        self.view.setMinimumSize(width, height)
-
-    def set_window_title(self, name: str = 'Puissance 4 SUPER') -> None:
-        """
-        Change le nom de la fenêtre de jeu
-        :param name: Nom de la fenêtre
-        """
-        self.view.setWindowTitle(name)
+from puissance4plus.game_ui import UI
 
 
 class Game:
     FOLDER_NAME = ".puissance4"
 
-    def __init__(self):
+    def __init__(self, debug: bool = False, port: int = 5000):
         self.app: Flask = Flask(__name__)
+        self.server_thread = Thread(target=self.run_flask, args=(debug, port))
+        self.server_thread.setDaemon(True)
         # NO CACHE
         self.app.config["CACHE_TYPE"] = "null"
 
@@ -74,7 +28,7 @@ class Game:
         except AttributeError:
             pass
             # self.app.root_path = os.getcwd()
-        self.ui: UI = UI(self.app, debug=True)
+        self.ui: UI = UI(self.app.static_folder, port)
 
         self.game_directory: str = path.join(path.expanduser("~"), self.FOLDER_NAME)
         self.config: ConfigParser = self.load_config()
@@ -187,13 +141,20 @@ class Game:
             self.board = None
             return redirect("/")
 
+        self.run()
+
+    def run(self):
+        self.server_thread.start()
         self.ui.run()
+
+    def run_flask(self, debug, port):
+        self.app.run(debug=debug, host="127.0.0.1", port=port, use_reloader=False)
 
     def stop(self) -> None:
         """
         Ferme le jeu
         """
-        self.ui.view.close()
+        self.ui.stop()
 
     def load_language(self, language: str) -> dict:
         """

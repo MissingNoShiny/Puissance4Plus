@@ -1,4 +1,0 @@
-Flask==1.0
-Jinja2==2.9.6
-PyQt5==5.8.2
-git+git://github.com/Widdershin/flask-desktop

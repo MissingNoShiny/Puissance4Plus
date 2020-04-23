@@ -1,0 +1,5 @@
+Flask==1.1.2
+Jinja2==2.11.2
+PyInstaller==3.6
+PyQt5==5.8.2
+pytest==5.4.1
