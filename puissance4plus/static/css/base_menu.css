@@ -39,6 +39,9 @@ header p {
     margin: 0;
     margin: 2.5vmin 0;
 }
+header img#mainlogo{
+    height: 100%;
+}
 /* ErrorAlert */
 .ErrorAlert {
     z-index: 900;

@@ -25,6 +25,12 @@
     "volume": "Volume",
     "apply": "Apply",
 
+    "states": {
+      "win": "Wins",
+      "loss": "Losses",
+      "draw": "Draws"
+    },
+
     "closeConfirm": "Close game"
   },
   "game_options_menu": {

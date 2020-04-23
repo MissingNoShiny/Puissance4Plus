@@ -10,14 +10,14 @@
 
 {% block body %}
     <header>
-        <h1>{{ lang.title }}</h1>
-        <p>{{ lang.subtitle }}</p>
+        <img src="/resource/logo.png" id="mainlogo">
     </header>
     <main>
         <nav>
             <button onclick="openMenu('play')"><span class="glitch" data-text="{{ lang.play }}">{{ lang.play }}</span></button>
             <button onclick="openMenu('rules')">{{ lang.rules }}</button>
             <button onclick="openMenu('settings')">{{ lang.settings }}</button>
+            <button onclick="openMenu('score')">Score</button>
             <button onclick="openMenu('close')">{{ lang.close }}</button>
         </nav>
         <menu data-menu="play" style="display: none;">
@@ -68,6 +68,55 @@
                     <input type="submit" value="{{ lang.apply }}">
                 </section>
             </form>
+        </menu>
+        <menu data-menu="score" style="display: none;">
+            {% for stat in stats %}
+                <div class="score">
+                    <h4>
+                        {% if stat == 'SOLO' %}
+                            {{ lang.soloMode }}
+                        {% elif stat == 'CLASSIC' %}
+                            {{ lang.classicMode }}
+                        {% elif stat == 'RANDOM' %}
+                            {{ lang.randomMode }}
+                        {% elif stat == 'TIME_ATTACK' %}
+                            {{ lang.timeAttackMode }}
+                        {% endif %}
+                    </h4>
+                    <table style="width: 100%;">
+                        <tbody>
+                            {% if stat == 'SOLO' %}
+                                <tr>
+                                    <th>{{ lang.states.win }}</th>
+                                    <td>{{ stats[stat].WIN }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ lang.states.loss }}</th>
+                                    <td>{{ stats[stat].LOSS }}</td>
+                                </tr>
+                                <tr>
+                                    <th>{{ lang.states.draw }}</th>
+                                    <td>{{ stats[stat].DRAW }}</td>
+                                </tr>
+                            {% else %}
+                                {% for state in lang.states %}
+                                    <tr>
+                                        <th>{{ lang.states[state] }}</th>
+                                        {% if stats[stat][state.upper()]|length %}
+                                            {% for score in stats[stat][state.upper()]%}
+                                                <td>{{ score }}: {{ stats[stat][state.upper()][score] }}</td>
+                                            {% endfor %}
+                                        {% else %}
+                                            <td>/</td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
         </menu>
         <menu data-menu="close" style="display: none;">
             <a href="/close">{{ lang.closeConfirm }}</a>

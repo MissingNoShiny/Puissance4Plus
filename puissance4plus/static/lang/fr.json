@@ -25,6 +25,12 @@
     "volume": "Volume",
     "apply": "Appliquer",
 
+    "states": {
+      "win": "Victoire",
+      "loss": "Défaite",
+      "draw": "Egalité"
+    },
+
     "closeConfirm": "Quitter l'application"
   },
   "game_options_menu": {
