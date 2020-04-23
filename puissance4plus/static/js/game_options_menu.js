@@ -15,7 +15,7 @@ let Colors = {
     2: "#ff0000",
     3: "#24D12B",
     4: "#E8578D",
-    5: "#00FFFF"
+    5: "#00adad"
 };
 function newPlayer() {
     if(Players.length < maxPlayers) {
