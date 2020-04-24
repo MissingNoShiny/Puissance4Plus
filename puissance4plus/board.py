@@ -77,13 +77,13 @@ class Effect(Enum):
         """
         choices = [effect.value for effect in Effect]
         weights = [
-            40,
-            10,
-            12,
-            12,
-            12,
-            2,
-            12
+            50,
+            13,
+            5,
+            5,
+            13,
+            1,
+            13
         ]
         return Effect(random.choices(choices, weights=weights)[0])
 
