@@ -29,7 +29,8 @@
     "states": {
       "win": "Wins",
       "loss": "Losses",
-      "draw": "Draws"
+      "draw": "Draws",
+      "playerName": "Pseudo"
     },
 
     "closeConfirm": "Close game"
