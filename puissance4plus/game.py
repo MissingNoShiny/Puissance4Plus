@@ -1,5 +1,9 @@
 # coding: utf-8
 
+__author__ = "Mathias Billot, Xavier Hoyois, Nicolas Jeuniaux, Vincent Larcin, Maxence Manteau"
+__version__ = "1.0"
+__status__ = "Production"
+
 import json
 import os
 import sys

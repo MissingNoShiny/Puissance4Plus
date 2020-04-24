@@ -2,6 +2,10 @@
 
 from __future__ import annotations
 
+__author__ = "Mathias Billot, Xavier Hoyois, Nicolas Jeuniaux, Vincent Larcin, Maxence Manteau"
+__version__ = "1.0"
+__status__ = "Production"
+
 import copy
 import random
 
