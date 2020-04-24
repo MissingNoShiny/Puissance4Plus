@@ -124,6 +124,7 @@ class Game:
         @self.app.route("/close")
         def close():
             self.stop()
+            return ""
 
         @self.app.route("/settings", methods=['GET'])
         def settings():

@@ -33,7 +33,7 @@ class UI:
         Ferme la fenêtre et stoppe le programme
         :return:
         """
-        self.view.close()
+        self.app.exit()
 
     def set_fullscreen(self, fullscreen: bool) -> None:
         """
