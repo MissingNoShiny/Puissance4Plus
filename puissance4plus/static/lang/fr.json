@@ -29,7 +29,8 @@
     "states": {
       "win": "Victoires",
       "loss": "Défaites",
-      "draw": "Egalités"
+      "draw": "Egalités",
+      "playerName": "Pseudo"
     },
 
     "closeConfirm": "Quitter l'application"

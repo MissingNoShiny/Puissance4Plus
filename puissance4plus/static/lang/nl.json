@@ -29,7 +29,8 @@
     "states": {
       "win": "Overwinningen",
       "loss": "Verslagen",
-      "draw": "Gelijkheid"
+      "draw": "Gelijkheid",
+      "playerName": "Bijnaam"
     },
 
     "closeConfirm": "Sluit de applicatie af"
