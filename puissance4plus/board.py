@@ -185,6 +185,7 @@ class Board:
         Passe le tour de jeu au joueur suivant
         """
         if self.turn_count > 0:
+            self.current_effect = Effect.NONE
             self.turn_count -= 1
         else:
             self.current_player_index = (self.current_player_index + 1) % len(self.players)
