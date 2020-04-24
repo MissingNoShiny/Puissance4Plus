@@ -291,15 +291,13 @@ class Board:
         :param col: La colonne où le pion a été placé
         :return: True si le pion a provoqué une victoire, False sinon
         """
-        saved_effect = self.current_effect
-        self.current_effect = Effect.NONE
-        if saved_effect == Effect.POP_BOTTOM:
+        if self.current_effect == Effect.POP_BOTTOM:
             for r in range(self.get_height(col)):
                 if self.is_winning(r, col):
                     self.set_winner(self.get_player_at(r, col))
                     return True
             return False
-        elif saved_effect == Effect.REMOVE_ROW:
+        elif self.current_effect == Effect.REMOVE_ROW:
             for c in range(self.width):
                 if self.is_winning(row, c):
                     self.set_winner(self.get_player_at(row, c))
