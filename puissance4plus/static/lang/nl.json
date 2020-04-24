@@ -25,12 +25,12 @@
     "fullscreen": "Volledig scherm",
     "volume": "Geluidsvolume",
     "apply": "Toepassen",
+    "playerName": "Bijnaam",
 
     "states": {
       "win": "Overwinningen",
       "loss": "Verslagen",
-      "draw": "Gelijkheid",
-      "playerName": "Bijnaam"
+      "draw": "Gelijkheid"
     },
 
     "closeConfirm": "Sluit de applicatie af"

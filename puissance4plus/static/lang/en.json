@@ -25,12 +25,12 @@
     "fullscreen": "Fullscreen",
     "volume": "Volume",
     "apply": "Apply",
+    "playerName": "Nickname",
 
     "states": {
       "win": "Wins",
       "loss": "Losses",
-      "draw": "Draws",
-      "playerName": "Pseudo"
+      "draw": "Draws"
     },
 
     "closeConfirm": "Close game"

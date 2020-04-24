@@ -25,12 +25,12 @@
     "fullscreen": "Plein écran",
     "volume": "Volume",
     "apply": "Appliquer",
+    "playerName": "Pseudo",
 
     "states": {
       "win": "Victoires",
       "loss": "Défaites",
-      "draw": "Egalités",
-      "playerName": "Pseudo"
+      "draw": "Egalités"
     },
 
     "closeConfirm": "Quitter l'application"
