@@ -9,7 +9,7 @@ mais le jeu devrait également fonctionner avec la version 3.6
 (pas en dessous cependant, en raison de l’utilisation de f-strings).
 
 Les bibliothèques supplémentaires nécessaires à l’exécution sont listées dans `requirements.txt` à la racine du projet.
-Elles peuvent être installées automatiquement à l'aide de la commande `pip install -r requirements.txt`
+Elles peuvent être installées automatiquement à l'aide de la commande `pip install -r requirements.txt`.
 
 ## Lancer l'application
 
